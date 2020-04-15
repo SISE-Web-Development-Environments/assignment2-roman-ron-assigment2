@@ -1,20 +1,41 @@
+
+/* Whole page Style */
 html
 {
     background-color: black;
+    
 }
+head
+{
+    background-color: black ;
+}
+
 
 body {
-    background-color: black;
-}
-
-#welcome
-{
-    background-color: black;
+    background-color: black !important;
+    
 }
 
 div
 {
+    background-color: black;
     display: none;
+}
+
+/* Welcome Style */
+#welcome
+{
+    display: block;
+}
+
+/* Registration Style */
+#registration_page p
+{
+    color:#33ccff;
+}
+#registration_page h4
+{
+    color:#b8ecfd;
 }
 
 
