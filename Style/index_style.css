@@ -41,5 +41,15 @@ div
 #registration_page legend
 {
     color: #b8ecfd;
-    margin:0 auto;
+    text-align: center;
 }
+
+#registration_page form
+{
+    text-align: center;
+}
+
+.error {
+    color: red;
+    
+ }
