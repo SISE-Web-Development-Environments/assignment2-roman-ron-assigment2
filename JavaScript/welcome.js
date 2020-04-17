@@ -2,21 +2,19 @@
 /**
  * On click open the login div
  */
-$(function(){
-    $('#login_btn').on('click', function (e) {
-        document.getElementById('welcome').style.display = "none";
-        document.getElementById('login_page').style.display = "block";
-    });
-});
+function loginShow(){
+    $("div").hide();
+    $("#login_page").show();
+
+};
 
 /**
  * On click open the registration div
  */
-$(function(){
-    $('#registration_btn').on('click', function (e) {
-        document.getElementById('welcome').style.display = "none";
-        document.getElementById('registration_page').style.display = "block";
-        
-    });
-});
+function registrationShow(){
+    $("div").hide();
+    $("#registration_page").show();
+    $(".container").children("div").show();
+    
+};
 

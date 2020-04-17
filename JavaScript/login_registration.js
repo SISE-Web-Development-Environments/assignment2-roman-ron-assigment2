@@ -1,7 +1,55 @@
+$.validator.setDefaults({
+    submitHandler: function() {
+        alert("submitted!");
+    }
+});
 
-$(function(){
-    $('#submit_reg').on('click', function (e) {
-        document.getElementById('welcome').style.display = "none";
-        document.getElementById('registration_page').style.display = "none";
-    });
+$("#signupForm").validate({
+    rules: {
+        firstname: "required",
+        lastname: "required",
+        username: {
+            required: true,
+            minlength: 2
+        },
+        password: {
+            required: true,
+            minlength: 5
+        },
+        confirm_password: {
+            required: true,
+            minlength: 5,
+            equalTo: "#password"
+        },
+        email: {
+            required: true,
+            email: true
+        },
+    },
+    messages: {
+        firstname: "Please enter your firstname",
+        lastname: "Please enter your lastname",
+        username: {
+            required: "Please enter a username",
+            minlength: "Your username must consist of at least 2 characters"
+        },
+        password: {
+            required: "Please provide a password",
+            minlength: "Your password must be at least 5 characters long"
+        },
+        confirm_password: {
+            required: "Please provide a password",
+            minlength: "Your password must be at least 5 characters long",
+            equalTo: "Please enter the same password as above"
+        },
+        email: "Please enter a valid email address",
+    }
+});
+
+$("#username").focus(function() {
+    var firstname = $("#firstname").val();
+    var lastname = $("#lastname").val();
+    if (firstname && lastname && !this.value) {
+        this.value = firstname + "." + lastname;
+    }
 });

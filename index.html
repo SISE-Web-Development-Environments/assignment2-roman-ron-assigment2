@@ -1,23 +1,33 @@
 <!DOCTYPE html>
 
-<html lang="en" >
+<html lang="en">
 	<head>
+		<meta charset="utf-8">
 		<meta name="viewport" content="width= device-width, initial-scale= 1">
-		<script src="jquery-3.4.1.slim.min.js"></script>
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		<!-- Custom CSS -->
+		<link rel="stylesheet" type="text/css" href="Style/index_style.css">
 
 		<!-- JavaScripts -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script src="jquery-3.4.1.slim.min.js" ></script>
+		<script src="jquery-validation-1.19.1/lib/jquery-1.11.1.js"></script>
+		<script src="jquery-validation-1.19.1/dist/jquery.validate.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+		
+		<!-- App -->
 		<script type="text/javascript" src="./app.js"></script>
+
+		<!-- Our JS -->
 		<script type="text/javascript" src="JavaScript/welcome.js"></script>
-		<script type="text/javascript" src="JavaScript/login_registration.js"></script>
+		
 
 		<!-- Title -->
 		<title>Pacman World</title>
 
-		<link rel="stylesheet" type="text/css" href="Style/index_style.css">
-		<link rel="stylesheet"
-			href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-			integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-			crossorigin="anonymous">
+		
 	</head>
 
 	<body id="body">
@@ -33,9 +43,9 @@
 			<br>
 			<br>
 			<a class="btn btn-outline-primary mr-4 btn-lg" role="button" id="login_btn"
-				aria-pressed="true">Login</a>
+				aria-pressed="true" onclick="loginShow()">Login</a>
 			<a class="btn btn-outline-primary btn-lg" role="button" id="registration_btn"
-				aria-pressed="true">Register</a>
+				aria-pressed="true" onclick="registrationShow()">Register</a>
 			<br>
 			<br>
 			<br>
@@ -46,52 +56,41 @@
 		<!-- Registration Page -->
 
 		<div id="registration_page" class="container">
-			<form id="registration" class="text-center border-light p-5">
-				<p class="h3 mb-4" ><u>Sign up to save our World!</u></p>
-
-				<!-- Acount name -->
-				<h4>Acount Name</h4>
-				<input type="text" id="registration_acount_name" class="form-group" placeholder="Acount Name:" >
-				<br>
-
-				<!-- Password -->
-				<h4 >Password</h4>
-				<input type="password" id="registration_password" placeholder="Password:">
-				<small  class="form-text text-light mb-4">
-					At least 6 characters and 1 digit
-				</small>
-
-				<!-- Full name -->
-				<h4 >Full Name</h4>
-				<input type="text" id="registration_full_name" placeholder="Full Name:">
-				<br>
-
-				<!-- E-mail -->
-				<h4 >E-mail</h4>
-				<input type="email" id="registration_email"	placeholder="E-mail:">
-				<br>
-
-
-				<!-- Birthday -->
-				<h4 >Birthday</h4>
-				<input type="date" name="bdaytime" id="registration_birthday">
-				<small class="form-text text-light mb-4">
-					Roll up to find more years
-				</small>
-
-				<!-- Sign up button -->
-				<button class="btn btn-info my-4  waves-effect waves-light"
-					type="submit" 
-					name="submit"
-					id="submit_reg">Join To Packman!</button>
-				<hr>
-
+			<form class="cmxform" id="signupForm" method="get" action="">
+				<fieldset>
+					<legend>SignUp To Save Pacman</legend>
+					<br>
+					<p>
+						<label for="firstname">Firstname</label>
+						<input id="firstname" name="firstname" type="text">
+					</p>
+					<p>
+						<label for="lastname">Lastname</label>
+						<input id="lastname" name="lastname" type="text">
+					</p>
+					<p>
+						<label for="username">Username</label>
+						<input id="username" name="username" type="text">
+					</p>
+					<p>
+						<label for="password">Password</label>
+						<input id="password" name="password" type="password">
+					</p>
+					<p>
+						<label for="confirm_password">Confirm password</label>
+						<input id="confirm_password" name="confirm_password" type="password">
+					</p>
+					<p>
+						<label for="email">Email</label>
+						<input id="email" name="email" type="email">
+					</p>
+					<p>
+						<input class="submit" type="submit" value="Submit">
+					</p>
+				</fieldset>
 			</form>
-			<br>
-			<br>
-			<br>
-			<p>
-			</p>
+			<script type="text/javascript" src="JavaScript/login_registration.js"></script>
+				
 		</div>
 
 		<!-- Login Page -->
