@@ -49,6 +49,36 @@ div
     text-align: center;
 }
 
+#registration_page
+{
+    width: 20%;
+}
+
+#login_page p
+{
+    color:#33ccff;
+}
+#login_page h4
+{
+    color:#b8ecfd;
+}
+
+#login_page legend
+{
+    color: #b8ecfd;
+    text-align: center;
+}
+
+#login_page form
+{
+    text-align: center;
+}
+
+#login_page
+{
+    width: 20%;
+}
+
 .error {
     color: red;
     

@@ -55,41 +55,41 @@
 
 		<!-- Registration Page -->
 
-		<div id="registration_page" class="container">
+		<div id="registration_page" class="container" >
 			<form class="cmxform" id="signupForm" method="get" style="align-content: center;" action="">
 				<fieldset>
-					<legend>SignUp To Save Pacman</legend>
+					<legend><u>SignUp To Save Pacman</u></legend>
 					<br>
 					<p>
 						<label for="firstname">Firstname: </label>
-						<input id="firstname" name="firstname" type="text">
+						<input id="firstname" class="form-control" name="firstname" type="text">
 					</p>
 					<p>
 						<label for="lastname">Lastname: </label>
-						<input id="lastname" name="lastname" type="text">
+						<input id="lastname" class="form-control" name="lastname" type="text">
 					</p>
 					<p>
 						<label for="username">Username: </label>
-						<input id="username" name="username" type="text">
+						<input id="username" class="form-control" name="username" type="text">
 					</p>
 					<p>
 						<label for="password">Password: </label>
-						<input id="password" name="password" type="password">
+						<input id="password" class="form-control" name="password" type="password">
 					</p>
 					<p>
 						<label for="confirm_password">Confirm password: </label>
-						<input id="confirm_password" name="confirm_password" type="password">
+						<input id="confirm_password" class="form-control" name="confirm_password" type="password">
 					</p>
 					<p>
 						<label for="email">Email: </label>
-						<input id="email" name="email" type="email">
+						<input id="email" class="form-control" name="email" type="email">
 					</p>
 					<p>
-						<label for="birthday">Day of birth: </label>
-						<input type="date" id="birthday" name="birthday" required/>
+						<label for="birthday">Day of Birth: </label>
+						<input type="date" class="form-control" id="birthday" name="birthday" required/>
 					</p>
 					<p>
-						<input class="submit" type="submit" value="Submit">
+						<input class="btn btn-info" type="submit" value="SignIn">
 					</p>
 				</fieldset>
 			</form>
@@ -102,9 +102,23 @@
 			<br>
 			<br>
 			<br>
-			<p>
-				Hi!
-			</p>
+			<form id="loginForm" class="cmxform" method="get" style="align-content: center;" action="">
+				<fieldset>
+					<legend><u>SignIn To Save Pacman</u></legend>
+					<br>
+				  <p>
+					<label for="username_l">Username</label>
+					<input type="text" class="form-control" name="username_l" id="username_l" />
+				  </p>
+				  <p>
+					<label for="password_l">Password</label>
+					<input type="password" class="form-control" name="password_l" id="password_l" />
+				  </p>
+				  <p>
+					<input  class="btn btn-info" class="btn btn-info" type="submit" id="login" value="Sign in" />
+				  </p>			  
+			  </form>
+			  <script src="JavaScript/login.js"></script>
 		</div>
 
 

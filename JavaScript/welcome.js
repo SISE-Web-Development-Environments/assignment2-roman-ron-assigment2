@@ -14,7 +14,6 @@ function loginShow(){
 function registrationShow(){
     $("div").hide();
     $("#registration_page").show();
-    $(".container").children("div").show();
     
 };
 

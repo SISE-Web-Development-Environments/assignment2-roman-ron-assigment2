@@ -1,5 +1,5 @@
 /**
- * Registration
+ * only for Registration page
  */
 $.validator.setDefaults({
     submitHandler: function() {
@@ -71,12 +71,12 @@ $("#signupForm").validate({
         },
         password: {
             required: "* Please provide a password",
-            minlength: "* Your password must be at least 5 characters long",
+            minlength: "* Your password must be at least 6 characters long",
             pwcheck: "* The password must conatins number and characters"
         },
         confirm_password: {
             required: "* Please provide a password",
-            minlength: "* Your password must be at least 5 characters long",
+            minlength: "* Your password must be at least 6 characters long",
             equalTo: "* Please enter the same password as above"
         },
         email: "* Please enter a valid email address",
@@ -90,8 +90,3 @@ $("#username").focus(function() {
         this.value = firstname + "." + lastname;
     }
 });
-
-
-/**
- * Login
- */
