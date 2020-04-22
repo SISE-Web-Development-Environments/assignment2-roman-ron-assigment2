@@ -22,6 +22,37 @@ div
     display: none;
 }
 
+/* Header */
+#header {
+    display: inline-table;
+    width:100%;
+    text-align:center;
+}
+
+#header-left {
+    display: block;
+    float:left;
+    width:170px;
+}
+
+#header-center {
+    display: inline-block;
+    margin:0 auto;
+    width:100px;
+}
+
+#header-right {
+    display: block;
+    float:right;
+    width:250px;
+}
+#header legend
+{
+    color: #b8ecfd;
+    text-align: center;
+}
+
+
 /* Welcome Style */
 #welcome
 {

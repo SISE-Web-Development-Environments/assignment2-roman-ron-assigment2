@@ -4,6 +4,12 @@
  */
 function loginShow(){
     $("div").hide();
+
+    $("#header").show();
+    $("#header-left").show();
+    $("#header-center").show();
+    $("#header-right").show();
+    
     $("#login_page").show();
 
 };
@@ -13,6 +19,12 @@ function loginShow(){
  */
 function registrationShow(){
     $("div").hide();
+
+    $("#header").show();
+    $("#header-left").show();
+    $("#header-center").show();
+    $("#header-right").show();
+
     $("#registration_page").show();
     
 };
