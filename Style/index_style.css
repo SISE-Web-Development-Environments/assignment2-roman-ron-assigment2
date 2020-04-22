@@ -32,13 +32,13 @@ div
 #header-left {
     display: block;
     float:left;
-    width:170px;
+    width:240px;
 }
 
 #header-center {
     display: inline-block;
     margin:0 auto;
-    width:100px;
+    width:300px;
 }
 
 #header-right {
@@ -51,6 +51,8 @@ div
     color: #b8ecfd;
     text-align: center;
 }
+
+
 
 
 /* Welcome Style */
