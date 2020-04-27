@@ -118,3 +118,9 @@ div
     color: red;
     
  }
+
+ /* settings Style */
+ #settings_page p
+ {
+    color:#33ccff;
+ }

@@ -39,18 +39,17 @@
 		<!-- Header -->
 		<div id="header">
 			<div id="header-left"><img src="Photos/header.jpg" height="85" width="320"></div>
-			<div id="header-right"> <legend style="font-size:20px"><u><b>By: Roman Grigorenko <br> Ron sahar</b></u></legend></div>
+			<div id="header-right"> <legend style="font-size:20px"><u><b>By: Roman
+							Grigorenko <br> Ron sahar</b></u></legend></div>
 			<div id="header-center"> <p>
-				<span style="color: blue; font-size: 70px">P</span>
-				<span style="color: red; font-size: 70px">a</span>
-				<span style="color: yellow; font-size: 70px">c</span>
-				<span style="color: turquoise; font-size: 70px">m</span>
-				<span style="color: green; font-size: 70px">a</span>
-				<span style="color: orange; font-size: 70px">n</span>
-			  </p></div>
+					<span style="color: blue; font-size: 70px">P</span>
+					<span style="color: red; font-size: 70px">a</span>
+					<span style="color: yellow; font-size: 70px">c</span>
+					<span style="color: turquoise; font-size: 70px">m</span>
+					<span style="color: green; font-size: 70px">a</span>
+					<span style="color: orange; font-size: 70px">n</span>
+				</p></div>
 		</div>
-
-
 	</head>
 
 	<body id="body">
@@ -77,7 +76,6 @@
 
 
 		<!-- Registration Page -->
-
 		<div id="registration_page" class="container">
 			<form class="cmxform" id="signupForm" method="get" style="align-content:
 				center;" action="">
@@ -146,40 +144,122 @@
 						<input class="btn btn-info" class="btn btn-info" type="submit" id="login"
 							value="Sign in" />
 					</p>
-				</form>
-				<script src="JavaScript/login.js"></script>
+				</fieldset>
+			</form>
+			<script src="JavaScript/login.js"></script>
+		</div>
+
+		<!--/****   Settings    ****/-->
+		<div id="settings_page" class="mx-auto text-center">
+			<h2>Settings</h2>
+			<hr>
+			<h3>Set game keyboard</h3>
+			<br>
+			<button id="settings_upKey" class="keyboardBtn"
+				onclick="setCurDirection('up')">UP</button>
+			<span class="small">The Unicode value is: </span>
+			<span class="small" id="up_value"></span><br><br>
+			<button id="settings_leftKey" class="keyboardBtn"
+				onclick="setCurDirection('left')">LEFT</button>
+			<span class="small">The Unicode value is: </span>
+			<span class="small" id="up_value"></span><br><br>
+			<button id="settings_downKey" class="keyboardBtn"
+				onclick="setCurDirection('down')">DOWN</button>
+			<span class="small">The Unicode value is: </span>
+			<span class="small" id="up_value"></span><br><br>
+			<button id="settings_rightKey" class="keyboardBtn"
+				onclick="setCurDirection('right')">RIGHT</button>
+			<span class="small">The Unicode value is: </span>
+			<span class="small" id="up_value"></span><br><br>
+
+			<hr>
+			<h3>Select Pacman</h3>
+			<table>
+				<tr>
+				</tr>
+			</table>
+			<hr>
+			<!--            Settings table               -->
+			<table>
+				<!--                new row          -->
+				<tr>
+					<td><label><b>5 Points</b></label></td>
+					<td><input id="settings_5Points" class="inputField" type="color"
+							value="#ff0000"></td>
+				</tr>
+				<!--                new row          -->
+				<tr>
+					<td><label><b>15 Points</b></label></td>
+					<td><input id="settings_15Points" class="inputField" type="color"
+							value="#ff0000"></td>
+				</tr>
+				<!--                new row          -->
+				<tr>
+					<td><label><b>25 Points</b></label></td>
+					<td><input id="settings_25Points" class="inputField" type="color"
+							value="#ff0000"></td>
+				</tr>
+			</table>
+			<p>
+				<b>Number of balls: </b>
+				<input id="settings_numOfBalls" class="inputField" type="number" min="50"
+					max="90" name="settings_numOfBalls">
+			</p>
+			<p>
+				<b>Time to play (sec): </b>
+				<input id="settings_timeToPlay" class="inputField" type="number" min="60"
+					name="settings_timeToPlay">
+			</p>
+			<p>
+				<b>Number of monsters: </b>
+				<input id="settings_numOfMonsters" class="inputField" type="number" min="1"
+					max="3" name="settings_numOfMonsters">
+			</p>
+
+			<!--            random values Settings               -->
+			<div id="random_settings" style="text-align: center">
+				<button onclick="settings_randomValues()" style="width: 50%">Set random
+					values</button>
+				<br>
 			</div>
 
-
-
-
-			<!-- Need To Go There! -->
-			<div id="score">
-				<label for="lblScore">SCORE:</label>
-				<input id="lblScore" type="text" />
+			<!--           save settings               -->
+			<br>
+			<div class="center" id="save_settings">
+				<button onclick="saveSettings()" style="width: 100%">Save changes</button>
 			</div>
-			<div id="time">
-				<label for="lblTime">TIME:</label>
-				<input id="lblTime" type="text" />
-			</div>
-			<div id="game">
-				<canvas id="canvas" height="600" width="600"></canvas>
-			</div>
-
-
-			<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-				integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-				crossorigin="anonymous"></script>
-			<script
-				src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-				integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-				crossorigin="anonymous"></script>
-			<script
-				src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-				integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-				crossorigin="anonymous"></script>
-		</body>
+			<br>
+		</div>
 
 
 
-	</html>
+		<!-- Need To Go There! -->
+		<div id="score">
+			<label for="lblScore">SCORE:</label>
+			<input id="lblScore" type="text" />
+		</div>
+		<div id="time">
+			<label for="lblTime">TIME:</label>
+			<input id="lblTime" type="text" />
+		</div>
+		<div id="game">
+			<canvas id="canvas" height="600" width="600"></canvas>
+		</div>
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+			integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+			crossorigin="anonymous"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+			integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+			crossorigin="anonymous"></script>
+		<script
+			src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+			integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+			crossorigin="anonymous"></script>
+	</body>
+
+
+
+</html>

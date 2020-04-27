@@ -7,9 +7,9 @@ $.validator.setDefaults({
          * what the sumbit button will do
          */
         let username = $('#signupForm').find('input[name="username"]').val();
-        let password = $('#signupForm').find('input[name="password"]').val()
+        let password = $('#signupForm').find('input[name="password"]').val();
         sessionStorage.setItem(username, password);
-        //go to game!
+        //go to settings!
         alert("submitted!");
     }
 });

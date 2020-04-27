@@ -12,6 +12,12 @@ $(document).ready(function() {
 	Start();
 });
 
+/**
+ * Settings
+ * var ..
+ * var..
+ */
+
 function Start() {
 	board = new Array();
 	score = 0;
@@ -106,6 +112,7 @@ function Draw() {
 			var center = new Object();
 			center.x = i * 60 + 30;
 			center.y = j * 60 + 30;
+			//draw pacman
 			if (board[i][j] == 2) {
 				context.beginPath();
 				context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
@@ -117,11 +124,13 @@ function Draw() {
 				context.fillStyle = "black"; //color
 				context.fill();
 			} else if (board[i][j] == 1) {
+				//draw food
 				context.beginPath();
 				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
-				context.fillStyle = "black"; //color
+				context.fillStyle = "blue"; //color
 				context.fill();
 			} else if (board[i][j] == 4) {
+				//draw wall
 				context.beginPath();
 				context.rect(center.x - 30, center.y - 30, 60, 60);
 				context.fillStyle = "grey"; //color
@@ -133,27 +142,33 @@ function Draw() {
 
 function UpdatePosition() {
 	board[shape.i][shape.j] = 0;
+	// Get`s the key pressed
 	var x = GetKeyPressed();
+	//left
 	if (x == 1) {
 		if (shape.j > 0 && board[shape.i][shape.j - 1] != 4) {
 			shape.j--;
 		}
 	}
+	//right
 	if (x == 2) {
 		if (shape.j < 9 && board[shape.i][shape.j + 1] != 4) {
 			shape.j++;
 		}
 	}
+	//down
 	if (x == 3) {
 		if (shape.i > 0 && board[shape.i - 1][shape.j] != 4) {
 			shape.i--;
 		}
 	}
+	//up
 	if (x == 4) {
 		if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {
 			shape.i++;
 		}
 	}
+	//if there is food, score + 1
 	if (board[shape.i][shape.j] == 1) {
 		score++;
 	}
@@ -163,6 +178,9 @@ function UpdatePosition() {
 	if (score >= 20 && time_elapsed <= 10) {
 		pac_color = "green";
 	}
+	/**
+	 * Game End
+	 */
 	if (score == 50) {
 		window.clearInterval(interval);
 		window.alert("Game completed");
@@ -170,3 +188,4 @@ function UpdatePosition() {
 		Draw();
 	}
 }
+
