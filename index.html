@@ -12,6 +12,8 @@
 		<!-- Custom CSS -->
 		<link rel="stylesheet" type="text/css" href="Style/index_style.css">
 
+
+
 		<!-- JavaScripts -->
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 		<script src="jquery-3.4.1.slim.min.js"></script>
@@ -48,11 +50,38 @@
 					<span style="color: turquoise; font-size: 70px">m</span>
 					<span style="color: green; font-size: 70px">a</span>
 					<span style="color: orange; font-size: 70px">n</span>
-				</p></div>
+				</p>
+			</div>
 		</div>
+
 	</head>
 
 	<body id="body">
+		<div class="sidenav" id="sidenav" style="margin-top: 85px;">
+			<a class="btn btn-outline-primary btn-lg" role="button" id="welcome_btn"
+				aria-pressed="true" onclick="welcomeShow()" style="color: #33ccff;">Welcome</a>
+			<br>
+			<a class="btn btn-outline-primary btn-lg" role="button" id="registration_btn"
+				aria-pressed="true" onclick="registrationShow()" style="color: #33ccff;">Register</a>
+			<br>
+			<a class="btn btn-outline-primary btn-lg" role="button" id="login_btn"
+				aria-pressed="true" onclick="loginShow()" style="color: #33ccff;">Login</a>
+			<br>
+			<a class="btn btn-outline-primary btn-lg" role="button" id="myBtn"
+				aria-pressed="true" onclick="showModelDialog()" style="color: #33ccff;">About</a>
+
+		</div>
+
+		<div id="myModal" class="modal">
+
+			<!-- Modal content -->
+			<div class="modal-content" id="myModal02">
+			  <span class="close">&times;</span>
+			  <p>Some text in the Modal..</p>
+			</div>
+		  
+		  </div>
+
 		<!-- Welcome Page -->
 		<div id="welcome" class="mx-auto text-center">
 			<br>
@@ -65,9 +94,9 @@
 			<br>
 			<br>
 			<a class="btn btn-outline-primary mr-4 btn-lg" role="button" id="login_btn"
-				aria-pressed="true" onclick="loginShow()">Login</a>
+				aria-pressed="true" onclick="loginShow()" style="color: #33ccff;">Login</a>
 			<a class="btn btn-outline-primary btn-lg" role="button" id="registration_btn"
-				aria-pressed="true" onclick="registrationShow()">Register</a>
+				aria-pressed="true" onclick="registrationShow()" style="color: #33ccff;">Register</a>
 			<br>
 			<br>
 			<br>
@@ -260,6 +289,13 @@
 			crossorigin="anonymous"></script>
 	</body>
 
+	<footer class="page-footer font-small blue fixed-bottom text-center">
+		Here we try to save ower pacman!,
+		The Game was build by using HTML5
+		<br>
+		Contact information: <a href="mailto:grigorer@post.bgu.ac.il">
+			grigorer@post.bgu.ac.il</a>.
+	</footer>
 
 
 </html>

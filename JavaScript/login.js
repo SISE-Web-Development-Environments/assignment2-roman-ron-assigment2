@@ -34,7 +34,7 @@ $("#loginForm").validate({
       $("#header-left").show();
       $("#header-center").show();
       $("#header-right").show();
-
+      $("#sidenav").show();
       $("#settings_page").show();
       $("#random_settings").show();
       $("#save_settings").show();
@@ -43,7 +43,16 @@ $("#loginForm").validate({
     }
     else if (password === password_data) {
       //go to settings
-      alert("OK");
+      $("div").hide();
+
+      $("#header").show();
+      $("#header-left").show();
+      $("#header-center").show();
+      $("#header-right").show();
+      $("#sidenav").show();
+      $("#settings_page").show();
+      $("#random_settings").show();
+      $("#save_settings").show();
     }
     else {
       alert("Wrong Password/Username");

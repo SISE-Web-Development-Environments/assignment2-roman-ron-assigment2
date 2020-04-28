@@ -9,8 +9,8 @@ $.validator.setDefaults({
         let username = $('#signupForm').find('input[name="username"]').val();
         let password = $('#signupForm').find('input[name="password"]').val();
         sessionStorage.setItem(username, password);
-        //go to settings!
-        alert("submitted!");
+        //go to home page!
+        return true;
     }
 });
 
