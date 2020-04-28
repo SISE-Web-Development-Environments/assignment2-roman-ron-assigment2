@@ -30,6 +30,7 @@
 
 		<!-- App -->
 		<script type="text/javascript" src="./app.js"></script>
+		<script type="text/javascript" src="Setting.js"></script>
 
 		<!-- Our JS -->
 		<script type="text/javascript" src="JavaScript/welcome.js"></script>
@@ -202,14 +203,8 @@
 			<span class="small" id="up_value"></span><br><br>
 
 			<hr>
-			<h3>Select Pacman</h3>
-			<table>
-				<tr>
-				</tr>
-			</table>
-			<hr>
 			<!--            Settings table               -->
-			<table>
+			<table align="center">
 				<!--                new row          -->
 				<tr>
 					<td><label><b>5 Points</b></label></td>
@@ -228,8 +223,28 @@
 					<td><input id="settings_25Points" class="inputField" type="color"
 							value="#ff0000"></td>
 				</tr>
+				<tr>
+					
+					<td><label><b>Number of balls: </b></label></td>
+					<td><input id="settings_numOfBalls" class="inputField" type="number" min="50"
+						max="90" name="settings_numOfBalls"></td>
+				</tr>
+				<tr>
+					
+					<td><label><b>Time to play (sec): </b></label></td>
+					<td><input id="settings_numOfBalls" class="inputField" type="number" min="50"
+						max="90" name="settings_numOfBalls"></td>
+				</tr>
+				<tr>
+					
+					<td><label><b>Number of monsters: </b></label></td>
+					<td><input id="settings_numOfMonsters" class="inputField" type="number" min="1"
+						max="3" name="settings_numOfMonsters"></td>
+				</tr>
+
+
 			</table>
-			<p>
+			<!-- <p>
 				<b>Number of balls: </b>
 				<input id="settings_numOfBalls" class="inputField" type="number" min="50"
 					max="90" name="settings_numOfBalls">
@@ -243,11 +258,11 @@
 				<b>Number of monsters: </b>
 				<input id="settings_numOfMonsters" class="inputField" type="number" min="1"
 					max="3" name="settings_numOfMonsters">
-			</p>
+			</p> -->
 
 			<!--            random values Settings               -->
 			<div id="random_settings" style="text-align: center">
-				<button onclick="settings_randomValues()" style="width: 50%">Set random
+				<button onclick="settings_randomValues()" style="width: 30%">Set random
 					values</button>
 				<br>
 			</div>
@@ -255,7 +270,7 @@
 			<!--           save settings               -->
 			<br>
 			<div class="center" id="save_settings">
-				<button onclick="saveSettings()" style="width: 100%">Save changes</button>
+				<button onclick="saveSettings()" style="width: 30%">Save changes</button>
 			</div>
 			<br>
 		</div>
