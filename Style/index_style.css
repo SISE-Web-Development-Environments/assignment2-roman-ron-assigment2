@@ -123,4 +123,27 @@ div
  #settings_page p
  {
     color:#33ccff;
+    
  }
+ #settings_page label
+ {
+    color:#33ccff;
+ }
+ #settings_page h2
+ {
+    color:#f1ff33;
+ }
+ #settings_page h3
+ {
+    color:#f1ff33;
+ }
+ #settings_page span
+ {
+    color:white;
+ }
+
+#settings_page button
+{
+   background-color:#f1ff33;
+   color:black;
+}
