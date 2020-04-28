@@ -43,7 +43,7 @@
 		<div id="header">
 			<div id="header-left"><img src="Photos/header.jpg" height="85" width="320"></div>
 			<div id="header-right"> <legend style="font-size:20px"><u><b>By: Roman
-							Grigorenko <br> Ron sahar</b></u></legend></div>
+							Grigorenko <br> Shachar Ron</b></u></legend></div>
 			<div id="header-center"> <p>
 					<span style="color: blue; font-size: 70px">P</span>
 					<span style="color: red; font-size: 70px">a</span>
@@ -73,15 +73,36 @@
 
 		</div>
 
-		<div id="myModal" class="modal">
+		<div id="myModal" class="modal" >
 
 			<!-- Modal content -->
-			<div class="modal-content" id="myModal02">
+			<div class="modal-content" id="myModal02" style="background-color: yellow;">
+				
+			
 			  <span class="close">&times;</span>
-			  <p>Some text in the Modal..</p>
-			</div>
+			  <p><b>This game was created by Roman Grigorenko and Shachar Ron,<br>
+				This is the second assignment in the course "Internet Programming Environments".<br>
+				<br>
+			</b>
+				In this work we used the jQuery Plugin:<br>
+				Registration form for validation and submission.<br><br>
+				
+				In this work we used Template:<br>
+				<br><br>
+				
+				The difficulties we had during work:<br>
+				1. Enter a project where some of the code is already written.<br>
+				2. Our cooperation is remote<br>
+				
+				</p>
+				<p id= "bottom-right" style=" text-align: center;" >
+					<img  id= "bottom-right" src="Photos/aboutPic.png" class="img-rounded" height="70" width="320">
+				</p>
+			
+
 		  
 		  </div>
+		</div>
 
 		<!-- Welcome Page -->
 		<div id="welcome" class="mx-auto text-center">
@@ -182,64 +203,70 @@
 		<!--/****   Settings    ****/-->
 		<div id="settings_page" class="mx-auto text-center">
 			<h2>Settings</h2>
-			<hr>
+			<hr style="width: 20%">
 			<h3>Set game keyboard</h3>
 			<br>
-			<button id="settings_upKey" class="keyboardBtn"
-				onclick="setCurDirection('up')">UP</button>
-			<span class="small">The Unicode value is: </span>
-			<span class="small" id="up_value"></span><br><br>
-			<button id="settings_leftKey" class="keyboardBtn"
-				onclick="setCurDirection('left')">LEFT</button>
-			<span class="small">The Unicode value is: </span>
-			<span class="small" id="up_value"></span><br><br>
-			<button id="settings_downKey" class="keyboardBtn"
-				onclick="setCurDirection('down')">DOWN</button>
-			<span class="small">The Unicode value is: </span>
-			<span class="small" id="up_value"></span><br><br>
-			<button id="settings_rightKey" class="keyboardBtn"
-				onclick="setCurDirection('right')">RIGHT</button>
+			<p>
+			<button id="settings_upKey" class="keyboardBtn" style="width: 5%"
+				onclick="setCurDirection('up')" onkeydown="getGameControl(event,'up')">UP</button>
 			<span class="small">The Unicode value is: </span>
 			<span class="small" id="up_value"></span><br><br>
 
-			<hr>
+			<button id="settings_leftKey" class="keyboardBtn" style="width: 5%"
+				onclick="setCurDirection('left')" onkeydown="getGameControl(event,'left')">LEFT</button>
+			<span class="small">The Unicode value is: </span>
+			<span class="small" id="left_value"></span><br><br>
+
+			<button id="settings_downKey" class="keyboardBtn" style="width: 5%"
+				onclick="setCurDirection('down')" onkeydown="getGameControl(event,'down')">DOWN</button>
+			<span class="small">The Unicode value is: </span>
+			<span class="small" id="down_value"></span><br><br>
+
+			<button id="settings_rightKey" class="keyboardBtn" style="width: 5%"
+				onclick="setCurDirection('right')" onkeydown="getGameControl(event,'right')">RIGHT</button>
+			<span class="small">The Unicode value is: </span>
+			<span class="small" id="right_value"></span><br><br>
+		</p>
+			<hr style="width: 20%">
 			<!--            Settings table               -->
 			<table align="center">
 				<!--                new row          -->
 				<tr>
 					<td><label><b>5 Points</b></label></td>
 					<td><input id="settings_5Points" class="inputField" type="color"
-							value="#ff0000"></td>
+							value="#f1ff33"></td>
 				</tr>
+				<tr></tr>
 				<!--                new row          -->
 				<tr>
 					<td><label><b>15 Points</b></label></td>
 					<td><input id="settings_15Points" class="inputField" type="color"
 							value="#ff0000"></td>
 				</tr>
+				<tr></tr>
 				<!--                new row          -->
 				<tr>
 					<td><label><b>25 Points</b></label></td>
 					<td><input id="settings_25Points" class="inputField" type="color"
-							value="#ff0000"></td>
+							value="#3352ff"></td>
 				</tr>
 				<tr>
 					
 					<td><label><b>Number of balls: </b></label></td>
 					<td><input id="settings_numOfBalls" class="inputField" type="number" min="50"
-						max="90" name="settings_numOfBalls"></td>
+						max="90" name="settings_numOfBalls" style="width: 80%"></td>
 				</tr>
 				<tr>
 					
 					<td><label><b>Time to play (sec): </b></label></td>
-					<td><input id="settings_numOfBalls" class="inputField" type="number" min="50"
-						max="90" name="settings_numOfBalls"></td>
+					<td><input id="settings_timeToPlay" class="inputField" type="number" min="50"
+						max="90" name="settings_timeToPlay" style="width: 80%"></td>
 				</tr>
 				<tr>
 					
 					<td><label><b>Number of monsters: </b></label></td>
 					<td><input id="settings_numOfMonsters" class="inputField" type="number" min="1"
-						max="3" name="settings_numOfMonsters"></td>
+						max="3" name="settings_numOfMonsters" style="width: 80%"></td>
 				</tr>
 
 
@@ -262,7 +289,7 @@
 
 			<!--            random values Settings               -->
 			<div id="random_settings" style="text-align: center">
-				<button onclick="settings_randomValues()" style="width: 30%">Set random
+				<button onclick="settings_randomValues()" style="width: 10%">Set random
 					values</button>
 				<br>
 			</div>
@@ -270,7 +297,7 @@
 			<!--           save settings               -->
 			<br>
 			<div class="center" id="save_settings">
-				<button onclick="saveSettings()" style="width: 30%">Save changes</button>
+				<button onclick="saveSettings()" style="width: 10%">Save changes</button>
 			</div>
 			<br>
 		</div>
@@ -291,6 +318,9 @@
 		</div>
 
 
+
+
+
 		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
 			integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
 			crossorigin="anonymous"></script>
@@ -309,7 +339,9 @@
 		The Game was build by using HTML5
 		<br>
 		Contact information: <a href="mailto:grigorer@post.bgu.ac.il">
-			grigorer@post.bgu.ac.il</a>.
+			grigorer@post.bgu.ac.il</a> || 
+			<a href="mailto:shachab@post.bgu.ac.il">
+				shachab@post.bgu.ac.il</a>.
 	</footer>
 
 

@@ -6,52 +6,54 @@
 
 // controls array
 var controls = [];
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
 
-function generateRandomStart() {
-    return {
+
+
+function settings_randomValues() {
+
+
+    var randomValues = {
         up_key : 'ArrowUp',
         down_key : 'ArrowDown',
         left_key : 'ArrowLeft',
         right_key : 'ArrowRight',
 
-        pill_5Points:  '#00cc00', // green
-        pill_15Points: '#ff3300', // red
-        pill_25Points: '#0000ff', // blue
-       // pill_5Points=  "#"+((1<<24)*Math.random()|0).toString(16),
-        //pill_15Points: "#"+((1<<24)*Math.random()|0).toString(16),
-       // pill_25Points: "#"+((1<<24)*Math.random()|0).toString(16),
-
+       pill_5Points:  getRandomColor(),
+        pill_15Points: getRandomColor(),
+       pill_25Points: getRandomColor(),
+    
         pill_number : 50 + Math.floor(Math.random() * 41), // return a number between 50-90
         time_seconds : 60 + Math.floor(Math.random() * 120),
         monster_number : 1 + Math.floor(Math.random() * 3), // return a number between 1-3
         tick : 0,
         lives : 3,
     }
-}
-
-
-
-function settings_randomValues() {
-
-    var rand = generateRandomStart();
 
     
 
     // up_key = rand["up_key"];
-    $("#settings_upKey").html(rand["up_key"]);
-    $("#settings_leftKey").html(rand["left_key"]);
-    $("#settings_downKey").html(rand["down_key"]);
-    $("#settings_rightKey").html(rand["right_key"]);
+    $("#up_value").html(randomValues["up_key"]);
+    $("#left_value").html(randomValues["left_key"]);
+    $("#down_value").html(randomValues["down_key"]);
+    $("#right_value").html(randomValues["right_key"]);
 
 
-    $("#settings_numOfBalls").val(rand["pill_number"]);
-    $("#settings_timeToPlay").val(rand["time_seconds"]);
-    $("#settings_numOfMonsters").val(rand["monster_number"]);
+    $("#settings_numOfBalls").val(randomValues["pill_number"]);
+    $("#settings_timeToPlay").val(randomValues["time_seconds"]);
+    $("#settings_numOfMonsters").val(randomValues["monster_number"]);
 
 
-    $("#settings_5Points").val(rand["pill_5Points"]);
-    $("#settings_15Points").val(rand["pill_15Points"]);
-    $("#settings_25Points").val(rand["pill_25Points"]);
+    $("#settings_5Points").val(randomValues["pill_5Points"]);
+    $("#settings_15Points").val(randomValues["pill_15Points"]);
+    $("#settings_25Points").val(randomValues["pill_25Points"]);
 
 
 
@@ -69,10 +71,10 @@ document.addEventListener('keydown', function(event){
 
 
     if ( currentDirection != null){
-        var keyValue = event.key;
+        let keyValue = event.key;
         if(keyValue !== 'p' && keyValue !== ' ' && keyValue !== 'Enter'){
 
-            document.getElementById("settings_" + currentDirection + "Key").innerHTML = keyValue;
+            //document.getElementById("settings_" + currentDirection + "Key").innerHTML = keyValue;
             document.getElementById("settings_" + currentDirection + "Key").style.background='#ffff00';
         }
 
@@ -83,6 +85,25 @@ document.addEventListener('keydown', function(event){
 } );
 
 
+function getGameControl(event, id) {
+    if (id === "up") {
+        document.getElementById("up_value").innerHTML = event.key;
+        
+    }
+    else if (id === "down") {
+        document.getElementById("down_value").innerHTML = event.key;
+       
+    }
+    else if (id === "right") {
+        document.getElementById("right_value").innerHTML = event.key;
+        
+    }
+    else if (id === "left") {
+        document.getElementById("left_value").innerHTML = event.key;
+        
+    }
+  }
+
 
 
 
@@ -92,8 +113,8 @@ function setCurDirection( direction){
     document.getElementById("settings_leftKey").style.background='yellow';
     document.getElementById("settings_upKey").style.background='yellow';
     document.getElementById("settings_downKey").style.background='yellow';
-    document.getElementById("settings_" + direction + "Key").style.background='blue';
-    currentDirection = direction;
+    document.getElementById("settings_" + direction + "Key").style.background='#33ccff';
+    //currentDirection = direction;
 }
 
 
@@ -103,17 +124,16 @@ function setCurDirection( direction){
 
 function saveSettings() {
 
-
-    if ($("#settings_upKey").html() === '-1' || $("#settings_leftKey").html() === '-1' ||
-        $("#settings_downKey").html() === '-1' || $("#settings_rightKey").html() === '-1'){
+    if ($("#up_value").html() === '-1' || $("#down_value").html() === '-1' ||
+        $("#right_value").html() === '-1' || $("#left_value").html() === '-1'){
         alert("Minus 1 is not a valid key");
         return;
     }
 
-    up_key = $("#settings_upKey").html();
-    down_key = $("#settings_downKey").html();
-    left_key = $("#settings_leftKey").html();
-    right_key = $("#settings_rightKey").html();
+    up_key = $("#up_value").html();
+    down_key = $("#down_value").html();
+    left_key = $("#left_value").html();
+    right_key = $("#right_value").html();
 
 
     if ($("#settings_numOfBalls").val() === '' || $("#settings_timeToPlay").val() === '' || $("#settings_numOfMonsters").val() === ''){
