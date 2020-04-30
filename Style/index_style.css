@@ -255,6 +255,23 @@ footer a
    background-color:#daff33;
 }
 
-
-
-
+#score
+{
+    padding-left: 170px;
+}
+#time
+{
+    padding-left: 170px;
+}
+#game
+{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 600px;
+    height: 600px;
+    margin: auto;
+    padding-top: 20px;
+}

@@ -31,11 +31,28 @@ var pill_5Color;
 var pill_15Color;
 var pill_25Color;
 
-$(document).ready(function() {
+/**
+ * on click (save settings) move to Game
+ */
+function moveToGame(){
+	$("div").hide();
+  
+	$("#header").show();
+	$("#header-left").show();
+	$("#header-center").show();
+	$("#header-right").show();
+  
+	$("#sidenav").show();
+  
+	$("#score").show();
+	$("#time").show();
+	$("#game").show();
+	
 	context = canvas.getContext("2d");
 	saveSettings();
 	Start();
-});
+	
+  };
 
 
 
