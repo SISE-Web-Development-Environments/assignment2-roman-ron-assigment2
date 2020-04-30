@@ -17,12 +17,6 @@ var time_elapsed;
 var interval;
 var lives;
 
-$(document).ready(function() {
-	context = canvas.getContext("2d");
-	Start();
-});
-
-
 // game settings
 var up_key;
 var down_key;
@@ -36,6 +30,15 @@ var monster_number;
 var pill_5Color;
 var pill_15Color;
 var pill_25Color;
+
+$(document).ready(function() {
+	context = canvas.getContext("2d");
+	saveSettings();
+	Start();
+});
+
+
+
 
 //var num_balls;
 
@@ -51,6 +54,9 @@ function Start() {
     audio.play();
 	//board is 10 X 10 = 100 cells
 	board = new Array();
+
+
+
 	score = 0;
 	lives = 3;
 	pac_color = "yellow";
@@ -60,6 +66,8 @@ function Start() {
 	//only for first draw of pacman - number of pacmans we want to draw -> always 1
 	var pacman_remain = 1;
 	start_time = new Date();
+
+
 	for (var i = 0; i < 10; i++) {
 		//new array at board[i]
 		board[i] = new Array();
@@ -390,7 +398,6 @@ function saveSettings() {
     pill_15Color = $("#settings_15Points").val();
 	pill_25Color = $("#settings_25Points").val();
 	
-	Start();
 
 
 
