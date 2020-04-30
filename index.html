@@ -269,7 +269,7 @@
 					
 					<td><label><b>Number of monsters: </b></label></td>
 					<td><input id="settings_numOfMonsters" class="inputField" type="number" min="1"
-						max="3" name="settings_numOfMonsters" style="width: 80%"></td>
+						max="4" name="settings_numOfMonsters" style="width: 80%"></td>
 				</tr>
 
 
@@ -308,17 +308,70 @@
 
 
 		<!-- Need To Go There! -->
-		<div id="score">
-			<label for="lblScore">SCORE:</label>
-			<input id="lblScore" type="text" />
+		<!-- <div id="score"  style="text-align: center">
+		
 		</div>
-		<div id="time">
-			<label for="lblTime">TIME:</label>
-			<input id="lblTime" type="text" />
-		</div>
-		<div id="game">
-			<canvas id="canvas" height="600" width="600"></canvas>
-		</div>
+		<div id="time"  style="text-align: center">
+		
+		</div> -->
+	
+
+
+	<div id="game">
+
+<table  align=center cellpadding=10 cellspacing="0"  width="160%" Length="160%">
+	<tr>
+	  <td width="75%">	<label for="lblScore" style="color: yellow;">SCORE:</label>
+		<input id="lblScore" type="text" style="width: 5%" />
+		<label for="lblTime" style="color: yellow;">TIME:</label>
+					<input id="lblTime" type="text"  style="width: 10%"/>
+					<label for="lblLives" style="color: yellow;">LIVES:</label>
+					<input id="lblLives" type="text"  style="width: 5%"/>
+					<label for="lblName" style="color: yellow;">PLAYER:</label>
+		<input id="lblNmae" type="text"  style="width: 5%"/>
+	</td>
+
+	  <td width="25%"></td>
+
+	</tr>
+	<tr>
+	  <td border="1" bordercolor="yellow"><canvas id="canvas" height="400" width="400"></canvas></td>
+	  <td> 
+		<h2 style="color: yellow;">Setting:</h2><br>
+		<p style="color:#33ccff;">
+		<b>
+		
+
+		Keys:<br>
+		Move up:ARROW UP<br>
+		Move down:ARROW DOWN<br>
+		Move left:ARROW LEFT<br>
+		Move right: ARROW RIGHT<br><br>
+		
+		Time:<br>
+		Time per game: 509<br><br>
+		
+		Structre:<br>
+		Number of food balls :51<br>
+		Number of monsters: 4<br>
+		Color of 5 points balls:<br> 
+		Color of 15 points balls:<br>
+		Color of 25 points balls: <br>
+	</b>
+	</p>
+		
+
+	  </td>
+	</tr>
+	<td><center><button id="new_game" onclick="moveToGame()" style="color: blue; background-color: yellow;" ><b>New Game</b></button>
+		<button id="new_game" onclick="moveToGame()" style="color: blue;background-color: yellow;"><b>Restart</b></button></center></td>
+	<td ></td>
+  </table>
+
+</div>
+
+
+
 
 
 
