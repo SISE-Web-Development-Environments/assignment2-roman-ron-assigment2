@@ -52,7 +52,9 @@ function welcomeShow(){
     $("#sidenav").show();
 };
 
-
+/**
+ * Model dialog -> About
+ */
 function showModelDialog(){
     document.getElementById('myModal').style.display='block';
     document.getElementById('myModal02').style.display='block';
@@ -85,3 +87,4 @@ $(document).keydown(function (e) {
     if (code == 27) modal.style.display = "none";
 });
 }
+
