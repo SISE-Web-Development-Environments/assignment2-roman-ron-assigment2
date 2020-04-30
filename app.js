@@ -54,9 +54,6 @@ function Start() {
     audio.play();
 	//board is 10 X 10 = 100 cells
 	board = new Array();
-
-
-
 	score = 0;
 	lives = 3;
 	pac_color = "yellow";
