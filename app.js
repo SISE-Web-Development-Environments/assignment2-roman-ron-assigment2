@@ -25,23 +25,7 @@ var lives;
 var monster_alive; // roman
 var drawWayOfPacman = 1;//roman
 var monster_arr;
-
-
-
-// game settings
-
-// var up_key;
-// var down_key;
-// var left_key;
-// var right_key;
-
-// var pill_number;
-// var time_seconds;
-// var monster_number;
-
-// var pill_5Color;
-// var pill_15Color;
-// var pill_25Color;
+var PlayerName = "p";
 
 
 var up_key = 'ArrowUp';
@@ -52,12 +36,9 @@ var pill_5Color = '#00cc00'; // green
 var pill_15Color = '#ff3300'; // red
 var pill_25Color = '#0000ff'; // blue
 
-var pill_number=50 ; // return a number between 50-90
+var pill_number=50 ;
 var time_seconds = 60;
-var monster_number=1; // return a number between 1-3
-
-var controls = [];
-///
+var monster_number=1; 
 
 
 /**
@@ -79,26 +60,47 @@ function moveToGame(){
 	$("#game").show();
 
 	context = canvas.getContext("2d");
-
+	play();
 	Start();
+
+};
+
+function restart(){
+	$("div").hide();
+
+	$("#header").show();
+	$("#header-left").show();
+	$("#header-center").show();
+	$("#header-right").show();
+	$("#sidenav").show();
+	$("#settings_page").show();
+	$("#random_settings").show();
+	$("#save_settings").show();
+
+	$("#musicForGame").get(0).pause();
+
 
 };
 
 
 
 
-//var num_balls;
+
+function play() {
+    var audio =$("#musicForGame").get(0);
+    if (audio.paused) {
+        audio.play();
+    }else{
+        audio.pause();
+		audio.currentTime = 0
+		audio.play();
+    }
+}
+
 
 
 function Start() {
 
-	//
-	// need to add variable here
-	///
-	//add Audio
-	audio = new Audio('Pac-manMusic.mp3');
-	audio.loop = true;
-	audio.play();
 	//board is 10 X 10 = 100 cells
 	board = new Array();
 	score = 0;
@@ -237,6 +239,18 @@ function Draw() {
 	canvas.width = canvas.width; //clean board
 	lblScore.value = score; // set score from HTML
 	lblTime.value = time_elapsed; //set time from HTML
+	lblLives.value=lives;
+	lblName.value=PlayerName;
+
+	lbTime.value=time_seconds;
+	lbFood.value=pill_number;
+
+	lb5.value=pill_5Color;
+	lb15.value=pill_15Color;
+	lb25.value=pill_25Color;
+
+
+
 	// draw all board
 	for (var i = 0; i < 10; i++) {
 		for (var j = 0; j < 10; j++) {
@@ -358,12 +372,18 @@ function UpdatePosition() {
     }
     if (board[shape.i][shape.j] === 125) {
         score+=25;
-    }
+	}
+	
+	lbArrowUp.value=up_key;
+	lbArrowDown.value=down_key;
+	lbArrowRight.value=right_key;
+	lbArrowLeft.value=left_key;
+	lbMonsters.value=monster_number;
 
 
 	board[shape.i][shape.j] = OUR_PACMAN;
 	var currentTime = new Date();
-	time_elapsed = (currentTime - start_time) / 1000;
+	time_elapsed = time_seconds- (currentTime - start_time) / 1000;
 	if (score >= 20 && time_elapsed <= 10) {
 		pac_color = "green";
 	}
@@ -399,6 +419,8 @@ function getRandomColor() {
 
 
 function settings_randomValues() {
+
+
 
 
    var randomValues = {
