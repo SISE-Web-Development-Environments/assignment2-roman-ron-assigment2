@@ -28,25 +28,6 @@ var monster_arr;
 var PlayerName = "p";
 
 
-
-
-
-// game settings
-
-// var up_key;
-// var down_key;
-// var left_key;
-// var right_key;
-
-// var pill_number;
-// var time_seconds;
-// var monster_number;
-
-// var pill_5Color;
-// var pill_15Color;
-// var pill_25Color;
-
-
 var up_key = 'ArrowUp';
 var down_key = 'ArrowDown';
 var left_key = 'ArrowLeft';
@@ -55,22 +36,15 @@ var pill_5Color = '#00cc00'; // green
 var pill_15Color = '#ff3300'; // red
 var pill_25Color = '#0000ff'; // blue
 
-var pill_number=50 ; // return a number between 50-90
+var pill_number=50 ;
 var time_seconds = 60;
-var monster_number=1; // return a number between 1-3
-
-
-
-
-var controls = [];
-///
+var monster_number=1; 
 
 
 /**
  * on click (save settings) move to Game
  */
 function moveToGame(){
-	//$("#musicForGame").get(0).pause();
 	saveSettings();
 	$("div").hide();
 
@@ -86,11 +60,31 @@ function moveToGame(){
 	$("#game").show();
 
 	context = canvas.getContext("2d");
-	//$("#musicForGame").get(0).play();
 	play();
 	Start();
 
 };
+
+function restart(){
+	$("div").hide();
+
+	$("#header").show();
+	$("#header-left").show();
+	$("#header-center").show();
+	$("#header-right").show();
+	$("#sidenav").show();
+	$("#settings_page").show();
+	$("#random_settings").show();
+	$("#save_settings").show();
+
+	$("#musicForGame").get(0).pause();
+
+
+};
+
+
+
+
 
 function play() {
     var audio =$("#musicForGame").get(0);
@@ -105,19 +99,8 @@ function play() {
 
 
 
-
-//var num_balls;
-
-
 function Start() {
 
-	//
-	// need to add variable here
-	///
-	//add Audio
-	audio = new Audio('Pac-manMusic.MP3');
-	audio.loop = true;
-	audio.play();
 	//board is 10 X 10 = 100 cells
 	board = new Array();
 	score = 0;
@@ -408,7 +391,7 @@ function UpdatePosition() {
 
 	board[shape.i][shape.j] = OUR_PACMAN;
 	var currentTime = new Date();
-	time_elapsed = (currentTime - start_time) / 1000;
+	time_elapsed = time_seconds- (currentTime - start_time) / 1000;
 	if (score >= 20 && time_elapsed <= 10) {
 		pac_color = "green";
 	}
