@@ -318,17 +318,25 @@
 
 
 	<div id="game">
+		<audio loop id="musicForGame">
+			<source src="Photos/Pac-manMusic.mp3"  type="audio/mp3">
+			Your browser does not support the audio tag.
+		</audio>
 
-<table  align=center cellpadding=10 cellspacing="0"  width="160%" Length="160%">
+<table cellpadding=10 cellspacing="0"  width="160%" Length="160%">
 	<tr>
-	  <td width="75%">	<label for="lblScore" style="color: yellow;">SCORE:</label>
-		<input id="lblScore" type="text" style="width: 5%" />
-		<label for="lblTime" style="color: yellow;">TIME:</label>
-					<input id="lblTime" type="text"  style="width: 10%"/>
-					<label for="lblLives" style="color: yellow;">LIVES:</label>
-					<input id="lblLives" type="text"  style="width: 5%"/>
-					<label for="lblName" style="color: yellow;">PLAYER:</label>
-		<input id="lblNmae" type="text"  style="width: 5%"/>
+	  <td width="75%">
+		<label for="lblScore" style="color:#33ccff;"><b>SCORE:</b></label>
+		<input id="lblScore" type="text"  style="width: 5%; background-color: black; color: yellow;"/>
+
+		<label for="lblTime" style="color:#33ccff;">TIME:</label>
+		<input id="lblTime" type="text"  style="width: 10%; background-color: black; color: yellow;"/>
+
+		<label  for="lblLives"  style="color:#33ccff;"><b>LIVES:</b></label>
+		<input id="lblLives" type="text"  style="width: 5%; background-color: black; color: yellow;"/>
+		
+		<label  for="lblName"  style="color:#33ccff;"><b>PLAYER:</b></label>
+		<input id="lblName" type="text"  style="width: 10%; background-color: black; color: yellow;"/>
 	</td>
 
 	  <td width="25%"></td>
@@ -337,26 +345,46 @@
 	<tr>
 	  <td border="1" bordercolor="yellow"><canvas id="canvas" height="400" width="400"></canvas></td>
 	  <td> 
-		<h2 style="color: yellow;">Setting:</h2><br>
+		<h2 style="color: yellow;">Setting:</h2>
 		<p style="color:#33ccff;">
 		<b>
-		
+	
+		<img src="Photos/arrowUp.png" height="40" width="40">
+		<label for="lbArrowUp" ></label>
+		<input style="background-color: black; color: yellow; width: 40%" id="lbArrowUp" type="text"  /><br>
 
-		Keys:<br>
-		Move up:ARROW UP<br>
-		Move down:ARROW DOWN<br>
-		Move left:ARROW LEFT<br>
-		Move right: ARROW RIGHT<br><br>
+		<img src="Photos/arrowDown.png" height="40" width="40">
+		<label for="lbArrowDown" ></label>
+		<input style="background-color: black; color: yellow; width: 40%" id="lbArrowDown" type="text"  /><br>
+
+		<img src="Photos/arrowRight.png" height="40" width="40">
+		<label for="lbArrowRight" ></label>
+		<input style="background-color: black; color: yellow; width: 40%" id="lbArrowRight" type="text" /><br>
+
+		<img src="Photos/arrowLeft.png" height="40" width="40">
+		<label for="lbArrowLeft" ></label>
+		<input style="background-color: black; color: yellow; width: 40%" id="lbArrowLeft" type="text" /><br>
+
+
+		<label for="lbTime" >Time per game:</label>
+		<input style="background-color: black; color: yellow; width: 20%" id="lbTime" type="text" /><br>
 		
-		Time:<br>
-		Time per game: 509<br><br>
-		
-		Structre:<br>
-		Number of food balls :51<br>
-		Number of monsters: 4<br>
-		Color of 5 points balls:<br> 
-		Color of 15 points balls:<br>
-		Color of 25 points balls: <br>
+		<label for="lbFood" >Num of food:</label>
+		<input style="background-color: black; color: yellow; width: 15%" id="lbFood" type="text" /><br>
+
+		<label for="lbMonsters" >Num of monsters:</label>
+		<input style="background-color: black; color: yellow; width: 15%" id="lbMonsters" type="text" /><br>
+
+		<label for="lb5" >5 points balls:</label>
+		<input id="lb5" class="inputField" type="color"value="#ff0000"><br>
+
+		<label for="lb15" >15 points balls:</label>
+		<input id="lb15" class="inputField" type="color"value="#ff0000"><br>
+
+		<label for="lb25" >25 points balls:</label>
+		<input id="lb25" class="inputField" type="color"value="#ff0000"><br>
+
+
 	</b>
 	</p>
 		

@@ -25,6 +25,9 @@ var lives;
 var monster_alive; // roman
 var drawWayOfPacman = 1;//roman
 var monster_arr;
+var PlayerName = "p";
+
+
 
 
 
@@ -56,6 +59,9 @@ var pill_number=50 ; // return a number between 50-90
 var time_seconds = 60;
 var monster_number=1; // return a number between 1-3
 
+
+
+
 var controls = [];
 ///
 
@@ -64,6 +70,7 @@ var controls = [];
  * on click (save settings) move to Game
  */
 function moveToGame(){
+	//$("#musicForGame").get(0).pause();
 	saveSettings();
 	$("div").hide();
 
@@ -79,10 +86,22 @@ function moveToGame(){
 	$("#game").show();
 
 	context = canvas.getContext("2d");
-
+	//$("#musicForGame").get(0).play();
+	play();
 	Start();
 
 };
+
+function play() {
+    var audio =$("#musicForGame").get(0);
+    if (audio.paused) {
+        audio.play();
+    }else{
+        audio.pause();
+		audio.currentTime = 0
+		audio.play();
+    }
+}
 
 
 
@@ -96,7 +115,7 @@ function Start() {
 	// need to add variable here
 	///
 	//add Audio
-	audio = new Audio('Pac-manMusic.mp3');
+	audio = new Audio('Pac-manMusic.MP3');
 	audio.loop = true;
 	audio.play();
 	//board is 10 X 10 = 100 cells
@@ -237,6 +256,18 @@ function Draw() {
 	canvas.width = canvas.width; //clean board
 	lblScore.value = score; // set score from HTML
 	lblTime.value = time_elapsed; //set time from HTML
+	lblLives.value=lives;
+	lblName.value=PlayerName;
+
+	lbTime.value=time_seconds;
+	lbFood.value=pill_number;
+
+	lb5.value=pill_5Color;
+	lb15.value=pill_15Color;
+	lb25.value=pill_25Color;
+
+
+
 	// draw all board
 	for (var i = 0; i < 10; i++) {
 		for (var j = 0; j < 10; j++) {
@@ -366,7 +397,13 @@ function UpdatePosition() {
     }
     if (board[shape.i][shape.j] === 125) {
         score+=25;
-    }
+	}
+	
+	lbArrowUp.value=up_key;
+	lbArrowDown.value=down_key;
+	lbArrowRight.value=right_key;
+	lbArrowLeft.value=left_key;
+	lbMonsters.value=monster_number;
 
 
 	board[shape.i][shape.j] = OUR_PACMAN;
@@ -407,6 +444,8 @@ function getRandomColor() {
 
 
 function settings_randomValues() {
+
+
 
 
    var randomValues = {
