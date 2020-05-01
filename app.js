@@ -6,6 +6,11 @@ const FOOD = 1;
 const OUR_PACMAN = 2;
 const MONSTER = 3;
 const WALL = 4;
+const MONSTER_AND_FOOD = 5; // roman
+const MOVE_UP = 2; // roman
+const MOVE_DOWN = 1; // roman
+const MOVE_LEFT = 3; // roman
+const MOVE_RIGHT = 4; // roman
 
 var context;
 var shape = new Object();
@@ -15,7 +20,11 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
+var moveMonster = 0; //roman
 var lives;
+var monster_alive; // roman
+var drawWayOfPacman = 1;//roman
+var monster_arr;
 
 // game settings
 var up_key;
@@ -25,7 +34,7 @@ var right_key;
 
 var pill_number;
 var time_seconds;
-var monster_number;
+var monster_number = 1;
 
 var pill_5Color;
 var pill_15Color;
@@ -34,25 +43,25 @@ var pill_25Color;
 /**
  * on click (save settings) move to Game
  */
-function moveToGame(){
+function moveToGame() {
 	$("div").hide();
-  
+
 	$("#header").show();
 	$("#header-left").show();
 	$("#header-center").show();
 	$("#header-right").show();
-  
+
 	$("#sidenav").show();
-  
+
 	$("#score").show();
 	$("#time").show();
 	$("#game").show();
-	
+
 	context = canvas.getContext("2d");
 	saveSettings();
 	Start();
-	
-  };
+
+};
 
 
 
@@ -66,9 +75,9 @@ function Start() {
 	// need to add variable here
 	///
 	//add Audio
-    audio = new Audio('Pac-manMusic.mp3');
-    audio.loop = true;
-    audio.play();
+	audio = new Audio('Pac-manMusic.mp3');
+	audio.loop = true;
+	audio.play();
 	//board is 10 X 10 = 100 cells
 	board = new Array();
 	score = 0;
@@ -81,6 +90,8 @@ function Start() {
 	var pacman_remain = 1;
 	start_time = new Date();
 
+	monster_alive = monster_number; // roman
+	monster_arr = new Array(monster_alive); // roman
 
 	for (var i = 0; i < 10; i++) {
 		//new array at board[i]
@@ -95,13 +106,25 @@ function Start() {
 				(i == 6 && j == 2)
 			) {
 				board[i][j] = WALL;
-			} else {
+			}
+			//roman
+			else if (i == 0 && j == 0 && monster_number > 0 ||
+				i == 9 && j == 0 && monster_number > 0 ||
+				i == 0 && j == 9 && monster_number > 0 ||
+				i == 9 && j == 9 && monster_number > 0) {
+				board[i][j] = MONSTER;
+				monster_arr[monster_alive - monster_number] = new Object;
+				monster_arr[monster_alive - monster_number].i = i;
+				monster_arr[monster_alive - monster_number].j = j;
+				monster_number--;
+			}
+			else {
 				//put food on board randomly
 				var randomNum = Math.random();
 				if (randomNum <= (1.0 * food_remain) / cnt) {
 					food_remain--;
 					board[i][j] = FOOD;
-				} 
+				}
 				// if the pacman is not in board find a place for him
 				else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
 					//save where is pacman
@@ -130,7 +153,7 @@ function Start() {
 	// save the last button that user clikced on him
 	addEventListener(
 		"keydown",
-		function(e) {
+		function (e) {
 			keysDown[e.keyCode] = true;
 		},
 		false
@@ -138,7 +161,7 @@ function Start() {
 	// if some button was relesed
 	addEventListener(
 		"keyup",
-		function(e) {
+		function (e) {
 			keysDown[e.keyCode] = false;
 		},
 		false
@@ -160,19 +183,19 @@ function findRandomEmptyCell(board) {
 	}
 	return [i, j];
 }
-
+// roman
 function GetKeyPressed() {
 	if (keysDown[38]) {
-		return 1;
+		return MOVE_UP;
 	}
 	if (keysDown[40]) {
-		return 2;
+		return MOVE_DOWN;
 	}
 	if (keysDown[37]) {
-		return 3;
+		return MOVE_LEFT;
 	}
 	if (keysDown[39]) {
-		return 4;
+		return MOVE_RIGHT;
 	}
 }
 
@@ -188,16 +211,9 @@ function Draw() {
 			center.x = i * 60 + 30;
 			center.y = j * 60 + 30;
 			//draw pacman
+			let wayOfPacman = GetKeyPressed();
 			if (board[i][j] == OUR_PACMAN) {
-				context.beginPath();
-				context.arc(center.x, center.y, 30 /* yellow radiuos */, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
-				context.lineTo(center.x, center.y);
-				context.fillStyle = pac_color; //color
-				context.fill();
-				context.beginPath();
-				context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
-				context.fillStyle = "black"; //color of eye
-				context.fill();
+				drawPacmanByKeyPressed(wayOfPacman, center);
 			} else if (board[i][j] == FOOD) {
 				//draw food
 				context.beginPath();
@@ -210,43 +226,71 @@ function Draw() {
 				context.rect(center.x - 30, center.y - 30, 60, 60); // fill all the cell 60X60 px
 				context.fillStyle = "grey"; //color
 				context.fill();
+			} else if (board[i][j] == MONSTER || board[i][j] == MONSTER_AND_FOOD) // roman
+			{
+				//draw monster
+				//roman
+				drawMonster(center.x - 30, center.y - 30, 60, 60);
 			}
 		}
 	}
 }
 
+// roman
 function UpdatePosition() {
-	board[shape.i][shape.j] = 0;
+	// clear the sell - there was pacman
+	board[shape.i][shape.j] = EMPTY_CELL;
+	//roman
+	//back to normal for monster (empty / food)
 	// Get`s the key pressed
 	var x = GetKeyPressed();
-	//down
-	if (x == 1) {
+	if (x == MOVE_UP) {
 		if (shape.j > 0 && board[shape.i][shape.j - 1] != 4) {
 			shape.j--;
 		}
 	}
-	//up
-	if (x == 2) {
+	if (x == MOVE_DOWN) {
 		if (shape.j < 9 && board[shape.i][shape.j + 1] != 4) {
 			shape.j++;
 		}
 	}
-	//left
-	if (x == 3) {
+	if (x == MOVE_LEFT) {
 		if (shape.i > 0 && board[shape.i - 1][shape.j] != 4) {
 			shape.i--;
 		}
 	}
-	//right
-	if (x == 4) {
+	if (x == MOVE_RIGHT) {
 		if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {
 			shape.i++;
 		}
 	}
+	//now i and j where pacman moves!
 	//if there is food, score + 1
 	if (board[shape.i][shape.j] == FOOD) {
 		score++;
 	}
+	//if there is monster
+	//life --
+	//score -X
+	//reset
+	//draw the pacman!
+	//roman
+	if (moveMonster % 3 == 0) {
+		for( let k =0; k < monster_arr.length ; k++)
+	{
+		if(board[monster_arr[k].i][monster_arr[k].j] == MONSTER_AND_FOOD)
+		{
+			board[monster_arr[k].i][monster_arr[k].j] = FOOD;
+		}
+		else
+		{
+			board[monster_arr[k].i][monster_arr[k].j] = EMPTY_CELL;
+		}
+	}
+		moveMonster = 0;
+		UpdatePositionMonster();
+	}
+	moveMonster++; //roman
 	board[shape.i][shape.j] = OUR_PACMAN;
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
@@ -274,53 +318,53 @@ function UpdatePosition() {
 // controls array
 var controls = [];
 function getRandomColor() {
-    var letters = '0123456789ABCDEF';
-    var color = '#';
-    for (var i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  }
+	var letters = '0123456789ABCDEF';
+	var color = '#';
+	for (var i = 0; i < 6; i++) {
+		color += letters[Math.floor(Math.random() * 16)];
+	}
+	return color;
+}
 
 
 
 function settings_randomValues() {
 
 
-    var randomValues = {
-        up_key : 'ArrowUp',
-        down_key : 'ArrowDown',
-        left_key : 'ArrowLeft',
-        right_key : 'ArrowRight',
+	var randomValues = {
+		up_key: 'ArrowUp',
+		down_key: 'ArrowDown',
+		left_key: 'ArrowLeft',
+		right_key: 'ArrowRight',
 
-       pill_5Points:  getRandomColor(),
-       pill_15Points: getRandomColor(),
-       pill_25Points: getRandomColor(),
-    
-        pill_number : 50 + Math.floor(Math.random() * 41), // return a number between 50-90
-        time_seconds : 60 + Math.floor(Math.random() * 120),
-        monster_number : 1 + Math.floor(Math.random() * 3), // return a number between 1-3
-        tick : 0,
-        lives : 3,
-    }
+		pill_5Points: getRandomColor(),
+		pill_15Points: getRandomColor(),
+		pill_25Points: getRandomColor(),
 
-    
-
-    // up_key = rand["up_key"];
-    $("#up_value").html(randomValues["up_key"]);
-    $("#left_value").html(randomValues["left_key"]);
-    $("#down_value").html(randomValues["down_key"]);
-    $("#right_value").html(randomValues["right_key"]);
+		pill_number: 50 + Math.floor(Math.random() * 41), // return a number between 50-90
+		time_seconds: 60 + Math.floor(Math.random() * 120),
+		monster_number: 1 + Math.floor(Math.random() * 3), // return a number between 1-3
+		tick: 0,
+		lives: 3,
+	}
 
 
-    $("#settings_numOfBalls").val(randomValues["pill_number"]);
-    $("#settings_timeToPlay").val(randomValues["time_seconds"]);
-    $("#settings_numOfMonsters").val(randomValues["monster_number"]);
+
+	// up_key = rand["up_key"];
+	$("#up_value").html(randomValues["up_key"]);
+	$("#left_value").html(randomValues["left_key"]);
+	$("#down_value").html(randomValues["down_key"]);
+	$("#right_value").html(randomValues["right_key"]);
 
 
-    $("#settings_5Points").val(randomValues["pill_5Points"]);
-    $("#settings_15Points").val(randomValues["pill_15Points"]);
-    $("#settings_25Points").val(randomValues["pill_25Points"]);
+	$("#settings_numOfBalls").val(randomValues["pill_number"]);
+	$("#settings_timeToPlay").val(randomValues["time_seconds"]);
+	$("#settings_numOfMonsters").val(randomValues["monster_number"]);
+
+
+	$("#settings_5Points").val(randomValues["pill_5Points"]);
+	$("#settings_15Points").val(randomValues["pill_15Points"]);
+	$("#settings_25Points").val(randomValues["pill_25Points"]);
 
 
 
@@ -329,54 +373,54 @@ function settings_randomValues() {
 
 var currentDirection = null;
 
-document.addEventListener('keydown', function(event){
+document.addEventListener('keydown', function (event) {
 
 
-    if ( currentDirection != null){
-        let keyValue = event.key;
-        if(keyValue !== 'p' && keyValue !== ' ' && keyValue !== 'Enter'){
+	if (currentDirection != null) {
+		let keyValue = event.key;
+		if (keyValue !== 'p' && keyValue !== ' ' && keyValue !== 'Enter') {
 
-            //document.getElementById("settings_" + currentDirection + "Key").innerHTML = keyValue;
-            document.getElementById("settings_" + currentDirection + "Key").style.background='#ffff00';
-        }
+			//document.getElementById("settings_" + currentDirection + "Key").innerHTML = keyValue;
+			document.getElementById("settings_" + currentDirection + "Key").style.background = '#ffff00';
+		}
 
 
-    }
+	}
 
-    currentDirection = null;
-} );
+	currentDirection = null;
+});
 
 
 function getGameControl(event, id) {
-    if (id === "up") {
-        document.getElementById("up_value").innerHTML = event.key;
-        
-    }
-    else if (id === "down") {
-        document.getElementById("down_value").innerHTML = event.key;
-       
-    }
-    else if (id === "right") {
-        document.getElementById("right_value").innerHTML = event.key;
-        
-    }
-    else if (id === "left") {
-        document.getElementById("left_value").innerHTML = event.key;
-        
-    }
-  }
+	if (id === "up") {
+		document.getElementById("up_value").innerHTML = event.key;
+
+	}
+	else if (id === "down") {
+		document.getElementById("down_value").innerHTML = event.key;
+
+	}
+	else if (id === "right") {
+		document.getElementById("right_value").innerHTML = event.key;
+
+	}
+	else if (id === "left") {
+		document.getElementById("left_value").innerHTML = event.key;
+
+	}
+}
 
 
 
 
 
-function setCurDirection( direction){
-    document.getElementById("settings_rightKey").style.background='yellow';
-    document.getElementById("settings_leftKey").style.background='yellow';
-    document.getElementById("settings_upKey").style.background='yellow';
-    document.getElementById("settings_downKey").style.background='yellow';
-    document.getElementById("settings_" + direction + "Key").style.background='#33ccff';
-    //currentDirection = direction;
+function setCurDirection(direction) {
+	document.getElementById("settings_rightKey").style.background = 'yellow';
+	document.getElementById("settings_leftKey").style.background = 'yellow';
+	document.getElementById("settings_upKey").style.background = 'yellow';
+	document.getElementById("settings_downKey").style.background = 'yellow';
+	document.getElementById("settings_" + direction + "Key").style.background = '#33ccff';
+	//currentDirection = direction;
 }
 
 
@@ -386,33 +430,175 @@ function setCurDirection( direction){
 
 function saveSettings() {
 
-    if ($("#up_value").html() === '-1' || $("#down_value").html() === '-1' ||
-        $("#right_value").html() === '-1' || $("#left_value").html() === '-1'){
-        alert("Minus 1 is not a valid key");
-        return;
-    }
+	if ($("#up_value").html() === '-1' || $("#down_value").html() === '-1' ||
+		$("#right_value").html() === '-1' || $("#left_value").html() === '-1') {
+		alert("Minus 1 is not a valid key");
+		return;
+	}
 
-    up_key = $("#up_value").html();
-    down_key = $("#down_value").html();
-    left_key = $("#left_value").html();
-    right_key = $("#right_value").html();
-
-
-    if ($("#settings_numOfBalls").val() === '' || $("#settings_timeToPlay").val() === '' || $("#settings_numOfMonsters").val() === ''){
-        showPopup("Please fill all the fields");
-        return;
-    }
+	up_key = $("#up_value").html();
+	down_key = $("#down_value").html();
+	left_key = $("#left_value").html();
+	right_key = $("#right_value").html();
 
 
-    pill_number = $("#settings_numOfBalls").val();
-    time_seconds = $("#settings_timeToPlay").val();
-    monster_number = $("#settings_numOfMonsters").val();
+	if ($("#settings_numOfBalls").val() === '' || $("#settings_timeToPlay").val() === '' || $("#settings_numOfMonsters").val() === '') {
+		showPopup("Please fill all the fields");
+		return;
+	}
 
-    pill_5Color = $("#settings_5Points").val();
-    pill_15Color = $("#settings_15Points").val();
+
+	pill_number = $("#settings_numOfBalls").val();
+	time_seconds = $("#settings_timeToPlay").val();
+	monster_number = $("#settings_numOfMonsters").val();
+
+	pill_5Color = $("#settings_5Points").val();
+	pill_15Color = $("#settings_15Points").val();
 	pill_25Color = $("#settings_25Points").val();
-	
+
+}
 
 
+//roman
+function drawMonster(center_x, center_y, width_m, height_m) {
+	let imageObj = new Image();
+	let monster_path = 'Photos/pacman-ghosts/pacman-ghost4.png';
+	imageObj.src = monster_path;
+	context.drawImage(imageObj, center_x, center_y, width_m, height_m);
+}
 
+//roman
+/**
+ * return the value to where to move
+ * our pacman click on moster before monster moves!
+ * so monster canot move to wall or to "eat" pacman
+ * @param {*} monster_x place of monster
+ * @param {*} monster_y place of monster
+ * @param {*} pacman_x place of pacman
+ * @param {*} pacman_y place of pacman
+ */
+function whereToMoveMonster(pacman_x, pacman_y, monster_x, monster_y) {
+	let abs_x = Math.abs(monster_x - pacman_x);
+	let abs_y = Math.abs(monster_y - pacman_y);
+	if (abs_x > abs_y) {
+		if (monster_x > pacman_x) {
+			if (checkIfThereIsAWall(monster_x - 1, monster_y)) {
+				return moveRandomly(MOVE_LEFT);
+			}
+			else {
+				return MOVE_LEFT;
+			}
+		}
+		else {
+			if (checkIfThereIsAWall(monster_x + 1, monster_y)) {
+				return moveRandomly(MOVE_RIGHT);
+			}
+			else {
+				return MOVE_RIGHT;
+			}
+		}
+	}
+	else {
+		if (monster_y > pacman_y) {
+			if (checkIfThereIsAWall(monster_x, monster_y - 1)) {
+				return moveRandomly(MOVE_UP);
+			}
+			else {
+				return MOVE_UP;
+			}
+		}
+		else {
+			if (checkIfThereIsAWall(monster_x, monster_y + 1)) {
+				return moveRandomly(MOVE_DOWN);
+			}
+			else {
+				return MOVE_DOWN;
+			}
+		}
+	}
+}
+
+function moveOneMonster(monster_x) {
+	let monster_move = whereToMoveMonster(shape.i, shape.j, monster_x.i, monster_x.j);
+	let checkForFood = false;
+	if (monster_move == MOVE_UP) {
+		checkForFood = checkIfThereIsFood(monster_x.i, monster_x.j - 1);
+		monster_x.j--;
+	}
+	else if (monster_move == MOVE_DOWN) {
+		checkForFood = checkIfThereIsFood(monster_x.i, monster_x.j + 1);
+		monster_x.j++;
+	}
+	else if (monster_move == MOVE_RIGHT) {
+		checkForFood = checkIfThereIsFood(monster_x.i + 1, monster_x.j);
+		monster_x.i++;
+	}
+	else if (monster_move == MOVE_LEFT) {
+		checkForFood = checkIfThereIsFood(monster_x.i - 1, monster_x.j);
+		monster_x.i--;
+	}
+	drawMonsterOnBoard(monster_x, checkForFood);
+}
+
+function drawMonsterOnBoard(monster_x, thereWasFood) {
+	if (thereWasFood) {
+		board[monster_x.i][monster_x.j] = MONSTER_AND_FOOD;
+	}
+	else {
+		board[monster_x.i][monster_x.j] = MONSTER;
+	}
+}
+
+function UpdatePositionMonster() {
+	for (let i = 0; i < monster_alive; i++) {
+		moveOneMonster(monster_arr[i]);
+	}
+}
+
+function checkIfThereIsAWall(x, y) {
+	if (board[x][y] == WALL) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+function checkIfThereIsFood(x, y) {
+	if (board[x][y] == FOOD) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+function moveRandomly(exept) {
+	let chosenMove = exept;
+	while (chosenMove == exept) {
+		chosenMove = (Math.floor(Math.random() * 4) + 1);
+	}
+	return chosenMove;
+}
+
+function drawPacmanByKeyPressed(way, center) {
+	//first 4 = DOWN
+	//secound 4 = UP
+	// third 4 = LEFT
+	// fourth 4 = RIGHT
+	var valuesForDraw = [0.65, 2.35, 15, -5, 1.65, 3.35, -15, -5, 1.15, 2.85, -5, -15, 0.15, 1.85, 5, -15];
+	if(way != null)
+	{
+		drawWayOfPacman = way;
+	}
+	let beginFrom = (drawWayOfPacman - 1) * 4;
+	context.beginPath();
+	context.arc(center.x, center.y, 30 /* yellow radiuos */, (valuesForDraw[beginFrom]) * Math.PI, (valuesForDraw[beginFrom + 1]) * Math.PI); // half circle
+	context.lineTo(center.x, center.y);
+	context.fillStyle = pac_color; //color
+	context.fill();
+	context.beginPath();
+	context.arc(center.x + (valuesForDraw[beginFrom + 2]), center.y + (valuesForDraw[beginFrom + 3]), 5, 0, 2 * Math.PI); // circle
+	context.fillStyle = "black"; //color of eye
+	context.fill();
 }
