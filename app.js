@@ -247,15 +247,7 @@ function Draw() {
 			//draw pacman
 			let wayOfPacman = GetKeyPressed();
 			if (board[i][j] == OUR_PACMAN) {
-				context.beginPath();
-				context.arc(center.x, center.y, 30 /* yellow radiuos */, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
-				context.lineTo(center.x, center.y);
-				context.fillStyle = pac_color; //color
-				context.fill();
-				context.beginPath();
-				context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
-				context.fillStyle = "black"; //color of eye
-				context.fill();
+				drawPacmanByKeyPressed(wayOfPacman, center); //roman
 			}
 		//drae food
 		 else if (board[i][j] === 105) {
