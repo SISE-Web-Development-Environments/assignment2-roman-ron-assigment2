@@ -26,24 +26,45 @@ var monster_alive; // roman
 var drawWayOfPacman = 1;//roman
 var monster_arr;
 
+
+
 // game settings
-var up_key;
-var down_key;
-var left_key;
-var right_key;
 
-var pill_number;
-var time_seconds;
-var monster_number = 1;
+// var up_key;
+// var down_key;
+// var left_key;
+// var right_key;
 
-var pill_5Color;
-var pill_15Color;
-var pill_25Color;
+// var pill_number;
+// var time_seconds;
+// var monster_number;
+
+// var pill_5Color;
+// var pill_15Color;
+// var pill_25Color;
+
+
+var up_key = 'ArrowUp';
+var down_key = 'ArrowDown';
+var left_key = 'ArrowLeft';
+var right_key = 'ArrowRight';
+var pill_5Color = '#00cc00'; // green
+var pill_15Color = '#ff3300'; // red
+var pill_25Color = '#0000ff'; // blue
+
+var pill_number=50 ; // return a number between 50-90
+var time_seconds = 60;
+var monster_number=1; // return a number between 1-3
+
+var controls = [];
+///
+
 
 /**
  * on click (save settings) move to Game
  */
-function moveToGame() {
+function moveToGame(){
+	saveSettings();
 	$("div").hide();
 
 	$("#header").show();
@@ -58,7 +79,7 @@ function moveToGame() {
 	$("#game").show();
 
 	context = canvas.getContext("2d");
-	saveSettings();
+
 	Start();
 
 };
@@ -106,9 +127,7 @@ function Start() {
 				(i == 6 && j == 2)
 			) {
 				board[i][j] = WALL;
-			}
-			//roman
-			else if (i == 0 && j == 0 && monster_number > 0 ||
+			} else if (i == 0 && j == 0 && monster_number > 0 ||
 				i == 9 && j == 0 && monster_number > 0 ||
 				i == 0 && j == 9 && monster_number > 0 ||
 				i == 9 && j == 9 && monster_number > 0) {
@@ -118,33 +137,47 @@ function Start() {
 				monster_arr[monster_alive - monster_number].j = j;
 				monster_number--;
 			}
-			else {
+       else {
+				var pill_5_number = Math.floor(pill_number * 0.6);
+				var pill_15_number = Math.floor(pill_number * 0.3);
+				var pill_25_number = Math.floor(pill_number * 0.1);
 				//put food on board randomly
 				var randomNum = Math.random();
-				if (randomNum <= (1.0 * food_remain) / cnt) {
+                if (randomNum <= 1.0 * food_remain / cnt) {
+                    if (randomNum < 1.0 * pill_25_number / food_remain) {
+                        pill_25_number--;
+                        board[i][j] = 125;
+					}
+
+                    else if (randomNum < 1.0 * pill_15_number / food_remain) {
+                        pill_15_number--;
+                        board[i][j] = 115;
+                    }
+                    else if (randomNum < 1.0 * pill_5_number / food_remain){
+                        pill_5_number--;
+                        board[i][j] = 105;
+                    }
 					food_remain--;
-					board[i][j] = FOOD;
-				}
-				// if the pacman is not in board find a place for him
-				else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
+					// if the pacman is not in board find a place for him
+                } else if (randomNum < 1.0 * (pacman_remain + food_remain) / cnt) {
 					//save where is pacman
-					shape.i = i;
-					shape.j = j;
-					// we draw first time the pacman
+                    shape.i = i;
+                    shape.j = j;
 					pacman_remain--;
-					board[i][j] = OUR_PACMAN;
-				} else {
-					board[i][j] = EMPTY_CELL;
+					// we draw first time the pacman
+                    board[i][j] = OUR_PACMAN;
+                } else {
+                    board[i][j] = EMPTY_CELL;
 				}
-				//not important -> for finishing the run
-				cnt--;
-			}
+				 //not important -> for finishing the run
+                cnt--;
+            }
 		}
 	}
 	// if we got more food to put on board
 	while (food_remain > 0) {
 		var emptyCell = findRandomEmptyCell(board);
-		board[emptyCell[0]][emptyCell[1]] = FOOD;
+		board[emptyCell[0]][emptyCell[1]] = 105;
 		food_remain--;
 	}
 	keysDown = {};
@@ -153,16 +186,16 @@ function Start() {
 	// save the last button that user clikced on him
 	addEventListener(
 		"keydown",
-		function (e) {
-			keysDown[e.keyCode] = true;
+		function(e) {
+			keysDown[e.key] = true;
 		},
 		false
 	);
 	// if some button was relesed
 	addEventListener(
 		"keyup",
-		function (e) {
-			keysDown[e.keyCode] = false;
+		function(e) {
+			keysDown[e.key] = false;
 		},
 		false
 	);
@@ -172,7 +205,7 @@ function Start() {
 
 /**
  * find empty cell on board
- * @param {*} board = all the board 
+ * @param {*} board = all the board
  */
 function findRandomEmptyCell(board) {
 	var i = Math.floor(Math.random() * 9 + 1);
@@ -185,16 +218,17 @@ function findRandomEmptyCell(board) {
 }
 // roman
 function GetKeyPressed() {
-	if (keysDown[38]) {
+	if (keysDown[up_key]) {//U
 		return MOVE_UP;
 	}
-	if (keysDown[40]) {
+	if (keysDown[down_key]) {//D
 		return MOVE_DOWN;
 	}
-	if (keysDown[37]) {
+
+	if (keysDown[left_key]) {//L
 		return MOVE_LEFT;
 	}
-	if (keysDown[39]) {
+	if (keysDown[right_key]) {//R
 		return MOVE_RIGHT;
 	}
 }
@@ -213,14 +247,46 @@ function Draw() {
 			//draw pacman
 			let wayOfPacman = GetKeyPressed();
 			if (board[i][j] == OUR_PACMAN) {
-				drawPacmanByKeyPressed(wayOfPacman, center);
-			} else if (board[i][j] == FOOD) {
-				//draw food
 				context.beginPath();
-				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
-				context.fillStyle = "blue"; //color
+				context.arc(center.x, center.y, 30 /* yellow radiuos */, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+				context.lineTo(center.x, center.y);
+				context.fillStyle = pac_color; //color
 				context.fill();
-			} else if (board[i][j] == WALL) {
+				context.beginPath();
+				context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+				context.fillStyle = "black"; //color of eye
+				context.fill();
+			}
+		//drae food
+		 else if (board[i][j] === 105) {
+			context.beginPath();
+			context.arc(center.x, center.y, 5, 0, 2 * Math.PI); // circle
+			context.fillStyle = pill_5Color; //color
+			context.fill();
+		}
+		else if (board[i][j] === 115) {
+			context.beginPath();
+			context.arc(center.x, center.y, 7, 0, 2 * Math.PI); // circle
+			context.fillStyle = pill_15Color; //color
+
+			context.fill();
+		}
+		else if (board[i][j] === 125) {
+			context.beginPath();
+			context.arc(center.x, center.y, 10, 0, 2 * Math.PI); // circle
+			context.fillStyle = pill_25Color; //color
+
+			context.fill();
+		}
+
+			// else if (board[i][j] == FOOD) {
+			// 	//draw food
+			// 	context.beginPath();
+			// 	context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+			// 	context.fillStyle = "blue"; //color
+			// 	context.fill();
+			// }
+			 else if (board[i][j] == WALL) {
 				//draw wall
 				context.beginPath();
 				context.rect(center.x - 30, center.y - 30, 60, 60); // fill all the cell 60X60 px
@@ -232,6 +298,7 @@ function Draw() {
 				//roman
 				drawMonster(center.x - 30, center.y - 30, 60, 60);
 			}
+
 		}
 	}
 }
@@ -269,28 +336,39 @@ function UpdatePosition() {
 	if (board[shape.i][shape.j] == FOOD) {
 		score++;
 	}
-	//if there is monster
-	//life --
-	//score -X
-	//reset
-	//draw the pacman!
-	//roman
-	if (moveMonster % 3 == 0) {
-		for( let k =0; k < monster_arr.length ; k++)
-	{
-		if(board[monster_arr[k].i][monster_arr[k].j] == MONSTER_AND_FOOD)
-		{
-			board[monster_arr[k].i][monster_arr[k].j] = FOOD;
-		}
-		else
-		{
-			board[monster_arr[k].i][monster_arr[k].j] = EMPTY_CELL;
-		}
-	}
-		moveMonster = 0;
-		UpdatePositionMonster();
-	}
-	moveMonster++; //roman
+  //if there is monster
+  //life --
+  //score -X
+  //reset
+  //draw the pacman!
+  //roman
+  if (moveMonster % 3 == 0) {
+    for( let k =0; k < monster_arr.length ; k++)
+  {
+    if(board[monster_arr[k].i][monster_arr[k].j] == MONSTER_AND_FOOD)
+    {
+      board[monster_arr[k].i][monster_arr[k].j] = FOOD;
+    }
+    else
+    {
+      board[monster_arr[k].i][monster_arr[k].j] = EMPTY_CELL;
+    }
+  }
+    moveMonster = 0;
+    UpdatePositionMonster();
+  }
+  moveMonster++;
+    if (board[shape.i][shape.j] === 105) {
+        score+=5;
+    }
+    if (board[shape.i][shape.j] === 115) {
+        score+=15;
+    }
+    if (board[shape.i][shape.j] === 125) {
+        score+=25;
+    }
+
+
 	board[shape.i][shape.j] = OUR_PACMAN;
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
@@ -331,23 +409,22 @@ function getRandomColor() {
 function settings_randomValues() {
 
 
-	var randomValues = {
-		up_key: 'ArrowUp',
-		down_key: 'ArrowDown',
-		left_key: 'ArrowLeft',
-		right_key: 'ArrowRight',
+   var randomValues = {
+        up_key : 'ArrowUp',
+        down_key : 'ArrowDown',
+        left_key : 'ArrowLeft',
+        right_key : 'ArrowRight',
 
-		pill_5Points: getRandomColor(),
-		pill_15Points: getRandomColor(),
-		pill_25Points: getRandomColor(),
+       pill_5Points:  getRandomColor(),
+       pill_15Points: getRandomColor(),
+       pill_25Points: getRandomColor(),
 
-		pill_number: 50 + Math.floor(Math.random() * 41), // return a number between 50-90
-		time_seconds: 60 + Math.floor(Math.random() * 120),
-		monster_number: 1 + Math.floor(Math.random() * 3), // return a number between 1-3
-		tick: 0,
-		lives: 3,
-	}
-
+        pill_number : 50 + Math.floor(Math.random() * 41), // return a number between 50-90
+        time_seconds : 60 + Math.floor(Math.random() * 120),
+        monster_number : 1 + Math.floor(Math.random() * 4), // return a number between 1-4
+        tick : 0,
+        lives : 3,
+    }
 
 
 	// up_key = rand["up_key"];
@@ -380,9 +457,9 @@ document.addEventListener('keydown', function (event) {
 		let keyValue = event.key;
 		if (keyValue !== 'p' && keyValue !== ' ' && keyValue !== 'Enter') {
 
-			//document.getElementById("settings_" + currentDirection + "Key").innerHTML = keyValue;
-			document.getElementById("settings_" + currentDirection + "Key").style.background = '#ffff00';
-		}
+            document.getElementById("settings_" + currentDirection + "Key").innerHTML = keyValue;
+            document.getElementById("settings_" + currentDirection + "Key").style.background='#ffff00';
+        }
 
 
 	}
@@ -392,35 +469,40 @@ document.addEventListener('keydown', function (event) {
 
 
 function getGameControl(event, id) {
-	if (id === "up") {
+	var x = event.which || event.keyCode;
+    if (id === "up") {
 		document.getElementById("up_value").innerHTML = event.key;
 
-	}
-	else if (id === "down") {
+
+
+
+    }
+    else if (id === "down") {
 		document.getElementById("down_value").innerHTML = event.key;
 
-	}
-	else if (id === "right") {
+
+    }
+    else if (id === "right") {
 		document.getElementById("right_value").innerHTML = event.key;
 
-	}
-	else if (id === "left") {
+
+    }
+    else if (id === "left") {
 		document.getElementById("left_value").innerHTML = event.key;
-
-	}
-}
-
+    }
+  }
 
 
 
 
-function setCurDirection(direction) {
-	document.getElementById("settings_rightKey").style.background = 'yellow';
-	document.getElementById("settings_leftKey").style.background = 'yellow';
-	document.getElementById("settings_upKey").style.background = 'yellow';
-	document.getElementById("settings_downKey").style.background = 'yellow';
-	document.getElementById("settings_" + direction + "Key").style.background = '#33ccff';
-	//currentDirection = direction;
+
+function setCurDirection( direction){
+    document.getElementById("settings_rightKey").style.background='yellow';
+    document.getElementById("settings_leftKey").style.background='yellow';
+    document.getElementById("settings_upKey").style.background='yellow';
+    document.getElementById("settings_downKey").style.background='yellow';
+    document.getElementById("settings_" + direction + "Key").style.background='#33ccff';
+    //currentDirection = direction;
 }
 
 
@@ -430,11 +512,22 @@ function setCurDirection(direction) {
 
 function saveSettings() {
 
-	if ($("#up_value").html() === '-1' || $("#down_value").html() === '-1' ||
-		$("#right_value").html() === '-1' || $("#left_value").html() === '-1') {
-		alert("Minus 1 is not a valid key");
-		return;
-	}
+    // if ($("#up_value").html() === '-1' || $("#down_value").html() === '-1' ||
+    //     $("#right_value").html() === '-1' || $("#left_value").html() === '-1'){
+    //     alert("Minus 1 is not a valid key");
+    //     return;
+    // }
+
+    // up_key = $("#up_value").html();
+    // down_key = $("#down_value").html();
+    // left_key = $("#left_value").html();
+	// right_key = $("#right_value").html();
+
+// 	if ($("#up_value").html() === '-1' || $("#down_value").html() === '-1' ||
+// 	$("#right_value").html() === '-1' || $("#left_value").html() === '-1'){
+// 	alert("Minus 1 is not a valid key");
+// 	return ;
+// }
 
 	up_key = $("#up_value").html();
 	down_key = $("#down_value").html();
@@ -442,10 +535,10 @@ function saveSettings() {
 	right_key = $("#right_value").html();
 
 
-	if ($("#settings_numOfBalls").val() === '' || $("#settings_timeToPlay").val() === '' || $("#settings_numOfMonsters").val() === '') {
-		showPopup("Please fill all the fields");
-		return;
-	}
+    // if ($("#settings_numOfBalls").val() === '' || $("#settings_timeToPlay").val() === '' || $("#settings_numOfMonsters").val() === ''){
+    //     showPopup("Please fill all the fields");
+    //     return ;
+    // }
 
 
 	pill_number = $("#settings_numOfBalls").val();
