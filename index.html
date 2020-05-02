@@ -337,15 +337,20 @@
 		
 		<label  for="lblName"  style="color:#33ccff;"><b>PLAYER:</b></label>
 		<input id="lblName" type="text"  style="width: 10%; background-color: black; color: yellow;"/>
+
+		
 	</td>
 
-	  <td width="25%"></td>
+	  <td width="25%">
+		<button align="left"  id="new_game" onclick="moveToGame()" style="color: blue; background-color: yellow;" ><b>New Game</b></button>
+		<button align="left"  id="new_game" onclick="restart()" style="color: blue;background-color: yellow;"><b>Restart</b></button>
+	  </td>
 
 	</tr>
 	<tr>
 	  <td bordercolor="yellow"><canvas id="canvas" height="600" width="600" style="border-style: solid;
 		border-color: blue;"></canvas></td>
-	  <td> 
+	  <td  > 
 		<h2 style="color: yellow;">Setting:</h2>
 		<p style="color:#33ccff;">
 		<b>
@@ -385,16 +390,14 @@
 		<label for="lb25" >25 points balls:</label>
 		<input id="lb25" class="inputField" type="color"value="#ff0000"><br>
 
+		<!-- <button id="new_game" onclick="moveToGame()" style="color: blue; background-color: yellow;" ><b>New Game</b></button>
+			<button id="new_game" onclick="restart()" style="color: blue;background-color: yellow;"><b>Restart</b></button> -->
+
 
 	</b>
 	</p>
-		
-
 	  </td>
 	</tr>
-	<td><center><button id="new_game" onclick="moveToGame()" style="color: blue; background-color: yellow;" ><b>New Game</b></button>
-		<button id="new_game" onclick="restart()" style="color: blue;background-color: yellow;"><b>Restart</b></button></center></td>
-	<td ></td>
   </table>
 
 </div>

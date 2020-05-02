@@ -126,11 +126,21 @@ function Start() {
 		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
 		for (var j = 0; j < 10; j++) {
 			if (
+				
 				(i == 3 && j == 3) ||
-				(i == 3 && j == 4) ||
-				(i == 3 && j == 5) ||
-				(i == 6 && j == 1) ||
-				(i == 6 && j == 2)
+				(i == 4 && j == 3) ||
+				(i == 5 && j == 3) ||
+
+				 (i == 2 && j == 5) ||
+				 (i == 2 && j == 6) ||
+				 (i == 2 && j == 7) ||
+
+				(i == 6 && j == 5) ||
+				(i == 7 && j == 5) ||
+				(i == 8 && j == 5) 
+
+
+				
 			) {
 				board[i][j] = WALL;
 			} else if ((i == 0 && j == 0 && monster_number > 0) ||
@@ -296,12 +306,22 @@ function Draw() {
 			// 	context.fillStyle = "blue"; //color
 			// 	context.fill();
 			// }
-			else if (board[i][j] == WALL) {
+			else if (board[i][j] == WALL && i>=j) {
 				//draw wall
 				context.beginPath();
-				context.rect(center.x - 30, center.y - 30, 60, 60); // fill all the cell 60X60 px
+				context.rect(center.x - 30, center.y - 30, 60, 30); // fill all the cell 60X60 px
 				context.fillStyle = "grey"; //color
 				context.fill();
+
+
+				
+			}else if (board[i][j] == WALL && i<j) {
+					//draw wall
+					context.beginPath();
+					context.rect(center.x - 30, center.y - 30, 30, 60); // fill all the cell 60X60 px
+					context.fillStyle = "grey"; //color
+					context.fill();
+
 			} else if (board[i][j] == MONSTER
 				|| board[i][j] == MONSTER_AND_5_FOOD
 				|| board[i][j] == MONSTER_AND_15_FOOD
@@ -309,7 +329,7 @@ function Draw() {
 			{
 				//draw monster
 				//roman
-				drawMonster(center.x - 30, center.y - 30, 60, 60);
+				drawMonster(center.x - 30, center.y - 30, 30, 30);
 			}
 
 		}
@@ -410,11 +430,24 @@ function UpdatePosition() {
 	/**
 	 * Game End
 	 */
-	if (score >= 100) {
+	if (score >= 150) {
+	lblTime.value = time_elapsed; //set time from HTML
+	lblLives.value = lives;
+	lblScore.value = score; // set score from HTML
 		//stop the interval
 		window.clearInterval(interval);
-		window.alert("Game completed");
-	} else {
+		window.alert("Winner!");
+		moveToGame();
+	}else if (time_elapsed==0 || lives==0) {
+		lblTime.value = time_elapsed; //set time from HTML
+		lblLives.value = lives;
+		lblScore.value = score; // set score from HTML
+		//stop the interval
+		window.clearInterval(interval);
+		window.alert("Looser!");
+		moveToGame();
+	}
+	 else {
 		//draw the updated board
 		Draw();
 	}
@@ -705,12 +738,12 @@ function drawPacmanByKeyPressed(way, center) {
 	}
 	let beginFrom = (drawWayOfPacman - 1) * 4;
 	context.beginPath();
-	context.arc(center.x, center.y, 30 /* yellow radiuos */, (valuesForDraw[beginFrom]) * Math.PI, (valuesForDraw[beginFrom + 1]) * Math.PI); // half circle
+	context.arc(center.x, center.y, 20 /* yellow radiuos */, (valuesForDraw[beginFrom]) * Math.PI, (valuesForDraw[beginFrom + 1]) * Math.PI); // half circle
 	context.lineTo(center.x, center.y);
 	context.fillStyle = pac_color; //color
 	context.fill();
 	context.beginPath();
-	context.arc(center.x + (valuesForDraw[beginFrom + 2]), center.y + (valuesForDraw[beginFrom + 3]), 5, 0, 2 * Math.PI); // circle
+	context.arc(center.x + (valuesForDraw[beginFrom + 2]), center.y + (valuesForDraw[beginFrom + 3]), 3, 0, 2 * Math.PI); // circle
 	context.fillStyle = "black"; //color of eye
 	context.fill();
 }
