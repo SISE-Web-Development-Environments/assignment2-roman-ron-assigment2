@@ -15,6 +15,7 @@ const MONSTER_AND_5_FOOD = 11;// roman
 const MONSTER_AND_15_FOOD = 12; // roman
 const MONSTER_AND_25_FOOD = 13; // roman
 const STAY_IN_PLACE = 0; // roman
+const SPEED_OF_MONSTER = 3;
 
 
 var context;
@@ -135,15 +136,13 @@ function Start() {
 				(i == 5 && j == 3) ||
 
 				 (i == 2 && j == 5) ||
-				 (i == 2 && j == 6) ||
-				 (i == 2 && j == 7) ||
+				 (i == 2 && j == 6)
+				//  (i == 2 && j == 7) ||
 
-				(i == 6 && j == 5) ||
-				(i == 7 && j == 5) ||
-				(i == 8 && j == 5) 
+				// (i == 6 && j == 5) ||
+				// (i == 7 && j == 5) ||
+				// (i == 8 && j == 5) 
 
-
-				
 			) {
 				board[i][j] = WALL;
 			} else if ((i == 0 && j == 0 && monster_number > 0) ||
@@ -312,7 +311,7 @@ function Draw() {
 			else if (board[i][j] == WALL && i>=j) {
 				//draw wall
 				context.beginPath();
-				context.rect(center.x - 30, center.y - 30, 60, 30); // fill all the cell 60X60 px
+				context.rect(center.x - 30, center.y - 15, 60, 30); // fill all the cell 60X60 px
 				context.fillStyle = "grey"; //color
 				context.fill();
 
@@ -321,7 +320,7 @@ function Draw() {
 			}else if (board[i][j] == WALL && i<j) {
 					//draw wall
 					context.beginPath();
-					context.rect(center.x - 30, center.y - 30, 30, 60); // fill all the cell 60X60 px
+					context.rect(center.x - 15, center.y - 30, 30, 60); // fill all the cell 60X60 px
 					context.fillStyle = "grey"; //color
 					context.fill();
 
@@ -332,7 +331,7 @@ function Draw() {
 			{
 				//draw monster
 				//roman
-				drawMonster(center.x - 30, center.y - 30, 30, 30);
+				drawMonster(center.x - 15 , center.y -15, 30, 30);
 			}
 
 		}
@@ -371,7 +370,7 @@ function UpdatePosition() {
 	//draw the pacman!
 	//roman
 	moveMonster++;
-	if (moveMonster % 3 == 0) {
+	if (moveMonster % SPEED_OF_MONSTER == 0) {
 		for (let k = 0; k < monster_arr.length; k++) {
 			if (board[monster_arr[k].i][monster_arr[k].j] == MONSTER_AND_5_FOOD) {
 				board[monster_arr[k].i][monster_arr[k].j] = 105;
@@ -412,16 +411,11 @@ function UpdatePosition() {
 	//reset
 	if ( checkIfMonsterEatsPacman() )
 	{
-		//restart
-		// random pacman
-		// monster in the 0,0 0,9 9,0 9,9
-		// life --
 		restartPositionInLose();
 		moveMonster = 0;
 	}
 	else
 	{
-		// continue the game
 		board[shape.i][shape.j] = OUR_PACMAN;
 	}
 
@@ -757,24 +751,6 @@ function checkIfThereIsAWall(x, y) {
 	}
 }
 
-// function moveRandomly(exept) {
-// 	let chosenMove = exept;
-// 	while (chosenMove == exept) {
-// 		chosenMove = (Math.floor(Math.random() * 4) + 1);
-// 	}
-// 	return chosenMove;
-// }
-// function moveRandomly_2Params(exept1, exept2) {
-// 	avalibleMoves = new Array();
-// 	allMoves = [MOVE_DOWN, MOVE_UP, MOVE_LEFT, MOVE_RIGHT];
-// 	for (let i = 0; i < allMoves.length; i++) {
-// 		if (allMoves[i] != (exept1 - 1) && allMoves[i] != (exept2 - 1)) {
-// 			avalibleMoves.push(allMoves[i]);
-// 		}
-// 	}
-// 	return avalibleMoves;
-// }
-
 function drawPacmanByKeyPressed(way, center) {
 	//first 4 = DOWN
 	//secound 4 = UP
@@ -948,4 +924,34 @@ function clearBoardWhenRestart()
 			}
 		}
 	}
+}
+
+function drawStar(cx, cy, spikes, outerRadius, innerRadius) {
+    var rot = Math.PI / 2 * 3;
+    var x = cx;
+    var y = cy;
+    var step = Math.PI / spikes;
+
+    ctx.strokeSyle = "#000";
+    ctx.beginPath();
+    ctx.moveTo(cx, cy - outerRadius)
+    for (i = 0; i < spikes; i++) {
+        x = cx + Math.cos(rot) * outerRadius;
+        y = cy + Math.sin(rot) * outerRadius;
+        ctx.lineTo(x, y)
+        rot += step
+
+        x = cx + Math.cos(rot) * innerRadius;
+        y = cy + Math.sin(rot) * innerRadius;
+        ctx.lineTo(x, y)
+        rot += step
+    }
+    ctx.lineTo(cx, cy - outerRadius)
+    ctx.closePath();
+    ctx.lineWidth=5;
+    ctx.strokeStyle='blue';
+    ctx.stroke();
+    ctx.fillStyle='skyblue';
+    ctx.fill();
+
 }
