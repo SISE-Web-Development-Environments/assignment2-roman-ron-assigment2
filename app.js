@@ -111,7 +111,7 @@ function Start() {
 	//board is 10 X 10 = 100 cells
 	board = new Array();
 	score = 0;
-	lives = 3;
+	lives = 5;
 	pac_color = "yellow";
 	// cnt make the number double
 	var cnt = 100;
@@ -441,35 +441,58 @@ function UpdatePosition() {
 	// 	$("#musicForGame").get(0).pause();
 	// 	$("#endGameLoss").get(0).play();
 	// }
-	function play() {
-		var audio = document.getElementById('audio1');
-		if (audio.paused) {
-			audio.play();
-		}else{
-			audio.currentTime = 0
-		}
-	}
+	// function play() {
+	// 	var audio = document.getElementById('audio1');
+	// 	if (audio.paused) {
+	// 		audio.play();
+	// 	}else{
+	// 		audio.currentTime = 0
+	// 	}
+	// }
 
 	if (score >= 150) {
 		//play();
 		document.getElementById('musicForGame').pause();
 		document.getElementById('endGameWin').currentTime=0;
 		document.getElementById('endGameWin').play();
-		alert("Winner!");
+		alert("Winner!!!");
 		document.getElementById('endGameWin').pause();
 		//stop the interval	
 		window.clearInterval(interval);
 		moveToGame();
-	}else if (time_elapsed==0 || lives==0) {
+		
+	}else if ( lives==0) {
+		
 		//play();
 		document.getElementById('musicForGame').pause();
 		document.getElementById('endGameLoss').currentTime=0;
 		document.getElementById('endGameLoss').play();
-		alert("Looser!");
+		alert("Loser!");
 		document.getElementById('endGameLoss').pause();
 		
 		//stop the interval
 		window.clearInterval(interval);		
+		moveToGame();
+	}else if(time_elapsed<=0 && score < 100){
+		
+		//play();
+		document.getElementById('musicForGame').pause();
+		document.getElementById('endGameLoss').currentTime=0;
+		document.getElementById('endGameLoss').play();
+		alert("You are better than"+ score +"points!");
+		document.getElementById('endGameLoss').pause();
+		
+		//stop the interval
+		window.clearInterval(interval);		
+		moveToGame();
+	}else if(time_elapsed<=0 && score >= 100){
+		document.getElementById('musicForGame').pause();
+		document.getElementById('endGameWin').currentTime=0;
+		document.getElementById('endGameWin').play();
+		alert("Winner!!!");
+		document.getElementById('endGameWin').pause();
+		//stop the interval	
+		window.clearInterval(interval);
 		moveToGame();
 	}
 	 else {

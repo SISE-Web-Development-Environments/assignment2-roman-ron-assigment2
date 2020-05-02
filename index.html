@@ -235,32 +235,33 @@
 			<hr style="width: 20%">
 			<!--            Settings table               -->
 			<table align="center">
-				<!--                new row          -->
-				<tr>
-					<td><label><b>5 Points</b></label></td>
-					<td><input id="settings_5Points" class="inputField" type="color"
-							value="#f1ff33"></td>
-				</tr>
-				<tr></tr>
-				<!--                new row          -->
-				<tr>
-					<td><label><b>15 Points</b></label></td>
-					<td><input id="settings_15Points" class="inputField" type="color"
-							value="#ff0000"></td>
-				</tr>
-				<tr></tr>
-				<!--                new row          -->
-				<tr>
-					<td><label><b>25 Points</b></label></td>
-					<td><input id="settings_25Points" class="inputField" type="color"
-							value="#3352ff"></td>
-				</tr>
 				<tr>
 					
 					<td><label><b>Number of balls: </b></label></td>
 					<td><input id="settings_numOfBalls" class="inputField" type="number" min="50"
 						max="90" name="settings_numOfBalls" style="width: 80%"></td>
 				</tr>
+				<!--                new row          -->
+				<tr>
+					<td><label><b>balls of 5 Points:</b></label></td>
+					<td><input id="settings_5Points" class="inputField" type="color"
+							value="#f1ff33"></td>
+				</tr>
+				<tr></tr>
+				<!--                new row          -->
+				<tr>
+					<td><label><b>balls of 15 Points:</b></label></td>
+					<td><input id="settings_15Points" class="inputField" type="color"
+							value="#ff0000"></td>
+				</tr>
+				<tr></tr>
+				<!--                new row          -->
+				<tr>
+					<td><label><b>balls of 25 Points:</b></label></td>
+					<td><input id="settings_25Points" class="inputField" type="color"
+							value="#3352ff"></td>
+				</tr>
+
 				<tr>
 					
 					<td><label><b>Time to play (sec): </b></label></td>
@@ -356,7 +357,7 @@
 
 	  <td width="25%">
 		<button align="left"  id="new_game" onclick="moveToGame()" style="color: blue; background-color: yellow;" ><b>New Game</b></button>
-		<button align="left"  id="new_game" onclick="restart()" style="color: blue;background-color: yellow;"><b>Restart</b></button>
+		<!-- <button align="left"  id="new_game" onclick="restart()" style="color: blue;background-color: yellow;"><b>Restart</b></button> -->
 	  </td>
 
 	</tr>
