@@ -92,6 +92,7 @@ function restart() {
 
 function play() {
 	var audio = $("#musicForGame").get(0);
+	audio.currentTime = 0;
 	if (audio.paused) {
 		audio.play();
 	} else {
@@ -100,6 +101,8 @@ function play() {
 		audio.play();
 	}
 }
+
+
 
 
 
@@ -430,21 +433,43 @@ function UpdatePosition() {
 	/**
 	 * Game End
 	 */
+	// function playWin() {
+	// 	$("#musicForGame").get(0).pause();
+	// 	$("#endGameWin").get(0).play();
+	// }
+	// function playLoss() {
+	// 	$("#musicForGame").get(0).pause();
+	// 	$("#endGameLoss").get(0).play();
+	// }
+	function play() {
+		var audio = document.getElementById('audio1');
+		if (audio.paused) {
+			audio.play();
+		}else{
+			audio.currentTime = 0
+		}
+	}
+
 	if (score >= 150) {
-	lblTime.value = time_elapsed; //set time from HTML
-	lblLives.value = lives;
-	lblScore.value = score; // set score from HTML
-		//stop the interval
+		//play();
+		document.getElementById('musicForGame').pause();
+		document.getElementById('endGameWin').currentTime=0;
+		document.getElementById('endGameWin').play();
+		alert("Winner!");
+		document.getElementById('endGameWin').pause();
+		//stop the interval	
 		window.clearInterval(interval);
-		window.alert("Winner!");
 		moveToGame();
 	}else if (time_elapsed==0 || lives==0) {
-		lblTime.value = time_elapsed; //set time from HTML
-		lblLives.value = lives;
-		lblScore.value = score; // set score from HTML
+		//play();
+		document.getElementById('musicForGame').pause();
+		document.getElementById('endGameLoss').currentTime=0;
+		document.getElementById('endGameLoss').play();
+		alert("Looser!");
+		document.getElementById('endGameLoss').pause();
+		
 		//stop the interval
-		window.clearInterval(interval);
-		window.alert("Looser!");
+		window.clearInterval(interval);		
 		moveToGame();
 	}
 	 else {
