@@ -15,7 +15,12 @@ const MONSTER_AND_5_FOOD = 11;// roman
 const MONSTER_AND_15_FOOD = 12; // roman
 const MONSTER_AND_25_FOOD = 13; // roman
 const STAY_IN_PLACE = 0; // roman
-const SPEED_OF_MONSTER = 3;
+const SPEED_OF_MONSTER = 3; // roman
+const SPECIAL_STAR_EMPTY = 30; // 0
+const SPECIAL_STAR_5_FOOD = 31; // 105
+const SPECIAL_STAR_15_FOOD = 32; // 115
+const SPECIAL_STAR_25_FOOD = 33; // 125
+
 
 
 var context;
@@ -33,6 +38,11 @@ var drawWayOfPacman = 1;//roman
 var monster_arr;
 var PlayerName = "p";
 var placesForMonster = [0, 0, 0, 9, 9, 0, 9, 9]; // roman
+var specialMonster = 1; // number of special monsters - roman
+var isSpecialStartAlive = true;
+var isSpicealClockEaten = false; // if the special start was eaten
+var star = new Object();// roman
+// var possibleWays = [MOVE_DOWN, MOVE_UP, MOVE_LEFT, MOVE_RIGHT];
 
 
 var up_key = 'ArrowUp';
@@ -117,6 +127,8 @@ function Start() {
 	// cnt make the number double
 	var cnt = 100;
 	var food_remain = pill_number;
+	food_remain--;
+	pill_number--;
 	//only for first draw of pacman - number of pacmans we want to draw -> always 1
 	var pacman_remain = 1;
 	start_time = new Date();
@@ -155,7 +167,14 @@ function Start() {
 				monster_arr[monster_alive - monster_number].j = j;
 				monster_number--;
 			}
+			else if ((monster_alive < 4) && (i == 9 && j == 9) && specialMonster > 0){
+				star.i = 9;
+				star.j = 9;
+				board[i][j] = SPECIAL_STAR_EMPTY;
+				specialMonster--;
+			}
 			else {
+				
 				var pill_5_number = Math.floor(pill_number * 0.6);
 				var pill_15_number = Math.floor(pill_number * 0.3);
 				var pill_25_number = Math.floor(pill_number * 0.1);
@@ -193,6 +212,14 @@ function Start() {
 		}
 	}
 	// if we got more food to put on board
+	if(specialMonster > 0 && monster_alive == 4)
+	{
+		let emptyCellForStart = findRandomEmptyCell(board);
+		board[emptyCellForStart[0]][emptyCellForStart[1]] = SPECIAL_STAR_EMPTY;
+		star.i = emptyCellForStart[0];
+		star.j = emptyCellForStart[1];
+		specialMonster--;
+	}
 	while (food_remain > 0) {
 		var emptyCell = findRandomEmptyCell(board);
 		board[emptyCell[0]][emptyCell[1]] = 105;
@@ -333,6 +360,14 @@ function Draw() {
 				//roman
 				drawMonster(center.x - 15 , center.y -15, 30, 30);
 			}
+			else if (board[i][j] == SPECIAL_STAR_EMPTY
+				||   board[i][j] == SPECIAL_STAR_5_FOOD
+				||   board[i][j] == SPECIAL_STAR_15_FOOD
+				||   board[i][j] == SPECIAL_STAR_25_FOOD)
+				{
+					//draw star
+					drawStar(center.x - 15 , center.y - 15, 30, 30);
+				}
 
 		}
 	}
@@ -369,6 +404,14 @@ function UpdatePosition() {
 	//now i and j where pacman moves!
 	//draw the pacman!
 	//roman
+	if(board[shape.i][shape.j] == SPECIAL_STAR_EMPTY 
+		||  board[shape.i][shape.j] == SPECIAL_STAR_5_FOOD
+		||  board[shape.i][shape.j] == SPECIAL_STAR_15_FOOD
+		||  board[shape.i][shape.j] == SPECIAL_STAR_25_FOOD )
+	{
+		score += 50;
+		isSpecialStartAlive = false;
+	}
 	moveMonster++;
 	if (moveMonster % SPEED_OF_MONSTER == 0) {
 		for (let k = 0; k < monster_arr.length; k++) {
@@ -387,16 +430,25 @@ function UpdatePosition() {
 		}
 		moveMonster = 0;
 		UpdatePositionMonster();
+		if(isSpecialStartAlive)
+		{
+			// update position of the start
+			// clear last - put the food
+			// move randmly one - no walls or monsters
+			// start object
+			UpdatePositionStar();
+		}
 	}
 	if (board[shape.i][shape.j] === 105) {
 		score += 5;
 	}
-	if (board[shape.i][shape.j] === 115) {
+	else if (board[shape.i][shape.j] === 115) {
 		score += 15;
 	}
-	if (board[shape.i][shape.j] === 125) {
+	else if (board[shape.i][shape.j] === 125) {
 		score += 25;
 	}
+	
 
 	lbArrowUp.value = up_key;
 	lbArrowDown.value = down_key;
@@ -801,12 +853,15 @@ function checkIfThereIsMonster(x, y) {
 }
 
 function checkIfPossibleMove(x, y) {
-	if( checkIfThereIsMonster(x, y)
-	 || checkIfThereIsAWall (x, y)
-	 || (x < 0)
+	if( (x < 0)
 	 || (x > 9)
 	 || (y < 0)
-	 || (y > 9))
+	 || (y > 9) )
+	{
+		return false;
+	}
+	else if (checkIfThereIsMonster(x, y)
+	|| checkIfThereIsAWall (x, y))
 	{
 		return false;
 	}
@@ -926,32 +981,114 @@ function clearBoardWhenRestart()
 	}
 }
 
-function drawStar(cx, cy, spikes, outerRadius, innerRadius) {
-    var rot = Math.PI / 2 * 3;
-    var x = cx;
-    var y = cy;
-    var step = Math.PI / spikes;
+//radius 
+//roman
+function drawStar(center_x, center_y, width_m, height_m) {
+	let imageObj2 = new Image();
+	let star_path = 'Photos/start.png';
+	imageObj2.src = star_path;
+	context.drawImage(imageObj2, center_x, center_y, width_m, height_m);
+}
 
-    ctx.strokeSyle = "#000";
-    ctx.beginPath();
-    ctx.moveTo(cx, cy - outerRadius)
-    for (i = 0; i < spikes; i++) {
-        x = cx + Math.cos(rot) * outerRadius;
-        y = cy + Math.sin(rot) * outerRadius;
-        ctx.lineTo(x, y)
-        rot += step
+function whatFoodWasBeforeStart(x, y) {
+	if(board[x][y] == SPECIAL_STAR_EMPTY)
+	{
+		return EMPTY_CELL;
+	}
+	else if(board[x][y] == SPECIAL_STAR_5_FOOD)
+	{
+		return 105;
+	}
+	else if(board[x][y] == SPECIAL_STAR_15_FOOD)
+	{
+		return 115;
+	}
+	else if(board[x][y] == SPECIAL_STAR_25_FOOD)
+	{
+		return 125;
+	}
+}
 
-        x = cx + Math.cos(rot) * innerRadius;
-        y = cy + Math.sin(rot) * innerRadius;
-        ctx.lineTo(x, y)
-        rot += step
-    }
-    ctx.lineTo(cx, cy - outerRadius)
-    ctx.closePath();
-    ctx.lineWidth=5;
-    ctx.strokeStyle='blue';
-    ctx.stroke();
-    ctx.fillStyle='skyblue';
-    ctx.fill();
+function UpdatePositionStar() {
+	board[star.i][star.j] = whatFoodWasBeforeStart(star.i, star.j);
+	var whreToMoveStart = moveRandomlyStar(star.i, star.j);
+	star.i += whreToMoveStart[0];
+	star.j += whreToMoveStart[1];
+	changeStartByFindOfFood(star.i, star.j);
 
+}
+/**
+ * return where to move the star
+ * @param {int} x 
+ * @param {int} y 
+ */
+function moveRandomlyStar(x, y)
+{
+	let possibleWays = new Array();
+	let randomWay = 0;
+	if(checkIfPossibleMove(x + 1 ,y))
+	{
+		possibleWays.push(MOVE_RIGHT);
+	}
+	if(checkIfPossibleMove(x - 1 ,y))
+	{
+		possibleWays.push(MOVE_LEFT);
+	}
+	if(checkIfPossibleMove(x ,y + 1))
+	{
+		possibleWays.push(MOVE_DOWN);
+	}
+	if(checkIfPossibleMove(x ,y - 1))
+	{
+		possibleWays.push(MOVE_UP);
+	}
+	if (possibleWays.length > 0)
+	{
+		randomWay = possibleWays[(Math.floor(Math.random() * possibleWays.length))];
+	}
+	else
+	{
+		return [0, 0];
+	}
+	if (randomWay == MOVE_UP)
+	{
+		return [0, -1];
+	}
+	else if (randomWay == MOVE_DOWN)
+	{
+		return [0, 1];
+	}
+	else if (randomWay == MOVE_LEFT)
+	{
+		return [-1, 0];
+	}
+	else
+	{
+		return [1, 0];
+	}
+}
+
+/**
+ * change the star kind by the food in that cell
+ * @param {*} x - where the star need to move
+ * @param {*} y - where the star need to move
+ */
+function changeStartByFindOfFood(x, y)
+{
+	if(board[x][y] == EMPTY_CELL)
+	{
+		board[x][y] = SPECIAL_STAR_EMPTY;
+	}
+	else if (board[x][y] == 105)
+	{
+		board[x][y] = SPECIAL_STAR_5_FOOD;
+	}
+	else if (board[x][y] == 115)
+	{
+		board[x][y] = SPECIAL_STAR_15_FOOD;
+	}
+	else if (board[x][y] == 125)
+	{
+		board[x][y] = SPECIAL_STAR_25_FOOD;
+	}
 }
