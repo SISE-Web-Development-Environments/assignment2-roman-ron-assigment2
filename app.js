@@ -26,8 +26,7 @@ var monserForSett=0;
 var NumOfFoodSett=0;
 
 var takeClock=false;
-
-
+var flagRandom=false;
 
 var context;
 var shape = new Object();
@@ -51,8 +50,6 @@ var star = new Object();// roman
 var clocksNumber = 1;
 var sppedOfMonster = 3;
 // var possibleWays = [MOVE_DOWN, MOVE_UP, MOVE_LEFT, MOVE_RIGHT];
-
-
 var up_key = 38;
 var down_key = 39;
 var left_key = 40;
@@ -65,14 +62,14 @@ var pill_number = 50;
 var time_seconds = 60;
 var monster_number = 1;
 
-var flagRandom=false;
+
 
 /**
  * on click (save settings) move to Game
  */
 function moveToGame() {
 	takeClock=false;
-	if(!saveSettings() &&flagRandom==false){
+	if(!checkSetting() &&flagRandom==false){
 		$("div").hide();
 
 		$("#header").show();
@@ -84,7 +81,8 @@ function moveToGame() {
 		$("#random_settings").show();
 		$("#save_settings").show();
 	}
-	else if(saveSettings()) {
+	else if(checkSetting()) {
+		saveSettings();
 		$("div").hide();
 
 		$("#header").show();
@@ -108,14 +106,9 @@ function moveToGame() {
 };
 
 function moveToGameAgain() {
-
 	window.clearInterval(interval);
 	moveToGame();
-
-	}
-
-
-
+}
 
 function restart() {
 	$("div").hide();
@@ -187,11 +180,6 @@ function Start() {
 
 				(i == 2 && j == 5) ||
 				(i == 2 && j == 6)
-				//  (i == 2 && j == 7) ||
-
-				// (i == 6 && j == 5) ||
-				// (i == 7 && j == 5) ||
-				// (i == 8 && j == 5) 
 
 			) {
 				board[i][j] = WALL;
@@ -333,9 +321,7 @@ function Draw() {
 	lblName.value = PlayerName;
 
 	lbTime.value = time_seconds;
-	//lbFood.value = pill_number;
 	lbFood.value = NumOfFoodSett;
-	
 	lbMonsters.value=monserForSett;
 
 	lb5.value = pill_5Color;
@@ -357,13 +343,13 @@ function Draw() {
 			//drae food
 			else if (board[i][j] === 105) {
 				context.beginPath();
-				context.arc(center.x, center.y, 5, 0, 2 * Math.PI); // circle
+				context.arc(center.x, center.y, 6, 0, 2 * Math.PI); // circle
 				context.fillStyle = pill_5Color; //color
 				context.fill();
 			}
 			else if (board[i][j] === 115) {
 				context.beginPath();
-				context.arc(center.x, center.y, 7, 0, 2 * Math.PI); // circle
+				context.arc(center.x, center.y, 8, 0, 2 * Math.PI); // circle
 				context.fillStyle = pill_15Color; //color
 
 				context.fill();
@@ -537,25 +523,8 @@ function UpdatePosition() {
 	/**
 	 * Game End
 	 */
-	// function playWin() {
-	// 	$("#musicForGame").get(0).pause();
-	// 	$("#endGameWin").get(0).play();
-	// }
-	// function playLoss() {
-	// 	$("#musicForGame").get(0).pause();
-	// 	$("#endGameLoss").get(0).play();
-	// }
-	// function play() {
-	// 	var audio = document.getElementById('audio1');
-	// 	if (audio.paused) {
-	// 		audio.play();
-	// 	}else{
-	// 		audio.currentTime = 0
-	// 	}
-	// }
 
 	if (score >= 150) {
-		//play();
 		document.getElementById('musicForGame').pause();
 		document.getElementById('endGameWin').currentTime = 0;
 		document.getElementById('endGameWin').play();
@@ -610,8 +579,6 @@ function UpdatePosition() {
 
 //-------------------------------- settings-------------------------------------------------///
 
-// controls array
-var controls = [];
 function getRandomColor() {
 	var letters = '0123456789ABCDEF';
 	var color = '#';
@@ -622,12 +589,8 @@ function getRandomColor() {
 }
 
 
-
 function settings_randomValues() {
-		flagRandom= true;
-
-
-
+	flagRandom= true;
 	var randomValues = {
 		up_key: 'ArrowUp',
 		down_key: 'ArrowDown',
@@ -638,73 +601,53 @@ function settings_randomValues() {
 		pill_15Points: getRandomColor(),
 		pill_25Points: getRandomColor(),
 
-		pill_number: 50 + Math.floor(Math.random() * 41), // return a number between 50-90
+		pill_number: 50 + Math.floor(Math.random() * 41), 
 		time_seconds: 60 + Math.floor(Math.random() * 120),
-		monster_number: 1 + Math.floor(Math.random() * 4), // return a number between 1-4
-		tick: 0,
-		lives: 3,
+		monster_number: 1 + Math.floor(Math.random() * 4), 
 	}
 
 
-	// up_key = rand["up_key"];
 	$("#up_value").html(randomValues["up_key"]);
 	$("#left_value").html(randomValues["left_key"]);
 	$("#down_value").html(randomValues["down_key"]);
 	$("#right_value").html(randomValues["right_key"]);
 
-
 	$("#settings_numOfBalls").val(randomValues["pill_number"]);
 	$("#settings_timeToPlay").val(randomValues["time_seconds"]);
 	$("#settings_numOfMonsters").val(randomValues["monster_number"]);
-
 
 	$("#settings_5Points").val(randomValues["pill_5Points"]);
 	$("#settings_15Points").val(randomValues["pill_15Points"]);
 	$("#settings_25Points").val(randomValues["pill_25Points"]);
 
-
-
 }
 
 
-var currentDirection = null;
+// var currentDirection = null;
 
-document.addEventListener('keydown', function (event) {
+// document.addEventListener('keydown', function (event) {
+// 	if (currentDirection != null) {
+// 		let keyValue = event.key;
+// 		if (keyValue !== 'p' && keyValue !== ' ' && keyValue !== 'Enter') {
 
+// 			document.getElementById("settings_" + currentDirection + "Key").innerHTML = keyValue;
+// 			document.getElementById("settings_" + currentDirection + "Key").style.background = '#ffff00';
+// 		}
+// 	}
 
-	if (currentDirection != null) {
-		let keyValue = event.key;
-		if (keyValue !== 'p' && keyValue !== ' ' && keyValue !== 'Enter') {
-
-			document.getElementById("settings_" + currentDirection + "Key").innerHTML = keyValue;
-			document.getElementById("settings_" + currentDirection + "Key").style.background = '#ffff00';
-		}
-
-
-	}
-
-	currentDirection = null;
-});
+// 	currentDirection = null;
+// });
 
 
 function getGameControl(event, id) {
-	var x = event.which || event.keyCode;
 	if (id === "up") {
 		document.getElementById("up_value").innerHTML = event.key;
-
-
-
-
 	}
 	else if (id === "down") {
 		document.getElementById("down_value").innerHTML = event.key;
-
-
 	}
 	else if (id === "right") {
 		document.getElementById("right_value").innerHTML = event.key;
-
-
 	}
 	else if (id === "left") {
 		document.getElementById("left_value").innerHTML = event.key;
@@ -712,42 +655,67 @@ function getGameControl(event, id) {
 }
 
 
+function setColorForButton(id) {
+	if (id === "up") {
+		document.getElementById("settings_upKey").style.background = 'yellow';
+		document.getElementById("settings_downKey").style.background = 'yellow';
+		document.getElementById("settings_rightKey").style.background = 'yellow';
+		document.getElementById("settings_leftKey").style.background = 'yellow';
+		document.getElementById("settings_upKey").style.background = '#33ccff';
+
+	}
+	else if (id === "down") {
+		document.getElementById("settings_upKey").style.background = 'yellow';
+		document.getElementById("settings_downKey").style.background = 'yellow';
+		document.getElementById("settings_rightKey").style.background = 'yellow';
+		document.getElementById("settings_leftKey").style.background = 'yellow';
+		document.getElementById("settings_downKey").style.background = '#33ccff';
+	
+	}
+	else if (id === "right") {
+		document.getElementById("settings_upKey").style.background = 'yellow';
+		document.getElementById("settings_downKey").style.background = 'yellow';
+		document.getElementById("settings_rightKey").style.background = 'yellow';
+		document.getElementById("settings_leftKey").style.background = 'yellow';
+		document.getElementById("settings_rightKey").style.background = '#33ccff';
 
 
-
-function setCurDirection(direction) {
-	document.getElementById("settings_rightKey").style.background = 'yellow';
-	document.getElementById("settings_leftKey").style.background = 'yellow';
-	document.getElementById("settings_upKey").style.background = 'yellow';
-	document.getElementById("settings_downKey").style.background = 'yellow';
-	document.getElementById("settings_" + direction + "Key").style.background = '#33ccff';
-	//currentDirection = direction;
+	}
+	else if (id === "left") {
+		document.getElementById("settings_upKey").style.background = 'yellow';
+		document.getElementById("settings_downKey").style.background = 'yellow';
+		document.getElementById("settings_rightKey").style.background = 'yellow';
+		document.getElementById("settings_leftKey").style.background = 'yellow';
+		document.getElementById("settings_leftKey").style.background = '#33ccff';
+	}
 }
 
 
 
 
+
+function checkSetting(){
+	var temp= $("#up_value").html();
+	var temp2=$("#settings_numOfBalls").val();
+	if ($("#up_value").html() == '' || $("#down_value").html() == '' ||
+	$("#right_value").html() == '' || $("#left_value").html() == ''||
+	$("#settings_numOfBalls").val() == '' || $("#settings_timeToPlay").val() == '' || $("#settings_numOfMonsters").val() ==''){
+	alert("Please fill the all the fields");
+	return false ;
+	}
+return true;
+}
  
    
 
 
 function saveSettings() {
-	if ($("#up_value").html() == '' || $("#down_value").html() == '' ||
-		$("#right_value").html() == '' || $("#left_value").html() == ''||
-		$("#settings_numOfBalls").val() == '' || $("#settings_timeToPlay").val() == '' || $("#settings_numOfMonsters").val() ==''){
-	    alert("Please fill the all the fields");
-	    return false ;
-	}
-
 	up_key = $("#up_value").html();
 	down_key = $("#down_value").html();
 	left_key = $("#left_value").html();
 	right_key = $("#right_value").html();
-
-
-	  	//setting
-	monserForSett=$("#settings_numOfMonsters").val();
-
+	  	
+	//setting in game
 	monserForSett=$("#settings_numOfMonsters").val();
 	NumOfFoodSett= $("#settings_numOfBalls").val();
 
@@ -758,8 +726,7 @@ function saveSettings() {
 	pill_5Color = $("#settings_5Points").val();
 	pill_15Color = $("#settings_15Points").val();
 	pill_25Color = $("#settings_25Points").val();
-	return true;
-
+	
 }
 
 

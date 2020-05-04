@@ -209,61 +209,57 @@
 			<h3>Set game keyboard</h3>
 			<br>
 			<p>
-			<button id="settings_upKey" class="keyboardBtn" style="width: 5%"
-				onclick="setCurDirection('up')" onkeydown="getGameControl(event,'up')"><img src="Photos/arrowUp.png" height="40" width="40"></button>
-			<span class="small">The Unicode value is: </span>
-			<span class="small" id="up_value"></span><br><br>
-
-			<button id="settings_downKey" class="keyboardBtn" style="width: 5%"
-			onclick="setCurDirection('down')" onkeydown="getGameControl(event,'down')"><img src="Photos/arrowDown.png" height="40" width="40"></button>
-		<span class="small">The Unicode value is: </span>
-		<span class="small" id="down_value"></span><br><br>
-
-			<button id="settings_leftKey" class="keyboardBtn" style="width: 5%"
-				onclick="setCurDirection('left')" onkeydown="getGameControl(event,'left')"><img src="Photos/arrowLeft.png" height="40" width="40"></button>
-				
-			<span class="small">The Unicode value is: </span>
-			<span class="small" id="left_value"></span><br><br>
-
-
-
-			<button id="settings_rightKey" class="keyboardBtn" style="width: 5%"
-				onclick="setCurDirection('right')" onkeydown="getGameControl(event,'right')"><img src="Photos/arrowRight.png" height="40" width="40"></button>
-			<span class="small">The Unicode value is: </span>
-			<span class="small" id="right_value"></span><br><br>
+			<!-- UP -->
+			<!-- onclick="setCurDirection('up')" -->
+			<button id="settings_upKey"  style="width: 5%" onclick="setColorForButton('up')"  onkeydown="getGameControl(event,'up')"><img src="Photos/arrowUp.png" height="40" width="40"></button>
+			<label><b>The value is: </b></label>
+			<label id="up_value"></label>
+			<br><br>
+			<!-- DOWN -->
+			<!-- onclick="setCurDirection('down')" -->
+			<button id="settings_downKey"  style="width: 5%" onclick="setColorForButton('down')" onkeydown="getGameControl(event,'down')"><img src="Photos/arrowDown.png" height="40" width="40"></button>
+			<label><b>The value is: </b></label>
+			<label id="down_value"></label>
+			<br><br>
+			<!-- LEFT -->
+			<!-- onclick="setCurDirection('left')" -->
+			<button id="settings_leftKey"  style="width: 5%" onclick="setColorForButton('left')" onkeydown="getGameControl(event,'left')"><img src="Photos/arrowLeft.png" height="40" width="40"></button>
+			<label><b>The value is: </b></label>
+			<label id="left_value"></label>
+			<br><br>
+			<!-- RIGHT -->
+			<!-- onclick="setCurDirection('right')" -->
+			<button id="settings_rightKey"  style="width: 5%" onclick="setColorForButton('right')" onkeydown="getGameControl(event,'right')"><img src="Photos/arrowRight.png" height="40" width="40"></button>
+			<label><b>The value is: </b></label>
+			<label id="right_value"></label>
+			<br><br>
 		</p>
 			<hr style="width: 20%">
-			<!--            Settings table               -->
 			<table align="center">
 				<tr>
 					
 					<td><label><b>Number of balls: </b></label></td>
-					<td><input id="settings_numOfBalls" class="inputField" type="number" min="50"
-						max="90" name="settings_numOfBalls" style="width: 25%"></td>
+					<td><input id="settings_numOfBalls" class="inputField" type="number" min="50" max="90" name="settings_numOfBalls" style="width: 25%"></td>
 				</tr>
 				<!--                new row          -->
 				<tr>
 					<td><label><b>balls of 5 Points:</b></label></td>
-					<td><input id="settings_5Points" class="inputField" type="color"
-							value="#f1ff33"></td>
+					<td><input id="settings_5Points" class="inputField" type="color" value="#f1ff33"></td>
 				</tr>
 				<tr></tr>
 				<!--                new row          -->
 				<tr>
 					<td><label><b>balls of 15 Points:</b></label></td>
-					<td><input id="settings_15Points" class="inputField" type="color"
-							value="#ff0000"></td>
+					<td><input id="settings_15Points" class="inputField" type="color" value="#ff0000"></td>
 				</tr>
 				<tr></tr>
 				<!--                new row          -->
 				<tr>
 					<td><label><b>balls of 25 Points:</b></label></td>
-					<td><input id="settings_25Points" class="inputField" type="color"
-							value="#3352ff"></td>
+					<td><input id="settings_25Points" class="inputField" type="color" value="#3352ff"></td>
 				</tr>
 
 				<tr>
-					
 					<td><label><b>Time to play (sec): </b></label></td>
 					<td><input id="settings_timeToPlay" class="inputField" type="number" min="60"
 						 name="settings_timeToPlay" style="width: 25%"></td>
@@ -277,54 +273,28 @@
 
 
 			</table>
-			<!-- <p>
-				<b>Number of balls: </b>
-				<input id="settings_numOfBalls" class="inputField" type="number" min="50"
-					max="90" name="settings_numOfBalls">
-			</p>
-			<p>
-				<b>Time to play (sec): </b>
-				<input id="settings_timeToPlay" class="inputField" type="number" min="60"
-					name="settings_timeToPlay">
-			</p>
-			<p>
-				<b>Number of monsters: </b>
-				<input id="settings_numOfMonsters" class="inputField" type="number" min="1"
-					max="3" name="settings_numOfMonsters">
-			</p> -->
 
 			<!--            random values Settings               -->
 			<div id="random_settings" style="text-align: center">
-				<button onclick="settings_randomValues()" style="width: 10%">Set random
-					values</button>
+				<button onclick="settings_randomValues()" style="width: 10%">Set random values</button>
 				<br>
 			</div>
 
 			<!--           save settings               -->
 			<br>
-			<div class="center" id="save_settings">
+			<div id="save_settings">
 				<button onclick="moveToGame()" style="width: 10%">Save changes</button>
 			</div>
 			<br>
 		</div>
 
-
-
-		<!-- Need To Go There! -->
-		<!-- <div id="score"  style="text-align: center">
-		
-		</div>
-		<div id="time"  style="text-align: center">
-		
-		</div> -->
-	
 		<audio id="endGameWin" src="Photos/Queen_We_Are_The_Champions.mp3"  preload="auto"></audio>
 		<audio id="endGameLoss" src="Photos/loser.mp3"  preload="auto"></audio>
 
-	<div id="game">
-		<audio loop id="musicForGame">
+		<div id="game">
+			<audio loop id="musicForGame">
 			<source src="Photos/Pac-manMusic.mp3"  type="audio/mp3">
-			Your browser does not support the audio tag.
+				Your browser does not support the audio tag.
 		</audio>
 		<!-- <audio loop id="endGameLoss">
 			<source src="Photos/such_a_loser.mp3"  type="audio/mp3">
@@ -357,7 +327,6 @@
 
 	  <td width="25%">
 		<button align="left"  id="new_game" onclick="moveToGameAgain()" style="color: blue; background-color: yellow;" ><b>New Game</b></button>
-		<!-- <button align="left"  id="new_game" onclick="restart()" style="color: blue;background-color: yellow;"><b>Restart</b></button> -->
 	  </td>
 
 	</tr>
@@ -404,10 +373,6 @@
 		<label for="lb25" >25 points balls:</label>
 		<input id="lb25" class="inputField" type="color"value="#ff0000"><br>
 
-		<!-- <button id="new_game" onclick="moveToGame()" style="color: blue; background-color: yellow;" ><b>New Game</b></button>
-			<button id="new_game" onclick="restart()" style="color: blue;background-color: yellow;"><b>Restart</b></button> -->
-
-
 	</b>
 	</p>
 	  </td>
@@ -415,13 +380,6 @@
   </table>
 
 </div>
-
-
-
-
-
-
-
 
 		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
 			integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
