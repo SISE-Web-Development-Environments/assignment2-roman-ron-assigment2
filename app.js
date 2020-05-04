@@ -21,6 +21,12 @@ const SPECIAL_STAR_15_FOOD = 32; // 115
 const SPECIAL_STAR_25_FOOD = 33; // 125
 const CLOACK = 20;
 
+//setting in game
+var monserForSett=0;
+var NumOfFoodSett=0;
+
+var takeClock=false;
+
 
 
 var context;
@@ -47,10 +53,10 @@ var sppedOfMonster = 3;
 // var possibleWays = [MOVE_DOWN, MOVE_UP, MOVE_LEFT, MOVE_RIGHT];
 
 
-var up_key = 'ArrowUp';
-var down_key = 'ArrowDown';
-var left_key = 'ArrowLeft';
-var right_key = 'ArrowRight';
+var up_key = 38;
+var down_key = 39;
+var left_key = 40;
+var right_key = 41;
 var pill_5Color = '#00cc00'; // green
 var pill_15Color = '#ff3300'; // red
 var pill_25Color = '#0000ff'; // blue
@@ -59,30 +65,57 @@ var pill_number = 50;
 var time_seconds = 60;
 var monster_number = 1;
 
+var flagRandom=false;
 
 /**
  * on click (save settings) move to Game
  */
 function moveToGame() {
-	saveSettings();
-	$("div").hide();
+	takeClock=false;
+	if(!saveSettings() &&flagRandom==false){
+		$("div").hide();
 
-	$("#header").show();
-	$("#header-left").show();
-	$("#header-center").show();
-	$("#header-right").show();
+		$("#header").show();
+		$("#header-left").show();
+		$("#header-center").show();
+		$("#header-right").show();
+		$("#sidenav").show();
+		$("#settings_page").show();
+		$("#random_settings").show();
+		$("#save_settings").show();
+	}
+	else if(saveSettings()) {
+		$("div").hide();
 
-	$("#sidenav").show();
+		$("#header").show();
+		$("#header-left").show();
+		$("#header-center").show();
+		$("#header-right").show();
+	
+		$("#sidenav").show();
+	
+		$("#score").show();
+		$("#time").show();
+		$("#game").show();
+	
+		context = canvas.getContext("2d");
+		play();
+		Start();
 
-	$("#score").show();
-	$("#time").show();
-	$("#game").show();
+	}
 
-	context = canvas.getContext("2d");
-	play();
-	Start();
 
 };
+
+function moveToGameAgain() {
+
+	window.clearInterval(interval);
+	moveToGame();
+
+	}
+
+
+
 
 function restart() {
 	$("div").hide();
@@ -114,6 +147,8 @@ function play() {
 		audio.play();
 	}
 }
+
+
 
 
 
@@ -298,7 +333,10 @@ function Draw() {
 	lblName.value = PlayerName;
 
 	lbTime.value = time_seconds;
-	lbFood.value = pill_number;
+	//lbFood.value = pill_number;
+	lbFood.value = NumOfFoodSett;
+	
+	lbMonsters.value=monserForSett;
 
 	lb5.value = pill_5Color;
 	lb15.value = pill_15Color;
@@ -367,7 +405,13 @@ function Draw() {
 				|| board[i][j] == MONSTER_AND_25_FOOD) // roman
 			{
 				//roman
-				drawMonster(center.x - 15, center.y - 15, 30, 30);
+				if(takeClock==false){
+					drawMonster(center.x - 15, center.y - 15, 30, 30);
+				}
+				else{
+					drawMonster2(center.x - 15, center.y - 15, 40, 40);
+				}
+				
 			}
 			else if (board[i][j] == SPECIAL_STAR_EMPTY
 				|| board[i][j] == SPECIAL_STAR_5_FOOD
@@ -425,7 +469,9 @@ function UpdatePosition() {
 	if(board[shape.i][shape.j] == CLOACK)
 	{
 		sppedOfMonster = 5;
+		takeClock=true;
 		board[shape.i][shape.j] = EMPTY_CELL;
+
 	}
 	moveMonster++;
 	if (moveMonster % sppedOfMonster == 0) {
@@ -578,7 +624,7 @@ function getRandomColor() {
 
 
 function settings_randomValues() {
-
+		flagRandom= true;
 
 
 
@@ -681,26 +727,17 @@ function setCurDirection(direction) {
 
 
 
+ 
+   
 
 
 function saveSettings() {
-
-	// if ($("#up_value").html() === '-1' || $("#down_value").html() === '-1' ||
-	//     $("#right_value").html() === '-1' || $("#left_value").html() === '-1'){
-	//     alert("Minus 1 is not a valid key");
-	//     return;
-	// }
-
-	// up_key = $("#up_value").html();
-	// down_key = $("#down_value").html();
-	// left_key = $("#left_value").html();
-	// right_key = $("#right_value").html();
-
-	// 	if ($("#up_value").html() === '-1' || $("#down_value").html() === '-1' ||
-	// 	$("#right_value").html() === '-1' || $("#left_value").html() === '-1'){
-	// 	alert("Minus 1 is not a valid key");
-	// 	return ;
-	// }
+	if ($("#up_value").html() == '' || $("#down_value").html() == '' ||
+		$("#right_value").html() == '' || $("#left_value").html() == ''||
+		$("#settings_numOfBalls").val() == '' || $("#settings_timeToPlay").val() == '' || $("#settings_numOfMonsters").val() ==''){
+	    alert("Please fill the all the fields");
+	    return false ;
+	}
 
 	up_key = $("#up_value").html();
 	down_key = $("#down_value").html();
@@ -708,11 +745,11 @@ function saveSettings() {
 	right_key = $("#right_value").html();
 
 
-	// if ($("#settings_numOfBalls").val() === '' || $("#settings_timeToPlay").val() === '' || $("#settings_numOfMonsters").val() === ''){
-	//     showPopup("Please fill all the fields");
-	//     return ;
-	// }
+	  	//setting
+	monserForSett=$("#settings_numOfMonsters").val();
 
+	monserForSett=$("#settings_numOfMonsters").val();
+	NumOfFoodSett= $("#settings_numOfBalls").val();
 
 	pill_number = $("#settings_numOfBalls").val();
 	time_seconds = $("#settings_timeToPlay").val();
@@ -721,6 +758,7 @@ function saveSettings() {
 	pill_5Color = $("#settings_5Points").val();
 	pill_15Color = $("#settings_15Points").val();
 	pill_25Color = $("#settings_25Points").val();
+	return true;
 
 }
 
@@ -729,6 +767,13 @@ function saveSettings() {
 function drawMonster(center_x, center_y, width_m, height_m) {
 	let imageObj = new Image();
 	let monster_path = 'Photos/pacman-ghosts/pacman-ghost4.png';
+	imageObj.src = monster_path;
+	context.drawImage(imageObj, center_x, center_y, width_m, height_m);
+}
+
+function drawMonster2(center_x, center_y, width_m, height_m) {
+	let imageObj = new Image();
+	let monster_path = 'Photos/pacman-ghosts/3.jpg';
 	imageObj.src = monster_path;
 	context.drawImage(imageObj, center_x, center_y, width_m, height_m);
 }
@@ -1045,7 +1090,7 @@ function changeStartByFindOfFood(x, y) {
 //roman
 function drawClock(center_x, center_y, width_m, height_m) {
 	let imageObj3 = new Image();
-	let clock_path = 'Photos/clock.png';
+	let clock_path = 'Photos/clock4.png';
 	imageObj3.src = clock_path;
 	context.drawImage(imageObj3, center_x, center_y, width_m, height_m);
 }
