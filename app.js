@@ -102,10 +102,11 @@ function moveToGame() {
 		$("#score").show();
 		$("#time").show();
 		$("#game").show();
-	
-		context = canvas.getContext("2d");
+		
+		$(document).ready(function(){context = canvas.getContext("2d");
 		play();
-		Start();
+		Start();});
+		
 
 	}
 
@@ -186,6 +187,7 @@ function Start() {
 		board[i] = new Array();
 		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
 		for (var j = 0; j < 10; j++) {
+			board[i][j] = EMPTY_CELL;
 			if (
 
 				(i == 3 && j == 3) ||
@@ -556,7 +558,6 @@ function UpdatePosition() {
 
 	} else if (lives == 0) {
 
-		//play();
 		document.getElementById('musicForGame').pause();
 		document.getElementById('endGameLoss').currentTime = 0;
 		document.getElementById('endGameLoss').play();
