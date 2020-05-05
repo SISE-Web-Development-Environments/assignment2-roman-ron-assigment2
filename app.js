@@ -49,7 +49,6 @@ var isSpicealClockEaten = false; // if the special start was eaten
 var star = new Object();// roman
 var clocksNumber = 1;
 var sppedOfMonster = 3;
-// var possibleWays = [MOVE_DOWN, MOVE_UP, MOVE_LEFT, MOVE_RIGHT];
 var up_key = 38;
 var down_key = 39;
 var left_key = 40;
@@ -57,6 +56,14 @@ var right_key = 41;
 var pill_5Color = '#00cc00'; // green
 var pill_15Color = '#ff3300'; // red
 var pill_25Color = '#0000ff'; // blue
+/**
+ * Images
+ */
+var imageObj2 = new Image(); // star
+var imageObjMonster = new Image(); // monster
+var imageObjMonster2 = new Image(); // monster 2
+var imageObjClock = new Image(); // clock
+
 
 var pill_number = 50;
 var time_seconds = 60;
@@ -163,6 +170,13 @@ function Start() {
 	//only for first draw of pacman - number of pacmans we want to draw -> always 1
 	var pacman_remain = 1;
 	start_time = new Date();
+	/**
+	 * init pics of monsters
+	 */
+	let monster_path = 'Photos/pacman-ghosts/pacman-ghost4.png';
+	imageObjMonster.src = monster_path;
+	let monster_path2 = 'Photos/pacman-ghosts/3.jpg';
+	imageObjMonster2.src = monster_path2;
 
 	monster_alive = monster_number; // roman
 	monster_arr = new Array(monster_alive); // roman
@@ -198,6 +212,8 @@ function Start() {
 				star.j = 9;
 				board[i][j] = SPECIAL_STAR_EMPTY;
 				specialMonster--;
+				let star_path = 'Photos/start.png';
+				imageObj2.src = star_path;
 			}
 			else {
 
@@ -233,6 +249,8 @@ function Start() {
 				else if (clocksNumber > 0) {
 					board[i][j] = CLOACK;
 					clocksNumber--;
+					let clock_path = 'Photos/clock4.png';
+					imageObjClock.src = clock_path;
 				}
 				else {
 					board[i][j] = EMPTY_CELL;
@@ -249,6 +267,8 @@ function Start() {
 		star.i = emptyCellForStart[0];
 		star.j = emptyCellForStart[1];
 		specialMonster--;
+		let star_path = 'Photos/start.png';
+		imageObj2.src = star_path;
 	}
 	if (clocksNumber > 0) {
 		let emptyCellForClock = findRandomEmptyCell(board);
@@ -623,22 +643,6 @@ function settings_randomValues() {
 }
 
 
-// var currentDirection = null;
-
-// document.addEventListener('keydown', function (event) {
-// 	if (currentDirection != null) {
-// 		let keyValue = event.key;
-// 		if (keyValue !== 'p' && keyValue !== ' ' && keyValue !== 'Enter') {
-
-// 			document.getElementById("settings_" + currentDirection + "Key").innerHTML = keyValue;
-// 			document.getElementById("settings_" + currentDirection + "Key").style.background = '#ffff00';
-// 		}
-// 	}
-
-// 	currentDirection = null;
-// });
-
-
 function getGameControl(event, id) {
 	if (id === "up") {
 		document.getElementById("up_value").innerHTML = event.key;
@@ -732,17 +736,11 @@ function saveSettings() {
 
 //roman
 function drawMonster(center_x, center_y, width_m, height_m) {
-	let imageObj = new Image();
-	let monster_path = 'Photos/pacman-ghosts/pacman-ghost4.png';
-	imageObj.src = monster_path;
-	context.drawImage(imageObj, center_x, center_y, width_m, height_m);
+	context.drawImage(imageObjMonster, center_x, center_y, width_m, height_m);
 }
 
 function drawMonster2(center_x, center_y, width_m, height_m) {
-	let imageObj = new Image();
-	let monster_path = 'Photos/pacman-ghosts/3.jpg';
-	imageObj.src = monster_path;
-	context.drawImage(imageObj, center_x, center_y, width_m, height_m);
+	context.drawImage(imageObjMonster2, center_x, center_y, width_m, height_m);
 }
 
 //roman
@@ -965,9 +963,7 @@ function clearBoardWhenRestart() {
 
 //roman
 function drawStar(center_x, center_y, width_m, height_m) {
-	let imageObj2 = new Image();
-	let star_path = 'Photos/start.png';
-	imageObj2.src = star_path;
+	
 	context.drawImage(imageObj2, center_x, center_y, width_m, height_m);
 }
 
@@ -1056,8 +1052,5 @@ function changeStartByFindOfFood(x, y) {
 
 //roman
 function drawClock(center_x, center_y, width_m, height_m) {
-	let imageObj3 = new Image();
-	let clock_path = 'Photos/clock4.png';
-	imageObj3.src = clock_path;
-	context.drawImage(imageObj3, center_x, center_y, width_m, height_m);
+	context.drawImage(imageObjClock, center_x, center_y, width_m, height_m);
 }

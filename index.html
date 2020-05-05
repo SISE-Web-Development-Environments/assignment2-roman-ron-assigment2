@@ -72,38 +72,37 @@
 			<br>
 			<a class="btn btn-outline-primary btn-lg" role="button" id="myBtn"
 				aria-pressed="true" onclick="showModelDialog()" style="color: #33ccff;">About</a>
-
 		</div>
 
-		<div id="myModal" class="modal" >
+		<div id="myModal" class="modal">
 
 			<!-- Modal content -->
 			<div class="modal-content" id="myModal02" style="background-color: yellow;">
-				
-			
-			  <span class="close">&times;</span>
-			  <p><b>This game was created by Roman Grigorenko and Shachar Ron,<br>
-				This is the second assignment in the course "Internet Programming Environments".<br>
-				<br>
-			</b>
-				In this work we used the jQuery Plugin:<br>
-				Registration form for validation and submission.<br><br>
-				
-				In this work we used Template:<br>
-				<br><br>
-				
-				The difficulties we had during work:<br>
-				1. Enter a project where some of the code is already written.<br>
-				2. Our cooperation is remote<br>
-				
-				</p>
-				<p id= "bottom-right" style=" text-align: center;" >
-					<img  id= "bottom-right" src="Photos/aboutPic.png" class="img-rounded" height="70" width="320">
-				</p>
-			
+				<span class="close">&times;</span>
+				<p><b>This game was created by Roman Grigorenko and Shachar Ron,<br>
+						This is the second assignment in the course "Internet Programming
+						Environments".<br>
+						<br>
+					</b>
+					In this work we used the jQuery Plugin:<br>
+					Registration form for validation and submission.<br><br>
 
-		  
-		  </div>
+					In this work we used Template:<br>
+					<br><br>
+
+					The difficulties we had during work:<br>
+					1. Enter a project where some of the code is already written.<br>
+					2. Our cooperation is remote<br>
+
+				</p>
+				<p id="bottom-right" style="text-align: center;">
+					<img id="bottom-right" src="Photos/aboutPic.png" class="img-rounded"
+						height="70" width="320">
+				</p>
+
+
+
+			</div>
 		</div>
 
 		<!-- Welcome Page -->
@@ -209,66 +208,83 @@
 			<h3>Set game keyboard</h3>
 			<br>
 			<p>
-			<!-- UP -->
-			<!-- onclick="setCurDirection('up')" -->
-			<button id="settings_upKey"  style="width: 5%" onclick="setColorForButton('up')"  onkeydown="getGameControl(event,'up')"><img src="Photos/arrowUp.png" height="40" width="40"></button>
-			<label><b>The value is: </b></label>
-			<label id="up_value"></label>
-			<br><br>
-			<!-- DOWN -->
-			<!-- onclick="setCurDirection('down')" -->
-			<button id="settings_downKey"  style="width: 5%" onclick="setColorForButton('down')" onkeydown="getGameControl(event,'down')"><img src="Photos/arrowDown.png" height="40" width="40"></button>
-			<label><b>The value is: </b></label>
-			<label id="down_value"></label>
-			<br><br>
-			<!-- LEFT -->
-			<!-- onclick="setCurDirection('left')" -->
-			<button id="settings_leftKey"  style="width: 5%" onclick="setColorForButton('left')" onkeydown="getGameControl(event,'left')"><img src="Photos/arrowLeft.png" height="40" width="40"></button>
-			<label><b>The value is: </b></label>
-			<label id="left_value"></label>
-			<br><br>
-			<!-- RIGHT -->
-			<!-- onclick="setCurDirection('right')" -->
-			<button id="settings_rightKey"  style="width: 5%" onclick="setColorForButton('right')" onkeydown="getGameControl(event,'right')"><img src="Photos/arrowRight.png" height="40" width="40"></button>
-			<label><b>The value is: </b></label>
-			<label id="right_value"></label>
-			<br><br>
-		</p>
+				<!-- UP -->
+				<!-- onclick="setCurDirection('up')" -->
+				<button id="settings_upKey" style="width: 5%"
+					onclick="setColorForButton('up')" onkeydown="getGameControl(event,'up')"><img
+						src="Photos/arrowUp.png" height="40" width="40"></button>
+				<label><b>The value is: </b></label>
+				<label id="up_value"></label>
+				<br><br>
+				<!-- DOWN -->
+				<!-- onclick="setCurDirection('down')" -->
+				<button id="settings_downKey" style="width: 5%"
+					onclick="setColorForButton('down')"
+					onkeydown="getGameControl(event,'down')"><img src="Photos/arrowDown.png"
+						height="40" width="40"></button>
+				<label><b>The value is: </b></label>
+				<label id="down_value"></label>
+				<br><br>
+				<!-- LEFT -->
+				<!-- onclick="setCurDirection('left')" -->
+				<button id="settings_leftKey" style="width: 5%"
+					onclick="setColorForButton('left')"
+					onkeydown="getGameControl(event,'left')"><img src="Photos/arrowLeft.png"
+						height="40" width="40"></button>
+				<label><b>The value is: </b></label>
+				<label id="left_value"></label>
+				<br><br>
+				<!-- RIGHT -->
+				<!-- onclick="setCurDirection('right')" -->
+				<button id="settings_rightKey" style="width: 5%"
+					onclick="setColorForButton('right')"
+					onkeydown="getGameControl(event,'right')"><img src="Photos/arrowRight.png"
+						height="40" width="40"></button>
+				<label><b>The value is: </b></label>
+				<label id="right_value"></label>
+				<br><br>
+			</p>
 			<hr style="width: 20%">
 			<table align="center">
 				<tr>
-					
+
 					<td><label><b>Number of balls: </b></label></td>
-					<td><input id="settings_numOfBalls" class="inputField" type="number" min="50" max="90" name="settings_numOfBalls" style="width: 25%"></td>
+					<td><input id="settings_numOfBalls" class="inputField" type="number"
+							min="50" max="90" name="settings_numOfBalls" style="width: 25%"></td>
 				</tr>
 				<!--                new row          -->
 				<tr>
 					<td><label><b>balls of 5 Points:</b></label></td>
-					<td><input id="settings_5Points" class="inputField" type="color" value="#f1ff33"></td>
+					<td><input id="settings_5Points" class="inputField" type="color"
+							value="#f1ff33"></td>
 				</tr>
 				<tr></tr>
 				<!--                new row          -->
 				<tr>
 					<td><label><b>balls of 15 Points:</b></label></td>
-					<td><input id="settings_15Points" class="inputField" type="color" value="#ff0000"></td>
+					<td><input id="settings_15Points" class="inputField" type="color"
+							value="#ff0000"></td>
 				</tr>
 				<tr></tr>
 				<!--                new row          -->
 				<tr>
 					<td><label><b>balls of 25 Points:</b></label></td>
-					<td><input id="settings_25Points" class="inputField" type="color" value="#3352ff"></td>
+					<td><input id="settings_25Points" class="inputField" type="color"
+							value="#3352ff"></td>
 				</tr>
 
 				<tr>
 					<td><label><b>Time to play (sec): </b></label></td>
-					<td><input id="settings_timeToPlay" class="inputField" type="number" min="60"
-						 name="settings_timeToPlay" style="width: 25%"></td>
+					<td><input id="settings_timeToPlay" class="inputField" type="number"
+							min="60"
+							name="settings_timeToPlay" style="width: 25%"></td>
 				</tr>
 				<tr>
-					
+
 					<td><label><b>Number of monsters: </b></label></td>
-					<td><input id="settings_numOfMonsters" class="inputField" type="number" min="1"
-						max="4" name="settings_numOfMonsters" style="width: 25%"></td>
+					<td><input id="settings_numOfMonsters" class="inputField" type="number"
+							min="1"
+							max="4" name="settings_numOfMonsters" style="width: 25%"></td>
 				</tr>
 
 
@@ -276,7 +292,8 @@
 
 			<!--            random values Settings               -->
 			<div id="random_settings" style="text-align: center">
-				<button onclick="settings_randomValues()" style="width: 10%">Set random values</button>
+				<button onclick="settings_randomValues()" style="width: 10%">Set random
+					values</button>
 				<br>
 			</div>
 
@@ -288,98 +305,97 @@
 			<br>
 		</div>
 
-		<audio id="endGameWin" src="Photos/Queen_We_Are_The_Champions.mp3"  preload="auto"></audio>
-		<audio id="endGameLoss" src="Photos/loser.mp3"  preload="auto"></audio>
+		<audio id="endGameWin" src="Photos/Queen_We_Are_The_Champions.mp3"
+			preload="auto"></audio>
+		<audio id="endGameLoss" src="Photos/loser.mp3" preload="auto"></audio>
 
 		<div id="game">
 			<audio loop id="musicForGame">
-			<source src="Photos/Pac-manMusic.mp3"  type="audio/mp3">
+				<source src="Photos/Pac-manMusic.mp3" type="audio/mp3">
 				Your browser does not support the audio tag.
-		</audio>
-		<!-- <audio loop id="endGameLoss">
-			<source src="Photos/such_a_loser.mp3"  type="audio/mp3">
-			Your browser does not support the audio tag.
-		</audio>
+			</audio>
 
-		
-			<audio loop id="endGameWin">
-				<source src="Photos/Queen_We_Are_The_Champions.mp3"  type="audio/mp3">
-				Your browser does not support the audio tag.
-			</audio> -->
+			<table cellspacing="0" width="160%" Length="160%">
+				<tr>
+					<td width="75%">
+						<label for="lblScore" style="color:#33ccff;"><b>SCORE:</b></label>
+						<input id="lblScore" type="text" style="width: 5%; background-color:
+							black; color: yellow;" />
 
-<table  cellspacing="0"  width="160%" Length="160%">
-	<tr>
-	  <td width="75%">
-		<label for="lblScore" style="color:#33ccff;"><b>SCORE:</b></label>
-		<input id="lblScore" type="text"  style="width: 5%; background-color: black; color: yellow;"/>
+						<label for="lblTime" style="color:#33ccff;">TIME:</label>
+						<input id="lblTime" type="text" style="width: 10%; background-color:
+							black; color: yellow;" />
 
-		<label for="lblTime" style="color:#33ccff;">TIME:</label>
-		<input id="lblTime" type="text"  style="width: 10%; background-color: black; color: yellow;"/>
+						<label for="lblLives" style="color:#33ccff;"><b>LIVES:</b></label>
+						<input id="lblLives" type="text" style="width: 5%; background-color:
+							black; color: yellow;" />
 
-		<label  for="lblLives"  style="color:#33ccff;"><b>LIVES:</b></label>
-		<input id="lblLives" type="text"  style="width: 5%; background-color: black; color: yellow;"/>
-		
-		<label  for="lblName"  style="color:#33ccff;"><b>PLAYER:</b></label>
-		<input id="lblName" type="text"  style="width: 10%; background-color: black; color: yellow;"/>
-
-		
-	</td>
-
-	  <td width="25%">
-		<button align="left"  id="new_game" onclick="moveToGameAgain()" style="color: blue; background-color: yellow;" ><b>New Game</b></button>
-	  </td>
-
-	</tr>
-	<tr>
-	  <td bordercolor="yellow"><canvas id="canvas" height="600" width="600" style="border-style: solid;
-		border-color: blue;"></canvas></td>
-	  <td  > 
-		<h2 style="color: yellow;">Setting:</h2>
-		<p style="color:#33ccff;">
-		<b>
-	
-		<img src="Photos/arrowUp.png" height="40" width="40">
-		<label for="lbArrowUp" ></label>
-		<input style="background-color: black; color: yellow; width: 40%" id="lbArrowUp" type="text"  /><br>
-
-		<img src="Photos/arrowDown.png" height="40" width="40">
-		<label for="lbArrowDown" ></label>
-		<input style="background-color: black; color: yellow; width: 40%" id="lbArrowDown" type="text"  /><br>
-
-		<img src="Photos/arrowRight.png" height="40" width="40">
-		<label for="lbArrowRight" ></label>
-		<input style="background-color: black; color: yellow; width: 40%" id="lbArrowRight" type="text" /><br>
-
-		<img src="Photos/arrowLeft.png" height="40" width="40">
-		<label for="lbArrowLeft" ></label>
-		<input style="background-color: black; color: yellow; width: 40%" id="lbArrowLeft" type="text" /><br>
+						<label for="lblName" style="color:#33ccff;"><b>PLAYER:</b></label>
+						<input id="lblName" type="text" style="width: 10%; background-color:
+							black; color: yellow;" />
 
 
-		<label for="lbTime" >Time per game:</label>
-		<input style="background-color: black; color: yellow; width: 20%" id="lbTime" type="text" /><br>
-		
-		<label for="lbFood" >Num of food:</label>
-		<input style="background-color: black; color: yellow; width: 15%" id="lbFood" type="text" /><br>
+					</td>
 
-		<label for="lbMonsters" >Num of monsters:</label>
-		<input style="background-color: black; color: yellow; width: 15%" id="lbMonsters" type="text" /><br>
+					<td width="25%">
+						<button align="left" id="new_game" onclick="moveToGameAgain()"
+							style="color: blue; background-color: yellow;"><b>New Game</b></button>
+					</td>
 
-		<label for="lb5" >5 points balls:</label>
-		<input id="lb5" class="inputField" type="color"value="#ff0000"><br>
+				</tr>
+				<tr>
+					<td bordercolor="yellow"><canvas id="canvas" height="600px" width="600px"></canvas></td>
+					<td>
+						<h2 style="color: yellow;">Setting:</h2>
+						<p style="color:#33ccff;">
+							<b>
 
-		<label for="lb15" >15 points balls:</label>
-		<input id="lb15" class="inputField" type="color"value="#ff0000"><br>
+								<img src="Photos/arrowUp.png" height="40" width="40">
+								<label for="lbArrowUp"></label>
+								<input style="background-color: black; color: yellow; width: 40%"
+									id="lbArrowUp" type="text" /><br>
 
-		<label for="lb25" >25 points balls:</label>
-		<input id="lb25" class="inputField" type="color"value="#ff0000"><br>
+								<img src="Photos/arrowDown.png" height="40" width="40">
+								<label for="lbArrowDown"></label>
+								<input style="background-color: black; color: yellow; width: 40%"
+									id="lbArrowDown" type="text" /><br>
 
-	</b>
-	</p>
-	  </td>
-	</tr>
-  </table>
+								<img src="Photos/arrowRight.png" height="40" width="40">
+								<label for="lbArrowRight"></label>
+								<input style="background-color: black; color: yellow; width: 40%"
+									id="lbArrowRight" type="text" /><br>
 
-</div>
+								<img src="Photos/arrowLeft.png" height="40" width="40">
+								<label for="lbArrowLeft"></label>
+								<input style="background-color: black; color: yellow; width: 40%"
+									id="lbArrowLeft" type="text" /><br>
+
+
+								<label for="lbTime">Time per game:</label>
+								<input style="background-color: black; color: yellow; width: 20%"
+									id="lbTime" type="text" /><br>
+
+								<label for="lbFood">Num of food:</label>
+								<input style="background-color: black; color: yellow; width: 15%"
+									id="lbFood" type="text" /><br>
+
+								<label for="lbMonsters">Num of monsters:</label>
+								<input style="background-color: black; color: yellow; width: 15%"
+									id="lbMonsters" type="text" /><br>
+
+								<label for="lb5">5 points balls:</label>
+								<input id="lb5" class="inputField" type="color" value="#ff0000"><br>
+								<label for="lb15">15 points balls:</label>
+								<input id="lb15" class="inputField" type="color" value="#ff0000"><br>
+								<label for="lb25">25 points balls:</label>
+								<input id="lb25" class="inputField" type="color" value="#ff0000"><br>
+							</b>
+						</p>
+					</td>
+				</tr>
+			</table>
+
+		</div>
 
 		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
 			integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
@@ -396,12 +412,12 @@
 
 	<footer class="page-footer font-small blue fixed-bottom text-center">
 		Here we try to save ower pacman!,
-		The Game was build by using HTML5.	
+		The Game was build by using HTML5.
 
 		Contact information: <a href="mailto:grigorer@post.bgu.ac.il">
-			grigorer@post.bgu.ac.il</a> || 
-			<a href="mailto:shachab@post.bgu.ac.il">
-				shachab@post.bgu.ac.il</a>.
+			grigorer@post.bgu.ac.il</a> ||
+		<a href="mailto:shachab@post.bgu.ac.il">
+			shachab@post.bgu.ac.il</a>.
 	</footer>
 
 

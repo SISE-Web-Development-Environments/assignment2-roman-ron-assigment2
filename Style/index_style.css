@@ -275,3 +275,12 @@ footer a
     margin: auto;
     padding-top: 20px;
 }
+
+
+canvas
+{
+    width: 90%;
+    height: 95%;
+    border-style: solid;
+	border-color: blue;
+}
