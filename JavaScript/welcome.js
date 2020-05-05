@@ -5,6 +5,10 @@
 function loginShow(){
     $("div").hide();
 
+    document.getElementById('musicForGame').pause();
+    document.getElementById('endGameWin').pause();
+    document.getElementById('endGameLoss').pause();
+
     $("#header").show();
     $("#header-left").show();
     $("#header-center").show();
@@ -23,6 +27,10 @@ function loginShow(){
 function registrationShow(){
     $("div").hide();
 
+    document.getElementById('musicForGame').pause();
+    document.getElementById('endGameWin').pause();
+    document.getElementById('endGameLoss').pause();
+
     $("#header").show();
     $("#header-left").show();
     $("#header-center").show();
@@ -40,6 +48,10 @@ function registrationShow(){
  */
 function welcomeShow(){
     $("div").hide();
+    
+    document.getElementById('musicForGame').pause();
+    document.getElementById('endGameWin').pause();
+    document.getElementById('endGameLoss').pause();
 
     $("#header").show();
     $("#header-left").show();
