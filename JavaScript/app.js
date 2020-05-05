@@ -1,7 +1,7 @@
 /**
  * Constans
  */
-const EMPTY_CELL = 0;
+const EMPTY_CELL1 = 0;
 const FOOD = 1;
 const OUR_PACMAN = 2;
 const MONSTER = 3;
@@ -20,6 +20,7 @@ const SPECIAL_STAR_5_FOOD = 31; // 105
 const SPECIAL_STAR_15_FOOD = 32; // 115
 const SPECIAL_STAR_25_FOOD = 33; // 125
 const CLOACK = 20;
+const EMPTY_CELL = 0;
 
 //setting in game
 var monserForSett=0;
