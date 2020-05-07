@@ -9,5 +9,5 @@ https://sise-web-development-environments.github.io/assignment2-roman-ron-assigm
 
 
 Added functionality to the game:
-1. Moving Star - If you eat it you get 50 points
-2. Clock - If you eat it the monsters move slower.
+1. slow Motion - If you eat it the monsters move slower. (Hourglass)
+2. 

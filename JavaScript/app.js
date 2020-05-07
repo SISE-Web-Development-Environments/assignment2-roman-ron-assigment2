@@ -252,7 +252,7 @@ function Start() {
 				else if (clocksNumber > 0) {
 					board[i][j] = CLOACK;
 					clocksNumber--;
-					let clock_path = 'Photos/clock4.png';
+					let clock_path = 'Photos/slowMotion.jpg';
 					imageObjClock.src = clock_path;
 				}
 				else {
@@ -341,7 +341,9 @@ function Draw() {
 	lblScore.value = score; // set score from HTML
 	lblTime.value = time_elapsed; //set time from HTML
 	lblLives.value = lives;
-	lblName.value = PlayerName;
+	lblName.value = username_l.value;
+
+	//username_l.valuse=PlayerName;
 
 	lbTime.value = time_seconds;
 	lbFood.value = NumOfFoodSett;
