@@ -6,28 +6,29 @@ const FOOD = 1;
 const OUR_PACMAN = 2;
 const MONSTER = 3;
 const WALL = 4;
-const MONSTER_AND_FOOD = 5; // roman
-const MOVE_UP = 2; // roman
-const MOVE_DOWN = 1; // roman
-const MOVE_LEFT = 3; // roman
-const MOVE_RIGHT = 4; // roman
-const MONSTER_AND_5_FOOD = 11;// roman	
-const MONSTER_AND_15_FOOD = 12; // roman
-const MONSTER_AND_25_FOOD = 13; // roman
-const STAY_IN_PLACE = 0; // roman
+const MONSTER_AND_FOOD = 5; 
+const MOVE_UP = 2; 
+const MOVE_DOWN = 1; 
+const MOVE_LEFT = 3; 
+const MOVE_RIGHT = 4; 
+const MONSTER_AND_5_FOOD = 11;
+const MONSTER_AND_15_FOOD = 12; 
+const MONSTER_AND_25_FOOD = 13; 
+const STAY_IN_PLACE = 0; 
 const SPECIAL_STAR_EMPTY = 30; // 0
 const SPECIAL_STAR_5_FOOD = 31; // 105
 const SPECIAL_STAR_15_FOOD = 32; // 115
 const SPECIAL_STAR_25_FOOD = 33; // 125
 const CLOACK = 20;
 const EMPTY_CELL = 0;
+const LIFE = 40;
 
 //setting in game
-var monserForSett=0;
-var NumOfFoodSett=0;
+var monserForSett = 0;
+var NumOfFoodSett = 0;
 
-var takeClock=false;
-var flagRandom=false;
+var takeClock = false;
+var flagRandom = false;
 
 var context;
 var shape = new Object();
@@ -37,19 +38,20 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
-var moveMonster = 0; //roman
+var moveMonster = 0; 
 var lives;
-var monster_alive; // roman
-var drawWayOfPacman = 1;//roman
+var monster_alive; 
+var drawWayOfPacman = 1;
 var monster_arr;
 var PlayerName = "p";
-var placesForMonster = [0, 0, 0, 9, 9, 0, 9, 9]; // roman
-var specialMonster = 1; // number of special monsters - roman
+var placesForMonster = [0, 0, 0, 9, 9, 0, 9, 9]; 
+var specialMonster = 1; // number of special monsters 
 var isSpecialStartAlive = true;
 var isSpicealClockEaten = false; // if the special start was eaten
-var star = new Object();// roman
+var star = new Object();
 var clocksNumber = 1;
 var sppedOfMonster = 3;
+var lifeAdder = 1;
 var up_key = 38;
 var down_key = 39;
 var left_key = 40;
@@ -64,6 +66,7 @@ var imageObj2 = new Image(); // star
 var imageObjMonster = new Image(); // monster
 var imageObjMonster2 = new Image(); // monster 2
 var imageObjClock = new Image(); // clock
+var imageObjLife = new Image();
 
 
 var pill_number = 50;
@@ -76,8 +79,8 @@ var monster_number = 1;
  * on click (save settings) move to Game
  */
 function moveToGame() {
-	takeClock=false;
-	if(!checkSetting() &&flagRandom==false){
+	takeClock = false;
+	if (!checkSetting() && flagRandom == false) {
 		$("div").hide();
 
 		$("#header").show();
@@ -89,7 +92,7 @@ function moveToGame() {
 		$("#random_settings").show();
 		$("#save_settings").show();
 	}
-	else if(checkSetting()) {
+	else if (checkSetting()) {
 		saveSettings();
 		$("div").hide();
 
@@ -97,21 +100,19 @@ function moveToGame() {
 		$("#header-left").show();
 		$("#header-center").show();
 		$("#header-right").show();
-	
+
 		$("#sidenav").show();
-	
+
 		$("#score").show();
 		$("#time").show();
 		$("#game").show();
-		
-		$(document).ready(function(){context = canvas.getContext("2d");
-		play();
-		Start();});
-		
 
+		$(document).ready(function () {
+			context = canvas.getContext("2d");
+			play();
+			Start();
+		});
 	}
-
-
 };
 
 function moveToGameAgain() {
@@ -135,9 +136,6 @@ function restart() {
 };
 
 
-
-
-
 function play() {
 	var audio = $("#musicForGame").get(0);
 	audio.currentTime = 0;
@@ -152,10 +150,6 @@ function play() {
 
 
 
-
-
-
-
 function Start() {
 
 	//board is 10 X 10 = 100 cells
@@ -165,10 +159,13 @@ function Start() {
 	pac_color = "yellow";
 	// cnt make the number double
 	var cnt = 100;
-	pill_number = pill_number - 2;
+	pill_number = pill_number - 3;
 	var food_remain = pill_number;
 	clocksNumber = 1;
 	sppedOfMonster = 3;
+	specialMonster = 1;
+	lifeAdder = 1;
+	isSpecialStartAlive = true;
 	//only for first draw of pacman - number of pacmans we want to draw -> always 1
 	var pacman_remain = 1;
 	start_time = new Date();
@@ -255,6 +252,12 @@ function Start() {
 					let clock_path = 'Photos/slowMotion.jpg';
 					imageObjClock.src = clock_path;
 				}
+				else if (lifeAdder > 0) {
+					board[i][j] = LIFE;
+					lifeAdder--;
+					let life_path = 'Photos/Heart.png';
+					imageObjLife.src = life_path;
+				}
 				else {
 					board[i][j] = EMPTY_CELL;
 				}
@@ -262,6 +265,14 @@ function Start() {
 				cnt--;
 			}
 		}
+	}
+	if (pacman_remain > 0) {
+		let emptyCellForPacman = findRandomEmptyCell(board);
+		shape.i = emptyCellForPacman[0];
+		shape.j = emptyCellForPacman[1];
+		pacman_remain--;
+		// we draw first time the pacman
+		board[shape.i][shape.j] = OUR_PACMAN;
 	}
 	// if we got more food to put on board
 	if (specialMonster > 0 && monster_alive == 4) {
@@ -277,7 +288,17 @@ function Start() {
 		let emptyCellForClock = findRandomEmptyCell(board);
 		board[emptyCellForClock[0]][emptyCellForClock[1]] = CLOACK;
 		clocksNumber--;
+		let clock_path = 'Photos/slowMotion.jpg';
+		imageObjClock.src = clock_path;
 	}
+	if (lifeAdder > 0) {
+		let emptyCellForLife = findRandomEmptyCell(board);
+		board[emptyCellForLife[0]][emptyCellForLife[1]] = LIFE;
+		lifeAdder--;
+		let life_path = 'Photos/Heart.png';
+		imageObjLife.src = life_path;
+	}
+
 	while (food_remain > 0) {
 		var emptyCell = findRandomEmptyCell(board);
 		board[emptyCell[0]][emptyCell[1]] = 105;
@@ -343,11 +364,9 @@ function Draw() {
 	lblLives.value = lives;
 	lblName.value = username_l.value;
 
-	//username_l.valuse=PlayerName;
-
 	lbTime.value = time_seconds;
 	lbFood.value = NumOfFoodSett;
-	lbMonsters.value=monserForSett;
+	lbMonsters.value = monserForSett;
 
 	lb5.value = pill_5Color;
 	lb15.value = pill_15Color;
@@ -360,12 +379,10 @@ function Draw() {
 			// from where we want to start draw
 			center.x = i * 60 + 30;
 			center.y = j * 60 + 30;
-			//draw pacman
 			let wayOfPacman = GetKeyPressed();
 			if (board[i][j] == OUR_PACMAN) {
 				drawPacmanByKeyPressed(wayOfPacman, center); //roman
 			}
-			//drae food
 			else if (board[i][j] === 105) {
 				context.beginPath();
 				context.arc(center.x, center.y, 6, 0, 2 * Math.PI); // circle
@@ -386,54 +403,41 @@ function Draw() {
 
 				context.fill();
 			}
-
-			// else if (board[i][j] == FOOD) {
-			// 	//draw food
-			// 	context.beginPath();
-			// 	context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
-			// 	context.fillStyle = "blue"; //color
-			// 	context.fill();
-			// }
 			else if (board[i][j] == WALL && i >= j) {
 				//draw wall
 				context.beginPath();
 				context.rect(center.x - 30, center.y - 15, 60, 30); // fill all the cell 60X60 px
 				context.fillStyle = "grey"; //color
 				context.fill();
-
-
-
 			} else if (board[i][j] == WALL && i < j) {
 				//draw wall
 				context.beginPath();
 				context.rect(center.x - 15, center.y - 30, 30, 60); // fill all the cell 60X60 px
 				context.fillStyle = "grey"; //color
 				context.fill();
-
 			} else if (board[i][j] == MONSTER
 				|| board[i][j] == MONSTER_AND_5_FOOD
 				|| board[i][j] == MONSTER_AND_15_FOOD
 				|| board[i][j] == MONSTER_AND_25_FOOD) // roman
 			{
-				//roman
-				if(takeClock==false){
+				if (takeClock == false) {
 					drawMonster(center.x - 15, center.y - 15, 30, 30);
 				}
-				else{
+				else {
 					drawMonster2(center.x - 15, center.y - 15, 40, 40);
 				}
-				
 			}
 			else if (board[i][j] == SPECIAL_STAR_EMPTY
 				|| board[i][j] == SPECIAL_STAR_5_FOOD
 				|| board[i][j] == SPECIAL_STAR_15_FOOD
 				|| board[i][j] == SPECIAL_STAR_25_FOOD) {
-				//draw star
 				drawStar(center.x - 20, center.y - 20, 40, 40);
 			}
-			else if(board[i][j] == CLOACK)
-			{
+			else if (board[i][j] == CLOACK) {
 				drawClock(center.x - 20, center.y - 20, 40, 40);
+			}
+			else if (board[i][j] == LIFE) {
+				drawLife(center.x - 20, center.y - 20, 40, 40);
 			}
 		}
 	}
@@ -477,12 +481,14 @@ function UpdatePosition() {
 		score += 50;
 		isSpecialStartAlive = false;
 	}
-	if(board[shape.i][shape.j] == CLOACK)
-	{
+	if (board[shape.i][shape.j] == CLOACK) {
 		sppedOfMonster = 5;
-		takeClock=true;
+		takeClock = true;
 		board[shape.i][shape.j] = EMPTY_CELL;
-
+	}
+	if (board[shape.i][shape.j] == LIFE) {
+		lives++;
+		board[shape.i][shape.j] = EMPTY_CELL;
 	}
 	moveMonster++;
 	if (moveMonster % sppedOfMonster == 0) {
@@ -551,6 +557,7 @@ function UpdatePosition() {
 
 	if (score >= 150) {
 		document.getElementById('musicForGame').pause();
+		document.getElementById('musicForGame').currentTime = 0;
 		document.getElementById('endGameWin').currentTime = 0;
 		document.getElementById('endGameWin').play();
 		alert("Winner!!!");
@@ -562,6 +569,7 @@ function UpdatePosition() {
 	} else if (lives == 0) {
 
 		document.getElementById('musicForGame').pause();
+		document.getElementById('musicForGame').currentTime = 0;
 		document.getElementById('endGameLoss').currentTime = 0;
 		document.getElementById('endGameLoss').play();
 		alert("Loser!");
@@ -574,6 +582,7 @@ function UpdatePosition() {
 
 		//play();
 		document.getElementById('musicForGame').pause();
+		document.getElementById('musicForGame').currentTime = 0;
 		document.getElementById('endGameLoss').currentTime = 0;
 		document.getElementById('endGameLoss').play();
 		alert("You are better than" + score + "points!");
@@ -584,6 +593,7 @@ function UpdatePosition() {
 		moveToGame();
 	} else if (time_elapsed <= 0 && score >= 100) {
 		document.getElementById('musicForGame').pause();
+		document.getElementById('musicForGame').currentTime = 0;
 		document.getElementById('endGameWin').currentTime = 0;
 		document.getElementById('endGameWin').play();
 		alert("Winner!!!");
@@ -614,7 +624,7 @@ function getRandomColor() {
 
 
 function settings_randomValues() {
-	flagRandom= true;
+	flagRandom = true;
 	var randomValues = {
 		up_key: 'ArrowUp',
 		down_key: 'ArrowDown',
@@ -625,9 +635,9 @@ function settings_randomValues() {
 		pill_15Points: getRandomColor(),
 		pill_25Points: getRandomColor(),
 
-		pill_number: 50 + Math.floor(Math.random() * 41), 
+		pill_number: 50 + Math.floor(Math.random() * 41),
 		time_seconds: 60 + Math.floor(Math.random() * 120),
-		monster_number: 1 + Math.floor(Math.random() * 4), 
+		monster_number: 1 + Math.floor(Math.random() * 4),
 	}
 
 
@@ -678,7 +688,7 @@ function setColorForButton(id) {
 		document.getElementById("settings_rightKey").style.background = 'yellow';
 		document.getElementById("settings_leftKey").style.background = 'yellow';
 		document.getElementById("settings_downKey").style.background = '#33ccff';
-	
+
 	}
 	else if (id === "right") {
 		document.getElementById("settings_upKey").style.background = 'yellow';
@@ -702,19 +712,19 @@ function setColorForButton(id) {
 
 
 
-function checkSetting(){
-	var temp= $("#up_value").html();
-	var temp2=$("#settings_numOfBalls").val();
+function checkSetting() {
+	var temp = $("#up_value").html();
+	var temp2 = $("#settings_numOfBalls").val();
 	if ($("#up_value").html() == '' || $("#down_value").html() == '' ||
-	$("#right_value").html() == '' || $("#left_value").html() == ''||
-	$("#settings_numOfBalls").val() == '' || $("#settings_timeToPlay").val() == '' || $("#settings_numOfMonsters").val() ==''){
-	alert("Please fill the all the fields");
-	return false ;
+		$("#right_value").html() == '' || $("#left_value").html() == '' ||
+		$("#settings_numOfBalls").val() == '' || $("#settings_timeToPlay").val() == '' || $("#settings_numOfMonsters").val() == '') {
+		alert("Please fill the all the fields");
+		return false;
 	}
-return true;
+	return true;
 }
- 
-   
+
+
 
 
 function saveSettings() {
@@ -722,10 +732,10 @@ function saveSettings() {
 	down_key = $("#down_value").html();
 	left_key = $("#left_value").html();
 	right_key = $("#right_value").html();
-	  	
+
 	//setting in game
-	monserForSett=$("#settings_numOfMonsters").val();
-	NumOfFoodSett= $("#settings_numOfBalls").val();
+	monserForSett = $("#settings_numOfMonsters").val();
+	NumOfFoodSett = $("#settings_numOfBalls").val();
 
 	pill_number = $("#settings_numOfBalls").val();
 	time_seconds = $("#settings_timeToPlay").val();
@@ -734,17 +744,7 @@ function saveSettings() {
 	pill_5Color = $("#settings_5Points").val();
 	pill_15Color = $("#settings_15Points").val();
 	pill_25Color = $("#settings_25Points").val();
-	
-}
 
-
-//roman
-function drawMonster(center_x, center_y, width_m, height_m) {
-	context.drawImage(imageObjMonster, center_x, center_y, width_m, height_m);
-}
-
-function drawMonster2(center_x, center_y, width_m, height_m) {
-	context.drawImage(imageObjMonster2, center_x, center_y, width_m, height_m);
 }
 
 //roman
@@ -886,7 +886,8 @@ function checkIfPossibleMove(x, y) {
 	}
 	else if (checkIfThereIsMonster(x, y)
 		|| checkIfThereIsAWall(x, y)
-		|| (board[x][y] == CLOACK)) {
+		|| (board[x][y] == CLOACK)
+		|| (board[x][y] == LIFE)) {
 		return false;
 	}
 	else {
@@ -922,7 +923,6 @@ function checkIfMonsterEatsPacman() {
 }
 
 function restartPositionInLose() {
-	// only monster moves to there places and new place for pacman
 	for (let i = 0; i < monster_arr.length; i++) {
 		// x and y the start place of monster
 		let x = placesForMonster[(i * 2)];
@@ -965,9 +965,8 @@ function clearBoardWhenRestart() {
 	}
 }
 
-//roman
 function drawStar(center_x, center_y, width_m, height_m) {
-	
+
 	context.drawImage(imageObj2, center_x, center_y, width_m, height_m);
 }
 
@@ -1054,7 +1053,22 @@ function changeStartByFindOfFood(x, y) {
 	}
 }
 
-//roman
+/**
+ * *** DRAW ***
+ */
+
 function drawClock(center_x, center_y, width_m, height_m) {
 	context.drawImage(imageObjClock, center_x, center_y, width_m, height_m);
+}
+
+function drawLife(center_x, center_y, width_m, height_m) {
+	context.drawImage(imageObjLife, center_x, center_y, width_m, height_m);
+}
+
+function drawMonster(center_x, center_y, width_m, height_m) {
+	context.drawImage(imageObjMonster, center_x, center_y, width_m, height_m);
+}
+
+function drawMonster2(center_x, center_y, width_m, height_m) {
+	context.drawImage(imageObjMonster2, center_x, center_y, width_m, height_m);
 }
