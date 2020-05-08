@@ -630,66 +630,66 @@ function settings_randomValues() {
 	let timeToPlay= 60 + Math.floor(Math.random() * 120);
 	let numOfMonsters= 1 + Math.floor(Math.random() * 4);
 
-	$("#up_value").html('ArrowUp');
-	$("#left_value").html('ArrowLeft');
-	$("#down_value").html('ArrowDown');
-	$("#right_value").html('ArrowRight');
+	$("#up").html('ArrowUp');
+	$("#left").html('ArrowLeft');
+	$("#down").html('ArrowDown');
+	$("#right").html('ArrowRight');
 
-	$("#settings_numOfBalls").val(numOfBalls);
-	$("#settings_timeToPlay").val(timeToPlay);
-	$("#settings_numOfMonsters").val(numOfMonsters);
+	$("#settNumOfBalls").val(numOfBalls);
+	$("#settTime").val(timeToPlay);
+	$("#settNumOfMonsters").val(numOfMonsters);
 
-	$("#settings_5Points").val(getRandomColor());
-	$("#settings_15Points").val(getRandomColor());
-	$("#settings_25Points").val(getRandomColor());
+	$("#sett5P").val(getRandomColor());
+	$("#sett15P").val(getRandomColor());
+	$("#sett25P").val(getRandomColor());
 
 }
 
 
 function getUP(event) {
-		$("#up_value").html(event.key);
+		$("#up").html(event.key);
 }
 
 function getDown(event) {
-		$("#down_value").html(event.key);
+		$("#down").html(event.key);
 }
 function getRight(event) {
-		$("#right_value").html(event.key);
+		$("#right").html(event.key);
 }
 	
 
 function getLeft(event) {
-	$("#left_value").html(event.key);
+	$("#left").html(event.key);
 
 }
 	
 
 
 function setColorUP() {
-		$("#settings_upKey").css("background-color", "#33ccff");
+		$("#settUpKey").css("background-color", "#33ccff");
 	}
 
 function setColorDown() {
-	$("#settings_downKey").css("background-color", "#33ccff");
+	$("#settDownKey").css("background-color", "#33ccff");
 		  
    }
 
 function setColorRight() {
-	$("#settings_rightKey").css("background-color", "#33ccff");
+	$("#settRightKey").css("background-color", "#33ccff");
 }
 
 function setColorLeft() {
-	$("#settings_leftKey").css("background-color", "#33ccff");
+	$("#settLeftKey").css("background-color", "#33ccff");
 	
 }
 
 
 function checkSetting() {
-	var temp = $("#up_value").html();
-	var temp2 = $("#settings_numOfBalls").val();
-	if ($("#up_value").html() == '' || $("#down_value").html() == '' ||
-		$("#right_value").html() == '' || $("#left_value").html() == '' ||
-		$("#settings_numOfBalls").val() == '' || $("#settings_timeToPlay").val() == '' || $("#settings_numOfMonsters").val() == '') {
+	var temp = $("#up").html();
+	var temp2 = $("#settNumOfBalls").val();
+	if ($("#up").html() == '' || $("#down").html() == '' ||
+		$("#right").html() == '' || $("#left").html() == '' ||
+		$("#settNumOfBalls").val() == '' || $("#settTime").val() == '' || $("#settNumOfMonsters").val() == '') {
 		alert("Please fill the all the fields");
 		return false;
 	}
@@ -700,23 +700,23 @@ function checkSetting() {
 
 
 function saveSettings() {
-	upKey = $("#up_value").html();
-	downKey = $("#down_value").html();
-	leftKey = $("#left_value").html();
-	rightKey = $("#right_value").html();
+	upKey = $("#up").html();
+	downKey = $("#down").html();
+	leftKey = $("#left").html();
+	rightKey = $("#right").html();
 
 	//setting in game
-	monserForSett = $("#settings_numOfMonsters").val();
-	NumOfFoodSett = $("#settings_numOfBalls").val();
+	monserForSett = $("#settNumOfMonsters").val();
+	NumOfFoodSett = $("#settNumOfBalls").val();
 
-	numOfBalls = $("#settings_numOfBalls").val();
-	time = $("#settings_timeToPlay").val();
-	numOfMonsters = $("#settings_numOfMonsters").val();
+	numOfBalls = $("#settNumOfBalls").val();
+	time = $("#settTime").val();
+	numOfMonsters = $("#settNumOfMonsters").val();
 
 	
-	numOf5Color = $("#settings_5Points").val();
-	numOf15Color = $("#settings_15Points").val();
-	numOf25Color = $("#settings_25Points").val();
+	numOf5Color = $("#sett5P").val();
+	numOf15Color = $("#sett15P").val();
+	numOf25Color = $("#sett25P").val();
 
 }
 
