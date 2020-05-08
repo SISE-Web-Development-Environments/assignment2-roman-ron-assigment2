@@ -205,36 +205,36 @@
 			<br>
 			<p>
 				<!-- UP -->
-				<!-- onclick="setCurDirection('up')" -->
-				<button id="settings_upKey" style="width: 5%"
-					onclick="setColorForButton('up')" onkeydown="getGameControl(event,'up')"><img
+				
+				<button id="settings_upKey" style="width: 5%" onclick="setColorUP()"
+					 onkeyup="getUP(event)"><img
 						src="Photos/arrowUp.png" height="40" width="40"></button>
 				<label><b>The value is: </b></label>
 				<label id="up_value"></label>
 				<br><br>
 				<!-- DOWN -->
-				<!-- onclick="setCurDirection('down')" -->
+				
 				<button id="settings_downKey" style="width: 5%"
-					onclick="setColorForButton('down')"
-					onkeydown="getGameControl(event,'down')"><img src="Photos/arrowDown.png"
+					onclick="setColorDown()"
+					onkeyup="getDown(event)"><img src="Photos/arrowDown.png"
 						height="40" width="40"></button>
 				<label><b>The value is: </b></label>
 				<label id="down_value"></label>
 				<br><br>
 				<!-- LEFT -->
-				<!-- onclick="setCurDirection('left')" -->
+				
 				<button id="settings_leftKey" style="width: 5%"
-					onclick="setColorForButton('left')"
-					onkeydown="getGameControl(event,'left')"><img src="Photos/arrowLeft.png"
+					onclick="setColorLeft()"
+					onkeyup="getLeft(event)"><img src="Photos/arrowLeft.png"
 						height="40" width="40"></button>
 				<label><b>The value is: </b></label>
 				<label id="left_value"></label>
 				<br><br>
 				<!-- RIGHT -->
-				<!-- onclick="setCurDirection('right')" -->
+				
 				<button id="settings_rightKey" style="width: 5%"
-					onclick="setColorForButton('right')"
-					onkeydown="getGameControl(event,'right')"><img src="Photos/arrowRight.png"
+					onclick="setColorRight()"
+					onkeyup="getRight(event)"><img src="Photos/arrowRight.png"
 						height="40" width="40"></button>
 				<label><b>The value is: </b></label>
 				<label id="right_value"></label>
@@ -248,21 +248,21 @@
 					<td><input id="settings_numOfBalls" class="inputField" type="number"
 							min="50" max="90" name="settings_numOfBalls" style="width: 25%"></td>
 				</tr>
-				<!--                new row          -->
+				
 				<tr>
 					<td><label><b>balls of 5 Points:</b></label></td>
 					<td><input id="settings_5Points" class="inputField" type="color"
 							value="#f1ff33"></td>
 				</tr>
 				<tr></tr>
-				<!--                new row          -->
+				
 				<tr>
 					<td><label><b>balls of 15 Points:</b></label></td>
 					<td><input id="settings_15Points" class="inputField" type="color"
 							value="#ff0000"></td>
 				</tr>
 				<tr></tr>
-				<!--                new row          -->
+				
 				<tr>
 					<td><label><b>balls of 25 Points:</b></label></td>
 					<td><input id="settings_25Points" class="inputField" type="color"
