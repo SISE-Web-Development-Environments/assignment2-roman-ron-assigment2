@@ -555,7 +555,7 @@ function UpdatePosition() {
 	 * Game End
 	 */
 
-	if (score >= 250) {
+	if (score >= 350) {
 		document.getElementById('musicForGame').pause();
 		document.getElementById('musicForGame').currentTime = 0;
 		document.getElementById('endGameWin').currentTime = 0;
