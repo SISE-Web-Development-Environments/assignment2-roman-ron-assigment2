@@ -217,24 +217,23 @@ function Start() {
 			}
 			else {
 
-				var pill_5_number = Math.floor(numOfBalls * 0.6);
-				var pill_15_number = Math.floor(numOfBalls * 0.3);
-				//var pill_25_number = Math.floor(numOfBalls * 0.1);
-				var pill_25_number = numOfBalls-pill_5_number-pill_15_number;
+				let ballsOf5 = Math.floor(numOfBalls * 0.6);
+				let ballsOf15 = Math.floor(numOfBalls * 0.3);
+				let ballsOf25 = numOfBalls-ballsOf5-ballsOf15;
 				//put food on board randomly
 				var randomNum = Math.random();
 				if (randomNum <= 1.0 * food_remain / cnt) {
-					if (randomNum < 1.0 * pill_25_number / food_remain) {
-						pill_25_number--;
+					if (randomNum < 1.0 * ballsOf25 / food_remain) {
+						ballsOf25--;
 						board[i][j] = 125;
 					}
 
-					else if (randomNum < 1.0 * pill_15_number / food_remain) {
-						pill_15_number--;
+					else if (randomNum < 1.0 * ballsOf15 / food_remain) {
+						ballsOf15--;
 						board[i][j] = 115;
 					}
-					else if (randomNum < 1.0 * pill_5_number / food_remain) {
-						pill_5_number--;
+					else if (randomNum < 1.0 * ballsOf5 / food_remain) {
+						ballsOf5--;
 						board[i][j] = 105;
 					}
 					food_remain--;
@@ -296,7 +295,7 @@ function Start() {
 		let emptyCellForLife = findRandomEmptyCell(board);
 		board[emptyCellForLife[0]][emptyCellForLife[1]] = LIFE;
 		lifeAdder--;
-		let life_path = 'Photos/Heart.png';
+		let life_path = 'Photos/medicine.png';
 		imageObjLife.src = life_path;
 	}
 
@@ -556,7 +555,7 @@ function UpdatePosition() {
 	 * Game End
 	 */
 
-	if (score >= 150) {
+	if (score >= 250) {
 		document.getElementById('musicForGame').pause();
 		document.getElementById('musicForGame').currentTime = 0;
 		document.getElementById('endGameWin').currentTime = 0;
