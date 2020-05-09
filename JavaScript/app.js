@@ -509,6 +509,10 @@ function UpdatePosition() {
 		moveMonster = 0;
 		UpdatePositionMonster();
 		if (isSpecialStartAlive) {
+			// update position of the start
+			// clear last - put the food
+			// move randmly one - no walls or monsters
+			// start object
 			UpdatePositionStar();
 		}
 	}
@@ -529,6 +533,11 @@ function UpdatePosition() {
 	lbArrowLeft.value = leftKey;
 	lbMonsters.value = numOfMonsters;
 
+	// before we put our PACMAN we check if there is a monster
+	//if there is monster
+	//life --
+	//score -X
+	//reset
 	if (checkIfMonsterEatsPacman()) {
 		restartPositionInLose();
 		moveMonster = 0;
@@ -550,6 +559,7 @@ function UpdatePosition() {
 		document.getElementById('musicForGame').pause();
 		document.getElementById('musicForGame').currentTime = 0;
 		document.getElementById('endGameWin').currentTime = 0;
+		document.getElementById('endGameWin').load();
 		document.getElementById('endGameWin').play();
 		alert("Winner!!!");
 		document.getElementById('endGameWin').pause();
