@@ -559,7 +559,6 @@ function UpdatePosition() {
 		document.getElementById('musicForGame').pause();
 		document.getElementById('musicForGame').currentTime = 0;
 		document.getElementById('endGameWin').currentTime = 0;
-		document.getElementById('endGameWin').load();
 		document.getElementById('endGameWin').play();
 		alert("Winner!!!");
 		document.getElementById('endGameWin').pause();
