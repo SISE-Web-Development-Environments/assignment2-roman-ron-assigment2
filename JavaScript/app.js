@@ -509,10 +509,6 @@ function UpdatePosition() {
 		moveMonster = 0;
 		UpdatePositionMonster();
 		if (isSpecialStartAlive) {
-			// update position of the start
-			// clear last - put the food
-			// move randmly one - no walls or monsters
-			// start object
 			UpdatePositionStar();
 		}
 	}
@@ -533,11 +529,6 @@ function UpdatePosition() {
 	lbArrowLeft.value = left_key;
 	lbMonsters.value = monster_number;
 
-	// before we put our PACMAN we check if there is a monster
-	//if there is monster
-	//life --
-	//score -X
-	//reset
 	if (checkIfMonsterEatsPacman()) {
 		restartPositionInLose();
 		moveMonster = 0;
@@ -887,12 +878,25 @@ function checkIfPossibleMove(x, y) {
 	else if (checkIfThereIsMonster(x, y)
 		|| checkIfThereIsAWall(x, y)
 		|| (board[x][y] == CLOACK)
-		|| (board[x][y] == LIFE)) {
+		|| (board[x][y] == LIFE)
+		|| checkIfThereIsAStar(x, y)) {
 		return false;
 	}
 	else {
 		return true;
 	}
+}
+
+function checkIfThereIsAStar(x, y)
+{
+	if (board[x][y] == SPECIAL_STAR_EMPTY 
+		|| board[x][y] == SPECIAL_STAR_5_FOOD
+		|| board[x][y] == SPECIAL_STAR_15_FOOD
+		|| board[x][y] == SPECIAL_STAR_25_FOOD)
+	{
+		return true;
+	}
+	return false;
 }
 
 function findPlaceToMoveMonster(x, y) {
