@@ -52,13 +52,13 @@ var star = new Object();
 var clocksNumber = 1;
 var sppedOfMonster = 3;
 var lifeAdder = 1;
-var up_key = 38;
-var down_key = 39;
-var left_key = 40;
-var right_key = 41;
-var pill_5Color = '#00cc00'; // green
-var pill_15Color = '#ff3300'; // red
-var pill_25Color = '#0000ff'; // blue
+var upKey = 38;
+var downKey = 39;
+var leftKey = 40;
+var rightKey = 41;
+var numOf5Color = '#00cc00'; // green
+var numOf15Color = '#ff3300'; // red
+var numOf25Color = '#0000ff'; // blue
 /**
  * Images
  */
@@ -69,9 +69,9 @@ var imageObjClock = new Image(); // clock
 var imageObjLife = new Image();
 
 
-var pill_number = 50;
-var time_seconds = 60;
-var monster_number = 1;
+var numOfBalls = 50;
+var time = 60;
+var numOfMonsters = 1;
 
 
 
@@ -159,8 +159,8 @@ function Start() {
 	pac_color = "yellow";
 	// cnt make the number double
 	var cnt = 100;
-	pill_number = pill_number - 3;
-	var food_remain = pill_number;
+	numOfBalls = numOfBalls - 3;
+	var food_remain = numOfBalls;
 	clocksNumber = 1;
 	sppedOfMonster = 3;
 	specialMonster = 1;
@@ -177,7 +177,7 @@ function Start() {
 	let monster_path2 = 'Photos/pacman-ghosts/3.jpg';
 	imageObjMonster2.src = monster_path2;
 
-	monster_alive = monster_number; // roman
+	monster_alive = numOfMonsters; // roman
 	monster_arr = new Array(monster_alive); // roman
 
 	for (var i = 0; i < 10; i++) {
@@ -197,15 +197,15 @@ function Start() {
 
 			) {
 				board[i][j] = WALL;
-			} else if ((i == 0 && j == 0 && monster_number > 0) ||
-				(i == 9 && j == 0 && monster_number > 0) ||
-				(i == 0 && j == 9 && monster_number > 0) ||
-				(i == 9 && j == 9 && monster_number > 0)) {
+			} else if ((i == 0 && j == 0 && numOfMonsters > 0) ||
+				(i == 9 && j == 0 && numOfMonsters > 0) ||
+				(i == 0 && j == 9 && numOfMonsters > 0) ||
+				(i == 9 && j == 9 && numOfMonsters > 0)) {
 				board[i][j] = MONSTER;
-				monster_arr[monster_alive - monster_number] = new Object;
-				monster_arr[monster_alive - monster_number].i = i;
-				monster_arr[monster_alive - monster_number].j = j;
-				monster_number--;
+				monster_arr[monster_alive - numOfMonsters] = new Object;
+				monster_arr[monster_alive - numOfMonsters].i = i;
+				monster_arr[monster_alive - numOfMonsters].j = j;
+				numOfMonsters--;
 			}
 			else if ((monster_alive < 4) && (i == 9 && j == 9) && specialMonster > 0) {
 				star.i = 9;
@@ -217,23 +217,23 @@ function Start() {
 			}
 			else {
 
-				var pill_5_number = Math.floor(pill_number * 0.6);
-				var pill_15_number = Math.floor(pill_number * 0.3);
-				var pill_25_number = Math.floor(pill_number * 0.1);
+				let ballsOf5 = Math.floor(numOfBalls * 0.6);
+				let ballsOf15 = Math.floor(numOfBalls * 0.3);
+				let ballsOf25 = numOfBalls-ballsOf5-ballsOf15;
 				//put food on board randomly
 				var randomNum = Math.random();
 				if (randomNum <= 1.0 * food_remain / cnt) {
-					if (randomNum < 1.0 * pill_25_number / food_remain) {
-						pill_25_number--;
+					if (randomNum < 1.0 * ballsOf25 / food_remain) {
+						ballsOf25--;
 						board[i][j] = 125;
 					}
 
-					else if (randomNum < 1.0 * pill_15_number / food_remain) {
-						pill_15_number--;
+					else if (randomNum < 1.0 * ballsOf15 / food_remain) {
+						ballsOf15--;
 						board[i][j] = 115;
 					}
-					else if (randomNum < 1.0 * pill_5_number / food_remain) {
-						pill_5_number--;
+					else if (randomNum < 1.0 * ballsOf5 / food_remain) {
+						ballsOf5--;
 						board[i][j] = 105;
 					}
 					food_remain--;
@@ -255,7 +255,7 @@ function Start() {
 				else if (lifeAdder > 0) {
 					board[i][j] = LIFE;
 					lifeAdder--;
-					let life_path = 'Photos/Heart.png';
+					let life_path = 'Photos/medicine.png';
 					imageObjLife.src = life_path;
 				}
 				else {
@@ -295,7 +295,7 @@ function Start() {
 		let emptyCellForLife = findRandomEmptyCell(board);
 		board[emptyCellForLife[0]][emptyCellForLife[1]] = LIFE;
 		lifeAdder--;
-		let life_path = 'Photos/Heart.png';
+		let life_path = 'Photos/medicine.png';
 		imageObjLife.src = life_path;
 	}
 
@@ -342,17 +342,17 @@ function findRandomEmptyCell(board) {
 }
 // roman
 function GetKeyPressed() {
-	if (keysDown[up_key]) {//U
+	if (keysDown[upKey]) {//U
 		return MOVE_UP;
 	}
-	if (keysDown[down_key]) {//D
+	if (keysDown[downKey]) {//D
 		return MOVE_DOWN;
 	}
 
-	if (keysDown[left_key]) {//L
+	if (keysDown[leftKey]) {//L
 		return MOVE_LEFT;
 	}
-	if (keysDown[right_key]) {//R
+	if (keysDown[rightKey]) {//R
 		return MOVE_RIGHT;
 	}
 }
@@ -364,13 +364,13 @@ function Draw() {
 	lblLives.value = lives;
 	lblName.value = username_l.value;
 
-	lbTime.value = time_seconds;
+	lbTime.value = time;
 	lbFood.value = NumOfFoodSett;
 	lbMonsters.value = monserForSett;
 
-	lb5.value = pill_5Color;
-	lb15.value = pill_15Color;
-	lb25.value = pill_25Color;
+	lb5.value = numOf5Color;
+	lb15.value = numOf15Color;
+	lb25.value = numOf25Color;
 
 	// draw all board
 	for (var i = 0; i < 10; i++) {
@@ -386,20 +386,20 @@ function Draw() {
 			else if (board[i][j] === 105) {
 				context.beginPath();
 				context.arc(center.x, center.y, 6, 0, 2 * Math.PI); // circle
-				context.fillStyle = pill_5Color; //color
+				context.fillStyle = numOf5Color; //color
 				context.fill();
 			}
 			else if (board[i][j] === 115) {
 				context.beginPath();
 				context.arc(center.x, center.y, 8, 0, 2 * Math.PI); // circle
-				context.fillStyle = pill_15Color; //color
+				context.fillStyle = numOf15Color; //color
 
 				context.fill();
 			}
 			else if (board[i][j] === 125) {
 				context.beginPath();
 				context.arc(center.x, center.y, 10, 0, 2 * Math.PI); // circle
-				context.fillStyle = pill_25Color; //color
+				context.fillStyle = numOf25Color; //color
 
 				context.fill();
 			}
@@ -523,11 +523,11 @@ function UpdatePosition() {
 	}
 
 
-	lbArrowUp.value = up_key;
-	lbArrowDown.value = down_key;
-	lbArrowRight.value = right_key;
-	lbArrowLeft.value = left_key;
-	lbMonsters.value = monster_number;
+	lbArrowUp.value = upKey;
+	lbArrowDown.value = downKey;
+	lbArrowRight.value = rightKey;
+	lbArrowLeft.value = leftKey;
+	lbMonsters.value = numOfMonsters;
 
 	if (checkIfMonsterEatsPacman()) {
 		restartPositionInLose();
@@ -538,7 +538,7 @@ function UpdatePosition() {
 	}
 
 	var currentTime = new Date();
-	time_elapsed = time_seconds - (currentTime - start_time) / 1000;
+	time_elapsed = time - (currentTime - start_time) / 1000;
 	if (score >= 20 && time_elapsed <= 10) {
 		pac_color = "green";
 	}
@@ -546,7 +546,7 @@ function UpdatePosition() {
 	 * Game End
 	 */
 
-	if (score >= 150) {
+	if (score >= 350) {
 		document.getElementById('musicForGame').pause();
 		document.getElementById('musicForGame').currentTime = 0;
 		document.getElementById('endGameWin').currentTime = 0;
@@ -616,99 +616,70 @@ function getRandomColor() {
 
 function settings_randomValues() {
 	flagRandom = true;
-	var randomValues = {
-		up_key: 'ArrowUp',
-		down_key: 'ArrowDown',
-		left_key: 'ArrowLeft',
-		right_key: 'ArrowRight',
+	let numOfBalls=50 + Math.floor(Math.random() * 41);
+	let timeToPlay= 60 + Math.floor(Math.random() * 120);
+	let numOfMonsters= 1 + Math.floor(Math.random() * 4);
 
-		pill_5Points: getRandomColor(),
-		pill_15Points: getRandomColor(),
-		pill_25Points: getRandomColor(),
+	$("#up").html('ArrowUp');
+	$("#left").html('ArrowLeft');
+	$("#down").html('ArrowDown');
+	$("#right").html('ArrowRight');
 
-		pill_number: 50 + Math.floor(Math.random() * 41),
-		time_seconds: 60 + Math.floor(Math.random() * 120),
-		monster_number: 1 + Math.floor(Math.random() * 4),
-	}
+	$("#settNumOfBalls").val(numOfBalls);
+	$("#settTime").val(timeToPlay);
+	$("#settNumOfMonsters").val(numOfMonsters);
 
-
-	$("#up_value").html(randomValues["up_key"]);
-	$("#left_value").html(randomValues["left_key"]);
-	$("#down_value").html(randomValues["down_key"]);
-	$("#right_value").html(randomValues["right_key"]);
-
-	$("#settings_numOfBalls").val(randomValues["pill_number"]);
-	$("#settings_timeToPlay").val(randomValues["time_seconds"]);
-	$("#settings_numOfMonsters").val(randomValues["monster_number"]);
-
-	$("#settings_5Points").val(randomValues["pill_5Points"]);
-	$("#settings_15Points").val(randomValues["pill_15Points"]);
-	$("#settings_25Points").val(randomValues["pill_25Points"]);
+	$("#sett5P").val(getRandomColor());
+	$("#sett15P").val(getRandomColor());
+	$("#sett25P").val(getRandomColor());
 
 }
 
 
-function getGameControl(event, id) {
-	if (id === "up") {
-		document.getElementById("up_value").innerHTML = event.key;
-	}
-	else if (id === "down") {
-		document.getElementById("down_value").innerHTML = event.key;
-	}
-	else if (id === "right") {
-		document.getElementById("right_value").innerHTML = event.key;
-	}
-	else if (id === "left") {
-		document.getElementById("left_value").innerHTML = event.key;
-	}
+function getUP(event) {
+		$("#up").html(event.key);
 }
 
+function getDown(event) {
+		$("#down").html(event.key);
+}
+function getRight(event) {
+		$("#right").html(event.key);
+}
+	
 
-function setColorForButton(id) {
-	if (id === "up") {
-		document.getElementById("settings_upKey").style.background = 'yellow';
-		document.getElementById("settings_downKey").style.background = 'yellow';
-		document.getElementById("settings_rightKey").style.background = 'yellow';
-		document.getElementById("settings_leftKey").style.background = 'yellow';
-		document.getElementById("settings_upKey").style.background = '#33ccff';
+function getLeft(event) {
+	$("#left").html(event.key);
 
+}
+	
+
+
+function setColorUP() {
+		$("#settUpKey").css("background-color", "#33ccff");
 	}
-	else if (id === "down") {
-		document.getElementById("settings_upKey").style.background = 'yellow';
-		document.getElementById("settings_downKey").style.background = 'yellow';
-		document.getElementById("settings_rightKey").style.background = 'yellow';
-		document.getElementById("settings_leftKey").style.background = 'yellow';
-		document.getElementById("settings_downKey").style.background = '#33ccff';
 
-	}
-	else if (id === "right") {
-		document.getElementById("settings_upKey").style.background = 'yellow';
-		document.getElementById("settings_downKey").style.background = 'yellow';
-		document.getElementById("settings_rightKey").style.background = 'yellow';
-		document.getElementById("settings_leftKey").style.background = 'yellow';
-		document.getElementById("settings_rightKey").style.background = '#33ccff';
+function setColorDown() {
+	$("#settDownKey").css("background-color", "#33ccff");
+		  
+   }
 
-
-	}
-	else if (id === "left") {
-		document.getElementById("settings_upKey").style.background = 'yellow';
-		document.getElementById("settings_downKey").style.background = 'yellow';
-		document.getElementById("settings_rightKey").style.background = 'yellow';
-		document.getElementById("settings_leftKey").style.background = 'yellow';
-		document.getElementById("settings_leftKey").style.background = '#33ccff';
-	}
+function setColorRight() {
+	$("#settRightKey").css("background-color", "#33ccff");
 }
 
-
-
+function setColorLeft() {
+	$("#settLeftKey").css("background-color", "#33ccff");
+	
+}
 
 
 function checkSetting() {
-	var temp = $("#up_value").html();
-	var temp2 = $("#settings_numOfBalls").val();
-	if ($("#up_value").html() == '' || $("#down_value").html() == '' ||
-		$("#right_value").html() == '' || $("#left_value").html() == '' ||
-		$("#settings_numOfBalls").val() == '' || $("#settings_timeToPlay").val() == '' || $("#settings_numOfMonsters").val() == '') {
+	var temp = $("#up").html();
+	var temp2 = $("#settNumOfBalls").val();
+	if ($("#up").html() == '' || $("#down").html() == '' ||
+		$("#right").html() == '' || $("#left").html() == '' ||
+		$("#settNumOfBalls").val() == '' || $("#settTime").val() == '' || $("#settNumOfMonsters").val() == '') {
 		alert("Please fill the all the fields");
 		return false;
 	}
@@ -719,22 +690,23 @@ function checkSetting() {
 
 
 function saveSettings() {
-	up_key = $("#up_value").html();
-	down_key = $("#down_value").html();
-	left_key = $("#left_value").html();
-	right_key = $("#right_value").html();
+	upKey = $("#up").html();
+	downKey = $("#down").html();
+	leftKey = $("#left").html();
+	rightKey = $("#right").html();
 
 	//setting in game
-	monserForSett = $("#settings_numOfMonsters").val();
-	NumOfFoodSett = $("#settings_numOfBalls").val();
+	monserForSett = $("#settNumOfMonsters").val();
+	NumOfFoodSett = $("#settNumOfBalls").val();
 
-	pill_number = $("#settings_numOfBalls").val();
-	time_seconds = $("#settings_timeToPlay").val();
-	monster_number = $("#settings_numOfMonsters").val();
+	numOfBalls = $("#settNumOfBalls").val();
+	time = $("#settTime").val();
+	numOfMonsters = $("#settNumOfMonsters").val();
 
-	pill_5Color = $("#settings_5Points").val();
-	pill_15Color = $("#settings_15Points").val();
-	pill_25Color = $("#settings_25Points").val();
+	
+	numOf5Color = $("#sett5P").val();
+	numOf15Color = $("#sett15P").val();
+	numOf25Color = $("#sett25P").val();
 
 }
 
